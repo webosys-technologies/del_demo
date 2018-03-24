@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2018 at 10:39 AM
+-- Generation Time: Mar 24, 2018 at 10:25 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -33,6 +33,14 @@ CREATE TABLE `books` (
   `book_price` int(20) NOT NULL,
   `book_status` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`book_id`, `course_id`, `book_name`, `book_price`, `book_status`) VALUES
+(1, 1, 'Tally For Beginner', 250, '1'),
+(2, 2, 'Computer Knowledge', 250, '1');
 
 -- --------------------------------------------------------
 
@@ -219,6 +227,14 @@ CREATE TABLE `courses` (
   `course_created_by` varchar(100) NOT NULL,
   `course_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`course_id`, `course_name`, `course_duration`, `course_fees`, `course_reexam_fees`, `course_created_at`, `course_created_by`, `course_status`) VALUES
+(1, 'Tally', 4, 1500, 550, '2018-03-24', 'admin', 1),
+(2, 'MSCIT', 4, 1500, 500, '2018-03-24', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -417,6 +433,18 @@ CREATE TABLE `topics` (
   `topic_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `topics`
+--
+
+INSERT INTO `topics` (`topic_id`, `course_id`, `topic_name`, `topic_video_path`, `topic_description`, `topic_video_play_time`, `topic_created_at`, `topic_created_by`, `topic_status`) VALUES
+(1, 1, 'Accounting Basics', 'videos/1.mp4', '(i) The sources from which she received cash and the purposes for which it\r\nwas utilised.\r\n(ii) Whether her receipts are more than her payments or vice-versa?\r\n(iii) The balance of cash in hand or deficit, if any at the end of a period.', 100, '2018-03-24', 'admin', 1),
+(2, 1, 'Terminologies', 'videos/2.mp4', '', 100, '2018-03-24', 'admin', 1),
+(3, 1, 'Types of Accounts and Thier Rules', 'videos/3.mp4', '', 100, '2018-03-24', 'admin', 1),
+(4, 1, 'Main Screen Company Info', 'videos/4.mp4', '', 100, '2018-03-24', 'admin', 1),
+(5, 1, 'Multiledger Ctreation', 'videos/5.mp4', '', 100, '2018-03-24', 'admin', 1),
+(6, 1, 'Payment Entry', 'videos/6.mp4', '', 100, '2018-03-24', 'admin', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -570,7 +598,7 @@ ALTER TABLE `videos`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `book_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `centers`
 --
@@ -585,7 +613,7 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `exams`
 --
@@ -635,7 +663,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users`
 --
