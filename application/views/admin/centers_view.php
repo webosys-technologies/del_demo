@@ -273,13 +273,18 @@ function view_center(id)
       }
     }
 
-   function EnableDisable(chkpass) {
-        var password = document.getElementById("password");
-        password.disabled = chkpass.checked ? false : true;
-        if (!password.disabled) {
-            password.focus();
-        }
+    function show_password() {
+  
+    var x =$("#password").prop('readonly');
+    if(x == true)
+     {        
+        $("#password").prop('readonly',false);
     }
+    else
+    {        
+        $("#password").prop('readonly',true);
+   }
+   }
 
   </script>
 
@@ -303,14 +308,14 @@ function view_center(id)
                             <div class="col-md-5 col-md-offset-1">
                                 
 					<label for="name">First Name</label><span style="color:red">*</span>
-					<input class="form-control" name="center_fname" id="fname" placeholder="First Name" minlength="2" maxlength="15" required="" type="text"  value="" /><span class="text-danger" id="fname_err"></span>
+					<input class="form-control" name="center_fname" id="fname" placeholder="First Name"  required="" type="text"  value="" /><span class="text-danger" id="fname_err"></span>
 					
 				
                              </div>
                           <div class="col-md-5 ">
 				
 					<label for="name">Last Name</label><span style="color:red">*</span>
-                                        <input class="form-control" name="center_lname" id="lname" required="" placeholder="Last Name" minlength="2" maxlength="15" type="text" value=""><span class="text-danger" id="lname_err"></span>
+                                        <input class="form-control" name="center_lname" id="lname" required="" placeholder="Last Name" type="text" value=""><span class="text-danger" id="lname_err"></span>
 			</div>
                         </div>
                              </div>
@@ -320,7 +325,7 @@ function view_center(id)
                         <div class="form-group">
                     <div class="col-md-5 col-md-offset-1">
                                 <label for="name">Center Name</label><span style="color:red">*</span>
-					<input class="form-control" name="center_name" id="center_name" minlength="2" maxlength="15" required="" placeholder="Enter Center Name" type="text" value="" />
+					<input class="form-control" name="center_name" id="center_name"  required="" placeholder="Enter Center Name" type="text" value="" />
                                          <span class="text-danger" id="center_name_err"></span>
                    				
                     </div>
@@ -342,8 +347,8 @@ function view_center(id)
 				
                                 </div>
                                 <div class="col-md-5">
-                            <label for="subject">Password<span style="color:red">*</span><input type="checkbox" name="ch" id="chkpass" onclick="EnableDisable(this)" ></label>
-                              <input class="form-control" name="center_password" value="" id="password" required="" minlength="8" placeholder="Password" type="text" disabled />
+                            <label for="subject">Password<span style="color:red">*</span><input type="checkbox" name="ch" id="chkpass" onclick="show_password()" ></label>
+                              <input class="form-control" name="center_password" value="" id="password" required="" minlength="8" placeholder="Password" type="text" readonly />
                                 <span class="text-danger" id="password_err"></span>
           
                                  </div>

@@ -202,13 +202,18 @@ $("#img").change(function (e) {
         });
     }
 
-    function EnableDisable(chkpass) {
-        var password = document.getElementById("password");
-        password.disabled = chkpass.checked ? false : true;
-        if (!password.disabled) {
-            password.focus();
-        }
+    function show_password() {
+  
+    var x =$("#password").prop('readonly');
+    if(x == true)
+     {        
+        $("#password").prop('readonly',false);
     }
+    else
+    {        
+        $("#password").prop('readonly',true);
+   }
+   }
 
 
 
@@ -273,8 +278,8 @@ $("#img").change(function (e) {
                                 
                                 <div class="col-md-4 col-md-offset-1">
                                 <div class="form-group">
-                                  <label>Password<input type="checkbox" name="ch" id="chkpass" onclick="EnableDisable(this)" ></label>
-                                  <input class="form-control" name="user_password" value="" id="password" required="" minlength="8" placeholder="Password" type="text" disabled />
+                                  <label>Password<input type="checkbox" name="ch" id="chkpass" onclick="show_password()" ></label>
+                                  <input class="form-control" name="user_password" value="" id="password" required="" minlength="8" placeholder="Password" type="text" readonly="true" />
                                 </div>                                
                                 </div> 
                                

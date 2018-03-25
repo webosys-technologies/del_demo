@@ -246,77 +246,84 @@ $("#myName").on("keyup", function() {
     
     function add_student()
     {
-      save_method = 'add';
-      $('#form')[0].reset(); // reset form on modals
-      $('#modal_form').modal('show'); // show bootstrap modal
-      $('.modal-title').text('Add Student'); // Set Title to Bootstrap modal title
-      $("#img_box").hide();
-      $("#box").show();
-      $('#remove_pic').hide();
+//      save_method = 'add';
+//      $('#form')[0].reset(); // reset form on modals
+//      $('#modal_form').modal('show'); // show bootstrap modal
+//      $('.modal-title').text('Add Student'); // Set Title to Bootstrap modal title
+//      $("#img_box").hide();
+//      $("#box").show();
+//      $('#remove_pic').hide();
+
+      $('#demo_form').modal('show'); // show bootstrap modal
+     $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not ADD,EDIT,DELETE');
     }
 
     function edit_student(id)
     {
-      save_method = 'update';
-     $('#form')[0].reset(); // reset form on modals
-
-      //Ajax Load data from ajax
-      $.ajax({
-        url : "<?php echo site_url('index.php/center/Student/ajax_edit/')?>/" + id,        
-        type: "GET",
-               
-        dataType: "JSON",
-        success: function(data)
-        {        
-//                     $("#append_city").remove();
-            $('[name="student_id"]').val(data.student_id);
-            $('[name="center_id"]').val(data.center_id);
-            $('[name="course_id"]').val(data.course_id);
-            $('[name="book"]').val(data.student_book);            
-            $('[name="student_fname"]').val(data.student_fname);
-            $('[name="student_lname"]').val(data.student_lname);
-            $('[name="student_email"]').val(data.student_email);
-            $('[name="student_mobile"]').val(data.student_mobile);
-            $('[name="student_gender"]').val(data.student_gender);
-            $('[name="student_dob"]').val(data.student_dob);
-            $('[name="student_last_education"]').val(data.student_last_education);
-            $('[name="student_address"]').val(data.student_address);  
-            $('[name="student_city"]').val(data.student_city);
-            if(data.student_profile_pic)
-            {
-                $('#remove_pic').show();
-                $('#remove_pic').attr("onclick","remove_profile_pic("+data.student_id+")");
-            }
-           else
-           {
-                $('#remove_pic').hide();
-           }
-//             $("#city").append('<option value="'+ data.student_city +'" id="append_city">' + data.student_city + '</option>');
-            $('[name="student_state"]').val(data.student_state);
-            $('[name="student_pincode"]').val(data.student_pincode);
-            $('#profile_pic').attr("src", "<?php echo base_url();?>"+data.student_profile_pic);
-            
-            if(data.student_profile_pic)
-            {
-                 $("#box").hide();
-            $("#img_box").show();            
-            }
-            else
-            {
-                $("#img_box").hide(); 
-                $("#box").show();
-            }
-            
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Student'); // Set title to Bootstrap modal title
-            
-
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax 1');
-        }
-    });
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not ADD,EDIT,DELETE');
+//      save_method = 'update';
+//     $('#form')[0].reset(); // reset form on modals
+//
+//      //Ajax Load data from ajax
+//      $.ajax({
+//        url : "<?php echo site_url('index.php/center/Student/ajax_edit/')?>/" + id,        
+//        type: "GET",
+//               
+//        dataType: "JSON",
+//        success: function(data)
+//        {        
+//
+//            $('[name="student_id"]').val(data.student_id);
+//            $('[name="center_id"]').val(data.center_id);
+//            $('[name="course_id"]').val(data.course_id);
+//            $('[name="book"]').val(data.student_book);            
+//            $('[name="student_fname"]').val(data.student_fname);
+//            $('[name="student_lname"]').val(data.student_lname);
+//            $('[name="student_email"]').val(data.student_email);
+//            $('[name="student_mobile"]').val(data.student_mobile);
+//            $('[name="student_gender"]').val(data.student_gender);
+//            $('[name="student_dob"]').val(data.student_dob);
+//            $('[name="student_last_education"]').val(data.student_last_education);
+//            $('[name="student_address"]').val(data.student_address);  
+//            $('[name="student_city"]').val(data.student_city);
+//            if(data.student_profile_pic)
+//            {
+//                $('#remove_pic').show();
+//                $('#remove_pic').attr("onclick","remove_profile_pic("+data.student_id+")");
+//            }
+//           else
+//           {
+//                $('#remove_pic').hide();
+//           }
+////             $("#city").append('<option value="'+ data.student_city +'" id="append_city">' + data.student_city + '</option>');
+//            $('[name="student_state"]').val(data.student_state);
+//            $('[name="student_pincode"]').val(data.student_pincode);
+//            $('#profile_pic').attr("src", "<?php echo base_url();?>"+data.student_profile_pic);
+//            
+//            if(data.student_profile_pic)
+//            {
+//                 $("#box").hide();
+//            $("#img_box").show();            
+//            }
+//            else
+//            {
+//                $("#img_box").hide(); 
+//                $("#box").show();
+//            }
+//            
+//            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+//            $('.modal-title').text('Edit Student'); // Set title to Bootstrap modal title
+//            
+//
+//        },
+//        error: function (jqXHR, textStatus, errorThrown)
+//        {
+//            alert('Error get data from ajax 1');
+//        }
+//    });
     }
     
     function view_student(id)
@@ -419,25 +426,29 @@ $("#myName").on("keyup", function() {
 
     function delete_student(id)
     {
-      if(confirm('Are you sure delete this data?'))
-      {
-        // ajax delete data from database
-          $.ajax({
-            url : "<?php echo site_url('index.php/center/Student/student_delete')?>/"+id,
-            type: "POST",
-            //dataType: "JSON",
-            success: function(data)
-            {
-                alert("Deleted successfully");  
-               location.reload();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
-            }
-        });
-
-      }
+        
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not ADD,EDIT,DELETE');
+//      if(confirm('Are you sure delete this data?'))
+//      {
+//        // ajax delete data from database
+//          $.ajax({
+//            url : "<?php echo site_url('index.php/center/Student/student_delete')?>/"+id,
+//            type: "POST",
+//            //dataType: "JSON",
+//            success: function(data)
+//            {
+//                alert("Deleted successfully");  
+//               location.reload();
+//            },
+//            error: function (jqXHR, textStatus, errorThrown)
+//            {
+//                alert('Error deleting data');
+//            }
+//        });
+//
+//      }
     }
 
 
@@ -466,6 +477,22 @@ $("#myName").on("keyup", function() {
      
   </script>
   
+  
+     <!-- Bootstrap modal -->
+  <div class="modal fade" id="demo_form" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title1"></h3></center>
+         <center><h3 class="modal-title2"></h3></center>
+      </div>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+     
+    
   
   <!-- Bootstrap modal -->
   <div class="modal fade" id="modal_form2" role="dialog">

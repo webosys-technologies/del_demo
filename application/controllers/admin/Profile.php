@@ -55,7 +55,6 @@ class Profile extends CI_Controller
                 'user_id' =>$this->input->post('user_id'),
                 'user_fname' => strtoupper($this->input->post('user_fname')),
                 'user_lname' => strtoupper($this->input->post('user_lname')),
-                'user_email' => $this->input->post('user_email'),
                 'user_mobile' => $this->input->post('user_mobile'),
                 'user_password' => $this->input->post('user_password'),
                 

@@ -75,8 +75,6 @@ class Exams extends CI_Controller
 
 
           if($passcode==$pass_code->student_exam_passcode && $passcode!=="-")
-//             if(true)
-            // if($passcode=="abcd1234" && $passcode!=="-")
 
             {
                 $exam_session=array(
@@ -416,8 +414,8 @@ class Exams extends CI_Controller
 
                 
                 
-              $passcode=array('student_exam_passcode'=>"-");
-             $pass=$this->Students_model->student_update(array('student_id'=>$sid),$passcode);
+//              $passcode=array('student_exam_passcode'=>"-");
+//             $pass=$this->Students_model->student_update(array('student_id'=>$sid),$passcode);
              $exam_result=$this->Exam_details_model->get_result_by_id($sid,$insert_id);
             
              
@@ -436,22 +434,11 @@ class Exams extends CI_Controller
         function solved_question()
         {
             
-//            $this->session->unset_userdata('generate_btn');  
-//             die;
-//             $stat=$this->session->userdata('generate_btn');
-//            
-//            if(isset($stat) && $stat==true)
-//        
-//            {
-//               
-//               echo json_encode(array('status'=>false));
-//            }
-//            else
-//            {
+
                 $this->session->set_userdata(array('generate_btn'=>true));
                 echo json_encode(array('status'=>true,
                                        'count'=>50));
-//            }
+
         }
        
         
