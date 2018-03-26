@@ -11,7 +11,7 @@
 <!--[if lt IE 9]> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
-<title>B-School Free Education HTML5 Website Template | WebThemez</title>
+<title>Delto E-learning</title>
 <meta name="description" content="">
 <meta name="author" content="WebThemez">
 <!--[if lt IE 9]>
@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css" />
 <!-- Font Awesome -->
 <link href="<?php echo base_url(); ?>assets/font/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -81,11 +82,11 @@
   
   <div class="container hero-text2">        
 		<div class="col-md-9">
-		<h2>Why B-School?</h1>
+		<h2>Why Delto?</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum orci eget nulla mattis, quis viverra tellus porta. Donec vitae neque ut velit eleifend commodo. Maecenas turpis odio, placerat eu lorem ut, suscipit commodo augue.  </p>   
 		</div>  
 		<div class="col-md-3">
-			<a class="btn btn-apply" href="#"><i class="fa fa-play-circle"></i>Apply Now</a>  
+			<a class="btn btn-apply" href="<?php echo base_url();?>center/index"><i class="fa fa-play-circle"></i>Center SignUp</a>  
 		</div>
   </div>
 </section>
@@ -293,10 +294,10 @@
     </div>
   </div>
 </section>
-<section id="plans" class="page-section">
+<!--<section id="plans" class="page-section">
   <div class="container">
     <div class="heading text-center"> 
-      <!-- Heading -->
+       Heading 
       <h2>Fees</h2>
       <p>At lorem Ipsum available, but the majority have suffered alteration in some form by injected humour.</p>
     </div>
@@ -351,7 +352,7 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
 <section id="team" class="page-section">
   <div class="container">
     <div class="heading text-center"> 
@@ -481,8 +482,8 @@
                    <ul>
                         <li>1th Avenue, New York - United States</li>
                         <li>Phone: +22 342 2345 345 | Fax: +22 724 2342 343 </li>
-                        <li>Email: <a href="mailto:info@example.com" title="Email Us">info@example.com</a></li>
-                        <li>Skype: <a href="skype:my.test?call" title="Skype us">my-company</a></li>
+                        <li>Email: <a href="mailto:info@webosys.com" title="Email Us">info@webosys.com</a></li>
+                        <li>Skype: <a href="skype:my.test?call" title="Skype us">sunil.letsprocure@outlook.com</a></li>
                     </ul>
                  </div>
             </div>
@@ -505,14 +506,14 @@
             <div class="col-md-3">
             	<div class="col col-social-icons">
                     <h4>Follow us</h4>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-youtube-play"></i></a>
-                    <a href="#"><i class="fa fa-flickr"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-skype"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                    <a href="#"><i class="fa fa-facebook" data-toggle="tooltip" data-placement="bottom" title="Facebook"></i></a>
+                    <a href="#"><i class="fa fa-google-plus" data-toggle="tooltip" data-placement="bottom" title="Google+"></i></a>
+                    <a href="#"><i class="fa fa-youtube-play" data-toggle="tooltip" data-placement="bottom" title="Youtube"></i></a>
+                    <a href="#"><i class="fa fa-flickr" data-toggle="tooltip" data-placement="bottom" title="Flickr"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" data-toggle="tooltip" data-placement="bottom" title="LinkedIn"></i></a>
+                    <a href="#"><i class="fa fa-twitter" data-toggle="tooltip" data-placement="bottom" title="Twitter" ></i></a>
+                    <a href="#"><i class="fa fa-skype" data-toggle="tooltip" data-placement="bottom" title="Skype"></i></a>
+                    <a href="#"><i class="fa fa-pinterest"data-toggle="tooltip" data-placement="bottom" title="Pinterest"></i></a>
                 </div>
             </div>
 
@@ -535,7 +536,7 @@
 <section class="copyright">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 text-center"> Copyright 2014 | All Rights Reserved -- Template by -  <a href="http://webThemez.com"> WebThemez.com</a> </div>
+      <div class="col-sm-12 text-center"> Copyright 2014 | All Rights Reserved -- Developed by -  <a href="http://www.webosys.com"> www.webosys.com</a> </div>
     </div>
     <!-- / .row --> 
   </div>
