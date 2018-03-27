@@ -124,7 +124,7 @@ function myFunction1() {
             $('#error').hide();
             $("#remaining_play_time").html(data.topic['remaining_play_time']);
             $("#myVideo").attr("src", "<?php echo base_url();?>"+data.topic['topic_video_path']);
-            $("#topic_name").html('<h3 class="box-title">Video-'+data.topic['topic_name']+'</h3>');
+            $("#topic_name").html('<h3 class="box-title"><i class="fa fa-video-camera"></i> Video - '+data.topic['topic_name']+'</h3>');
             $("#topic_description").html(data.topic['topic_description']);
             $('#video').show(); 
         }
@@ -225,7 +225,7 @@ function myFunction1() {
          <div class="box-header">           
               <!--<div class="box-title">-->  
                    <div class="row"> 
-                       <!--<i class="fa fa-video-camera"></i>-->
+                       
                   <div class="col-md-9" id="topic_name"></div>
                   <div class="col-md-offset-2">Left Views :<span id="remaining_play_time"></span></div>
                   </div>

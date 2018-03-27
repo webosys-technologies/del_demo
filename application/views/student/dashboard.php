@@ -55,7 +55,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3><?php if(isset($exams)){echo count($exams);} ?></h3>
+              <h3><?php if(isset($que_count)){echo count($que_count);}else{echo "0";} ?></h3>
 
               <p>Exam Reviews</p>
             </div>
