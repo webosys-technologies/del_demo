@@ -549,8 +549,8 @@ if(data.passcode_error)
             <input type="checkbox" onclick="show_passcode()">Show Passcode
             <br><br>
             <label> <u style="color:#32CD32">Read The Instruction Carefully:</u></label>
-            <ul><li>Total number of questions : <b>50</b>.</li>
-                    <li> Time alloted : <b>50</b> minutes.</li>
+            <ul><li>Total number of questions : <b>10</b>.</li>
+                    <li> Time alloted : <b>10</b> minutes.</li>
                     <li>Each question carry <b>1</b> mark.</li>
                     <li>Don't start Exam again.</li>
                     <li>DO NOT refresh the page.</li>
@@ -635,10 +635,10 @@ if(data.passcode_error)
                       <thead></thead>
                       <tbody id="row_create">
                           <tr id="row_1"></tr>
-                          <tr id="row_2"></tr>
+<!--                          <tr id="row_2"></tr>
                           <tr id="row_3"></tr>
                           <tr id="row_4"></tr>
-                          <tr id="row_5"></tr>
+                          <tr id="row_5"></tr>-->
                           <tr id="row_new"></tr>
                       </tbody>
                   </table>

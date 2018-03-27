@@ -191,7 +191,7 @@ class Exams extends CI_Controller
                 $solved_question=null;
                 $check=null;
                 $given_ans=null;
-             for($i=1;$i<=50;$i++)
+             for($i=1;$i<=10;$i++)
              {
                   if(!empty($this->session->userdata('ans_qno'.$i)))
                   {
@@ -222,7 +222,7 @@ class Exams extends CI_Controller
                    $question=$this->session->userdata('q'.$question_num);
                }
 
-            echo json_encode(array('no_of_que'=>50,
+            echo json_encode(array('no_of_que'=>10,
                                    'solved_question'=>$solved_question,     //solved question number
                                    'question'=>$question,
                                     'given_ans'=>$given_ans)
@@ -251,7 +251,7 @@ class Exams extends CI_Controller
                            
               
                   $i=1;
-                  while($i<=50)
+                  while($i<=10)
                   {
                       $qid=mt_rand(1,$rand);
                                    
@@ -266,7 +266,7 @@ class Exams extends CI_Controller
                                     'question_option_b'=>$question->question_option_b,
                                     'question_option_c'=>$question->question_option_c,
                                     'question_option_d'=>$question->question_option_d,
-                                    'qp_no_of_qsn'=>50
+                                    'qp_no_of_qsn'=>10
                                    );
                      $i++;
 
@@ -279,7 +279,7 @@ class Exams extends CI_Controller
            
              $this->session->set_userdata($que_field);
                echo json_encode(array('question'=>$this->session->userdata('q1'),
-                                       'no_of_que'=>50,
+                                       'no_of_que'=>10,
                                        'start_exam'=>"success"
                    ));  //load first question.
         	
@@ -298,7 +298,7 @@ class Exams extends CI_Controller
         {
             
             $timestamp=explode(":",$this->input->post('timestamp'));
-             $min=50-$timestamp[0];
+             $min=10-$timestamp[0];
              $sec=60-$timestamp[1];
             
            $fun_btn_qno=$this->input->post("press_btn_qno");  // IF LAST QUESTION IS REMAINING
@@ -340,7 +340,7 @@ class Exams extends CI_Controller
 
            $sid=$this->session->userdata('student_id');
            $total_mark=0;
-           for($i=1;$i<=50;$i++)
+           for($i=1;$i<=10;$i++)
             {
                 if(!empty($this->session->userdata('ans_qno'.$i)))
                 {
@@ -348,7 +348,7 @@ class Exams extends CI_Controller
                 }            
             }
             
-            if($total_mark>=20)
+            if($total_mark>=4)
              {
                  
                 $result="pass"; 
@@ -357,7 +357,7 @@ class Exams extends CI_Controller
              {
                  $result="fail";
              }
-             $per=($total_mark/50)*100;
+             $per=($total_mark/10)*100;
              $no_of_exam=$this->Exams_model->no_of_exams($sid);
             
              if($no_of_exam>0)
@@ -382,7 +382,7 @@ class Exams extends CI_Controller
          
            
            
-            for($i=1;$i<=50;$i++)
+            for($i=1;$i<=10;$i++)
             {
                 if(!empty($this->session->userdata('ans_qno'.$i)))
                 {
@@ -423,7 +423,7 @@ class Exams extends CI_Controller
              
    
                   echo json_encode(array('exam_result'=>$exam_result,
-                                         'total_questions'=>50,
+                                         'total_questions'=>10,
                                          'result'=>$result,
                                          'test_review_id'=>$insert_id));
             
@@ -437,7 +437,7 @@ class Exams extends CI_Controller
 
                 $this->session->set_userdata(array('generate_btn'=>true));
                 echo json_encode(array('status'=>true,
-                                       'count'=>50));
+                                       'count'=>10));
 
         }
        

@@ -47,7 +47,7 @@
           <li><a href="#aboutUs" class="scroll-link">About Frenchise Network</a></li>
           <li><a href="<?php echo base_url(); ?>center/index/login" class="scroll-link">Center Login</a></li>          
           <li><a href="<?php echo base_url(); ?>student/index" class="scroll-link">Student Login</a></li>
-          <li><a href="<?php echo base_url(); ?>center/index" class="scroll-link">Center SignUp</a></li>    
+          <li><a href="#" class="scroll-link">Center SignUp</a></li>    
           <li><a href="#contactUs" class="scroll-link">Contact Us</a></li>
         </ul>
       </div>
@@ -86,7 +86,7 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum orci eget nulla mattis, quis viverra tellus porta. Donec vitae neque ut velit eleifend commodo. Maecenas turpis odio, placerat eu lorem ut, suscipit commodo augue.  </p>   
 		</div>  
 		<div class="col-md-3">
-			<a class="btn btn-apply" href="<?php echo base_url();?>center/index"><i class="fa fa-play-circle"></i>Center SignUp</a>  
+			<a class="btn btn-apply" href="#"><i class="fa fa-play-circle"></i>Center SignUp</a>  
 		</div>
   </div>
 </section>
@@ -536,7 +536,7 @@
 <section class="copyright">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 text-center"> Copyright 2014 | All Rights Reserved -- Developed by -  <a href="http://www.webosys.com"> www.webosys.com</a> </div>
+      <div class="col-sm-12 text-center"> Copyright 2014 | All Rights Reserved -- Developed by -  <a href="http://www.webosys.com">Webosys Technology</a> </div>
     </div>
     <!-- / .row --> 
   </div>
