@@ -51,9 +51,8 @@ class Question extends CI_Controller
 	   $option_c = $this->input->post('option_c'); 
 	   $option_d = $this->input->post('option_d'); 
 	   $answer = $this->input->post('answer'); 
-	   $answer = $this->input->post('answer'); 
 	   $status = $this->input->post('status'); 
-
+          
 	   for($i=0;$i<sizeof($answer);$i++)
 	   {
 	     $dataSet[$i] = array (                'course_id' => $course[$i],
@@ -65,11 +64,13 @@ class Question extends CI_Controller
 	     					   'question_correct_ans' => ltrim($answer[$i]),
 	     					   'question_created_at' => date('Y-m-d'),
 	     					   'question_created_by' => 'admin',
-	     					   'question_status' => $status,
+	     					   'question_status' => $status[$i],
 
 	     					);
 	   }
 	   // $dataSet is an array of array
+//           print_r($dataSet);
+//           die;
 	   $this->Questions_model->add($dataSet);
 	   
         echo json_encode(array("status" => TRUE));

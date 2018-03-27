@@ -267,7 +267,7 @@ $("#myName").on("keyup", function() {
                                 Course<span class="req">*</span>
                             </label>
                             <div class="col-md-7">
-                            <select name="course_id" class="form-control">
+                            <select name="course_id[]" class="form-control">
                                 <?php 
                                 foreach($courses as $row)
                                 { 
