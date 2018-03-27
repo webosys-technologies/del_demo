@@ -124,7 +124,7 @@ function myFunction1() {
             $('#error').hide();
             $("#remaining_play_time").html(data.topic['remaining_play_time']);
             $("#myVideo").attr("src", "<?php echo base_url();?>"+data.topic['topic_video_path']);
-            $("#topic_name").html(data.topic['topic_name']);
+            $("#topic_name").html('<h3 class="box-title">Video-'+data.topic['topic_name']+'</h3>');
             $("#topic_description").html(data.topic['topic_description']);
             $('#video').show(); 
         }
@@ -165,18 +165,51 @@ function myFunction1() {
           {
 //              print_r($topics);
                foreach ($topics as $topic) {
+                  
                    if($topic->topic_status==1)
                    {
+                       $topic_ids[$topic->topic_id]=$topic->topic_video_play_time;
                     $i++;
-                   ?>
+                    
+                    ?>
          
-           <a href="#" onclick="start_video(<?php echo $topic->topic_id;?>)" id=""><?php echo $i.'. '.$topic->topic_name;?></a>
+           <a href="#" onclick="start_video(<?php echo $topic->topic_id;?>)" id="topic<?php echo $topic->topic_id; ?>"><?php echo $i.'. '.$topic->topic_name;?></a>
                          
          
-          <?php }
-             
+         
+              <?php     }
                }
                }?></li>
+         
+         
+         <?php 
+         if(isset($play_time))
+         {
+            
+             foreach($play_time as $play)
+             {
+                if (array_key_exists($play->topic_id,$topic_ids))
+                {
+                 if($play->remaining_play_time<$topic_ids[$play->topic_id] && $play->remaining_play_time>=1)
+                 {?>
+                     <script>
+                        
+                    document.getElementById("topic<?php echo $play->topic_id;?>").style.color = "blue";
+               
+                </script>
+            <?php     }
+                }
+            
+                    if($play->remaining_play_time==0)
+                    {?>
+                <script>                        
+                    document.getElementById("topic<?php echo $play->topic_id;?>").style.color = "#ff0000";
+                </script>
+                <?php                        
+                    }
+               }
+         }
+             ?>
          
       
       </ul><br>
@@ -188,19 +221,23 @@ function myFunction1() {
       <section class="col-md-8 connectedSortable">
           <div class="box box-solid bg-green-gradient"> 
          
-         <div class="box-header">
-              <i class="glyphicon glyphicon-film"></i>
-
-              <h3 class="box-title">Video</h3>
+              
+         <div class="box-header">           
+              <!--<div class="box-title">-->  
+                   <div class="row"> 
+                       <!--<i class="fa fa-video-camera"></i>-->
+                  <div class="col-md-9" id="topic_name"></div>
+                  <div class="col-md-offset-2">Left Views :<span id="remaining_play_time"></span></div>
+                  </div>
+                  <!--</div>-->
              </div>
        <div class="table-responsive" id="table">
       <div class="box-footer text-black">
            
                      
-                          <table    cellspacing="0" width="100%"> 
-                              <tr><td><h2 id="topic_name"></h2></td></tr>
+                          <table    cellspacing="0" width="100%">                          
                    
-        <tr><td><label style="color:green">View Left :</label><span id="remaining_play_time"></span></td></tr>
+        
             <tr><td >       
            <input type="text" id="topic_id" value="" hidden>
            <video id="myVideo" onclick="pauseVid()" src="" width="100%" target="_blank" controls ontimeupdate="time_update(this)" controlsList="nodownload" />

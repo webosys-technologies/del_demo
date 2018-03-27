@@ -55,7 +55,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3><?php if(isset($exams)){echo count($exams);} ?></h3>
 
               <p>Exam Reviews</p>
             </div>

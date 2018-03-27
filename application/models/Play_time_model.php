@@ -208,6 +208,13 @@ class Play_time_model extends CI_Model
            return $query->result();  
         }
         
+        public function students_topic($sid)
+        {
+          $this->db->from($this->table);
+          $this->db->where('student_id',$sid);
+          $query=$this->db->get();
+          return $query->result();
+        }
         
         public function play_time($id,$topics)
         {

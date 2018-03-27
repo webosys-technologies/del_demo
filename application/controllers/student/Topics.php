@@ -34,6 +34,7 @@ class Topics extends CI_Controller
             	$cid=$this->session->userdata('center_id');
               $result['center_names']=$this->Centers_model->center_name($cid);  //get center detail	        	
                $result['topics']=$this->Topics_model->get_topics($course_id);          //get all topics
+               $result['play_time']=$this->Play_time_model->students_topic($student_id);
                           
                  if(isset($result['data']))
                 {    

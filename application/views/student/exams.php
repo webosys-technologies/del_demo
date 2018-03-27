@@ -42,7 +42,7 @@
      var tim;
      var submit;
        
-        var min = 49;
+        var min = 9;
         var sec = 60;
         var f = new Date();
         function f1() {

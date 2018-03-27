@@ -47,11 +47,11 @@ class Exam_Reviews extends CI_Controller
 				 
               $cid=$this->session->userdata('center_id');
               $result['center_names']=$this->Centers_model->center_name($cid);  //get center detail
-              $exam_result['exams']=$this->Exams_model->getdata($id);
+              $result['exams']=$this->Exams_model->getdata($id);
              
         	
             $this->load->view('student/header',$result);
-                $this->load->view('student/exam_reviews',$exam_result);
+                $this->load->view('student/exam_reviews',$result);
                 $this->load->view('student/footer');
                   
         }
