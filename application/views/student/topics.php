@@ -194,7 +194,7 @@ function myFunction1() {
                  {?>
                      <script>
                         
-                    document.getElementById("topic<?php echo $play->topic_id;?>").style.color = "blue";
+                    document.getElementById("topic<?php echo $play->topic_id;?>").style.color = "green";
                
                 </script>
             <?php     }
