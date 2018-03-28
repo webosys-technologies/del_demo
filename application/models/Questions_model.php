@@ -80,8 +80,10 @@ class Questions_model extends CI_Model
 	}
         public function no_of_questions()
         {
-            $query=$this->db->get($this->table);
-            return $query->num_rows();
+            $row = $this->db->query('SELECT MAX(question_id) AS `maxid` FROM `questions`')->row();
+            $maxid = $row->maxid; 
+
+            return $maxid;
             
         }
         

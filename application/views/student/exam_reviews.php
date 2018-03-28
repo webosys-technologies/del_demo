@@ -25,7 +25,7 @@ a:hover {
   <div  class="content-wrapper">
        <section class="content-header">
       <h1>
-        Report
+        Exam Review
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
@@ -270,12 +270,12 @@ function myFunction1() {
                  
          </table>
               </div> 
-         <div class="pull-right"> <label><a href="#" id="tst_review">Test Review</a></label></div>
+         <div class="pull-right"> <label><a href="#" id="tst_review">Exam Review</a></label></div>
           
           <div id="test_review" hidden="true">
            <div class="row content">
              <section class="col-md-12 connectedSortable">
-             <div class="row"><div class="col-md-5"></div><div class="col-md-5"> <h2>Test Review</h2> </div></div>
+             <div class="row"><div class="col-md-5"></div><div class="col-md-5"> <h2>Exam Review</h2> </div></div>
         <div id="dynamic_field"></div>
        <label>Total Marks:</label><span id="total_mark"></span> Out of <span id="out_of_mark"></span>
        

@@ -223,24 +223,7 @@ printData();
     }
     
     
-function create_passcode(id)
-{
 
-  $.ajax({
-        url : "<?php echo site_url('index.php/center/Login_detail/create_passcode')?>/" + id,        
-        type: "POST",
-               
-        dataType: "JSON",
-        success: function(data)
-        {
-          location.reload();
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-          alert('Error while creating passcode');
-        }
-      });
-}
 
 
           //select all checkboxes

@@ -1,5 +1,5 @@
 
-<div style="background-color:white"  class="content-wrapper">
+<div  class="content-wrapper">
      <section class="content-header">
       <h1>
         Report
