@@ -28,7 +28,7 @@ class Users extends CI_Controller
 
         }
         else{
-          redirect('center/index/login');
+          redirect('admin/index/login');
         }
 	}
 

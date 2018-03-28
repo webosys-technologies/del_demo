@@ -34,7 +34,7 @@ class Results extends CI_Controller
 
         }
         else{
-          redirect('center/index/login');
+          redirect('admin/index/login');
         }
 
 	}
@@ -170,8 +170,8 @@ class Results extends CI_Controller
              
               $correct_ans=0;
               $wrong_ans=0;              
-              $total_que=50;
-              $total_mark=50;
+              $total_que=10;
+              $total_mark=10;
                           
               foreach($exam_result as $res)
               {

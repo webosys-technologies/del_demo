@@ -373,7 +373,7 @@ class Exams extends CI_Controller
                                 'exam_taken_time'=>$min.':'.$sec,
                                 'exam_percentage'=>$per,
                                 'exam_result'=>$result,
-                                'exam_date'=>date('Y-m-d'),
+                                'exam_date'=>date('Y-m-d h:i:sa'),
                                 'exam_type'=>$type,
                                 'exam_status'=>'1');
              

@@ -38,7 +38,7 @@ class Video extends CI_Controller
         }
         else
         {
-            redirect('center/index/login');
+            redirect('admin/index/login');
         }
         
 	}
