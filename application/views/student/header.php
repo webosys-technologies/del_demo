@@ -106,20 +106,17 @@ $(document).ready(function(){
     
    //    alert("hello");
 });
+
+
+function demo_version()
+{
+    $('#demo_form').modal('show');
+}
 </script>
  
    <script>
       
-      $(document).ready(function(){
-         // $( "#color" ).addClass( "active" );
-          alert("hello");
-//           $("#color").click(function(){
-//      //  $("#color").addClass("active");
-//      alert("hello");
-        
-//    });
-    
-});
+
 
     window.open("https://www.w3schools.com", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
       
@@ -267,7 +264,8 @@ $(document).ready(function(){
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#myModal"><i class="fa fa-key"></i> Change Password</button>
+<!--                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#myModal"><i class="fa fa-key"></i> Change Password</button>-->
+                        <button type="button" class="btn btn-default btn-flat" onclick="demo_version()"><i class="fa fa-key"></i> Change Password</button>
                     </div>
                      
                     <div class="pull-right">
@@ -281,7 +279,18 @@ $(document).ready(function(){
         </nav>
       </header>
         
-       
+        <div class="modal fade" id="demo_form" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title1">This is Demo Version</h3></center>
+         <center><h3 class="modal-title2">You can not change password</h3></center>
+      </div>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
         
         
         <form class="modal fade" id="myModal" role="dialog" action="<?php echo base_url(); ?>student/index/reset_password" method="post">

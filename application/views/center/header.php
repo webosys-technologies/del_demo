@@ -68,7 +68,12 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  
+  <script>
+      function demo_version()
+      {
+          $('#demo_form').modal('show');
+      }
+      </script>
   
   
   <body class="skin-blue sidebar-mini">
@@ -148,7 +153,8 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#pass"><i class="fa fa-key"></i> Change Password</button>
+<!--                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#pass"><i class="fa fa-key"></i> Change Password</button>-->
+                        <button type="button" class="btn btn-default btn-flat" onclick="demo_version()"><i class="fa fa-key"></i> Change Password</button>
                     </div>
                     <div class="pull-right">
                       <a href="<?php echo base_url(); ?>center/Index/signout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Sign out</a>
@@ -161,7 +167,18 @@
         </nav>
       </header>
         
-    
+     <div class="modal fade" id="demo_form" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title1">This is Demo Version</h3></center>
+         <center><h3 class="modal-title2">You can not edit profile</h3></center>
+      </div>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
         
         
         <form  class="modal fade" id="pass" role="dialog" action="<?php echo base_url(); ?>student/index/reset_password" method="post">

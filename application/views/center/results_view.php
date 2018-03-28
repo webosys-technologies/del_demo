@@ -18,7 +18,8 @@
     <div class="row">
     <div class="col-md-4">
     <button type="button" class="btn btn-danger" id="print" ><i class="glyphicon glyphicon-print"></i> Print</button>
-       <button type="submit" class="btn btn-warning" id="payment"  ><i class="fa fa-inr"></i> Make Payment</button>
+       <!--<button type="submit" class="btn btn-warning" id="payment"  ><i class="fa fa-inr"></i> Make Payment</button>-->
+    <button type="button" onclick="demo_version()" class="btn btn-warning"  ><i class="fa fa-inr"></i> Make Payment</button>
 
 
     </div>
@@ -127,7 +128,18 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
       
-    
+     <div class="modal fade" id="demo_form" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title1">This is Demo Version</h3></center>
+         <center><h3 class="modal-title2">You can not make payment</h3></center>
+      </div>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
 </section>
 </form>
     
@@ -153,6 +165,10 @@
     });
   });
 
+     function demo_version()
+     {
+        $('#demo_form').modal('show'); 
+     }
      
   function printData()
 {
