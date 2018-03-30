@@ -128,7 +128,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
       
-     <div class="modal fade" id="demo_form" role="dialog">
+     <div class="modal fade" id="demo_form1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="color:#fff; background-color:#FF5733" >
@@ -167,7 +167,7 @@
 
      function demo_version()
      {
-        $('#demo_form').modal('show'); 
+        $('#demo_form1').modal('show'); 
      }
      
   function printData()

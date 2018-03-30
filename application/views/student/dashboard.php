@@ -1,5 +1,5 @@
 
-<!--next here sunil-->
+    <!--next here sunil-->
 <!DOCTYPE html>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -47,7 +47,7 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="<?php echo base_url(); ?>student/Exams" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="" onclick="getUrl()" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
           <!-- ./col -->
