@@ -233,9 +233,12 @@ class Students extends CI_Controller
                        }
                        else
                        {
+                          $res=$this->Students_model->get_student_by_id($id);
+                            if(file_exists($res->student_profile_pic))
+                            {
+                            unlink($res->student_profile_pic);
+                            }                           
                           
-                           
-                           //$date=date('Y-m-d');
                             $ext= explode(".",$this->upload->data('file_name'));  
                             $img_name =$new_file.".".end($ext); //video name as path in db
                              $img_path='profile_pic/'.str_replace(' ','_',$img_name);
