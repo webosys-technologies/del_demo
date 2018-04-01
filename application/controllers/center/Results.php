@@ -155,10 +155,10 @@ class Results extends CI_Controller
    
     public function view_result($exam_id)
         {
-           $student_LoggedIn = $this->session->userdata('student_LoggedIn');
-             if(isset($student_LoggedIn) || $student_LoggedIn == TRUE)
+           $center_LoggedIn = $this->session->userdata('center_LoggedIn');
+             if(isset($center_LoggedIn) || $center_LoggedIn == TRUE)
         {
-            
+           
         		 
              $data=array('exam_id'=>$exam_id,
                          );
@@ -195,7 +195,7 @@ class Results extends CI_Controller
         }
         else
         {
-             $this->load->view('student/login');
+            redirect('center/index/login');
         }  
         }
 
