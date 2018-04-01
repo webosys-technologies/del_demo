@@ -183,6 +183,11 @@ class Student extends CI_Controller
 
     function student_delete($id)
     {
+         $res=$this->Students_model->get_student_by_id($id);
+        if(file_exists($res->student_profile_pic))
+        {
+        unlink($res->student_profile_pic);
+        }
 
         $this->Students_model->delete_by_id($id);
         echo json_encode(array("status" => TRUE));

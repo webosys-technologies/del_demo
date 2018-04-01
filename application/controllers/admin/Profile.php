@@ -107,8 +107,11 @@ class Profile extends CI_Controller
                        }
                        else
                        {
-                          
-                           
+                            $res=$this->User_model->get_user_by_id($id);
+                            if(file_exists($res->user_profile_pic))
+                            {
+                            unlink($res->user_profile_pic);
+                            }
                            //$date=date('Y-m-d');
                             $ext= explode(".",$this->upload->data('file_name'));  
                             $img_name =$new_file.".".end($ext); //video name as path in db
