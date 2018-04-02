@@ -100,7 +100,7 @@ class Topics extends CI_Controller
                 }
                 else
                 {
-                     $result1['errors']="Play Time For This Topic Video Is Over";
+                     $result1['errors']="End of limit for display this video.";
                      echo json_encode($result1);
                   
                 }
@@ -146,7 +146,7 @@ class Topics extends CI_Controller
                if($play_time['status']==false)
                {               
                    echo json_encode(array('status'=>false,
-                                          'errors'=>'Play Time For This Topic Video Is Over'));
+                                          'errors'=>'End of limit for display this video.'));
                                           
                }
                else
