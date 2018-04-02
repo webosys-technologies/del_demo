@@ -10,7 +10,7 @@ class Index extends CI_Controller
 		$this->load->database();
 		$this->load->model('User_model');
                 $this->load->model('Students_model');
-             //   $this->load->model('Login_model');
+                $this->load->model('Play_time_model');
 	}
 	
 	function index()
@@ -73,7 +73,7 @@ class Index extends CI_Controller
             if($status['student_status']==1 && (!empty($status['student_profile_pic'])))
             {
                  
-                
+              
                 if($res->student_course_start_date=='0000-00-00'){
                     $dur=$res->course_duration;
                     $date=date('Y-m-d');
@@ -103,8 +103,9 @@ class Index extends CI_Controller
                     'student_LoggedIn' => true
                                     );
                                     
-                    $this->session->set_userdata($sessionArray);  
                     
+                    $this->session->set_userdata($sessionArray);  
+                    $this->Play_time_model->update_play_time($this->session->userdata('student_id'));
                     redirect('student/Dashboard');
                   //  $this->load->view('center/signup');
                }

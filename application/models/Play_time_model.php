@@ -21,7 +21,15 @@ class Play_time_model extends CI_Model
 		$this->load->database();
 	}
 
-
+        public function update_play_time($id)
+        {
+        $where=array('student_id'=>$id);
+        $data=array('remaining_play_time'=>'3');
+        
+        $this->db->update($this->table,$data,$where);
+        return true;
+        }
+        
         public function getall_topics()
         {
 //        $this->db->from('topics');
