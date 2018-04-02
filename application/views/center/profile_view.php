@@ -81,7 +81,7 @@
           <label> <span class="glyphicon glyphicon-user"></span>&nbsp; Gender :</label><?php echo $info['center_gender'];?><br>
           <label> <span class="fa fa-birthday-cake"></span>&nbsp; DOB :</label><?php echo $info['center_dob'];?><br>
           <label> <span class="glyphicon glyphicon-home"></span>&nbsp; Address :</label><?php echo $info['center_address'];?><br>
-<!--          <h4><a href="#" data-toggle="collapse" data-target="#demo" onclick="edit_profile(<?php echo $info['center_id']; ?>)">Edit Pofile?</a></h4>-->
+          <!--<h4><a href="#" data-toggle="collapse" data-target="#demo" onclick="edit_profile(<?php echo $info['center_id']; ?>)">Edit Pofile?</a></h4>-->
           <h4><a href="#" onclick="demo_version()">Edit Pofile?</a></h4>
   
                

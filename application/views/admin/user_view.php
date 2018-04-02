@@ -36,6 +36,7 @@
       <thead>
         <tr bgcolor="#338cbf" style="color:#fff">
           <th>ID</th>
+          <th>PICTURE</th>
           <th>NAME</th>
           <th>Email</th>
           <th>MOBILE</th>
@@ -54,6 +55,7 @@
          foreach($user as $res){?>
              <tr>    
                                         <td><?php echo $res->user_id;?></td>
+                                        <td><img src="<?php echo base_url(); ?><?php if (!empty($res->user_profile_pic)){echo $res->user_profile_pic;} else{echo "profile_pic/boss.png";}?>" class="avatar img-responsive"  width="40px" height="30px"></td>
                                         <td><?php echo $res->user_fname.' '. $res->user_lname; ?></td>
                                         <td><?php echo $res->user_email ;?></td>
                                        <td><?php echo $res->user_mobile;?></td>
@@ -71,6 +73,7 @@
                                        ?></td>
                                        <td>
                   <button class="btn btn-success" onclick="edit_user(<?php echo $res->user_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="Edit User"><i class="glyphicon glyphicon-pencil"></i></button>
+                  <button class="btn btn-info" onclick="view_user(<?php echo $res->user_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="View User"><i class="glyphicon glyphicon-eye-open"></i></button>
                   <button class="btn btn-danger" onclick="delete_user(<?php echo $res->user_id;?>)" data-toggle="tooltip" data-placement="bottom" title="Delete User"><i class="glyphicon glyphicon-trash"></i></button>
 
 
@@ -187,6 +190,12 @@
             }
         });
     }
+    
+    
+   
+
+    
+    
 
     function delete_user(id)
     {

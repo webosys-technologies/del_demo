@@ -481,7 +481,7 @@ $("#myName").on("keyup", function() {
     <div class="modal-content">
       <div class="modal-header" style="color:#fff; background-color:#338cbf" >
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center><h3 class="modal-title">Course Form</h3></center>
+        <center><h3 class="modal-title"></h3></center>
       </div>
          <form action="#" name="form_student" id="form2" class="form-horizontal">
       <div class="modal-body form">
