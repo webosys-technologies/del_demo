@@ -4,7 +4,7 @@
 <!--        <div class="pull-right hidden-xs">
           <b>Webosys Technologies</b> Student System
         </div>-->
-        <strong>Copyright &copy; 2017 <a href="http://webosys.com/">Webosys Technologies</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2018 <a href="http://webosys.com/">Webosys Technologies</a>.</strong> All rights reserved.
     </footer>
     
      <!--Bootstrap 3.3.7--> 
