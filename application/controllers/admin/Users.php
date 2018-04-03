@@ -54,7 +54,7 @@ class Users extends CI_Controller
                 $res=$this->pic_upload($data);
                 
                 echo json_encode(array("status" => TRUE,
-                                       'error'=>$res));
+                                       'msg'=>'User added successfully...!'));
 	}
 
 	public function ajax_edit($id)
@@ -87,7 +87,7 @@ class Users extends CI_Controller
                 $res=$this->pic_upload($data);
                 
                 echo json_encode(array("status" => TRUE,
-                                       'error'=>$res));
+                                       'msg'=>'User added successfully...!'));
 	}
 
 	public function user_delete($id)
