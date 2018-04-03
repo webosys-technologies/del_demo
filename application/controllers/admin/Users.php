@@ -94,7 +94,8 @@ class Users extends CI_Controller
 	{
 		$this->User_model->delete_by_id($id);
 
-		echo json_encode( array('status' => TRUE  ));
+		echo json_encode( array('status' => TRUE ,
+                                        'msg'=>'User deleted successfully..!'));
 	}
 
 	function pic_upload($data)
