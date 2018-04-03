@@ -231,6 +231,23 @@ class Students_model extends CI_Model
 			return TRUE;
 		}
 	}
+        public function sub_center_id()
+        {
+            $this->db->query('ALTER TABLE `students` ADD `sub_center_id` INT(255) NOT NULL AFTER `center_id`');
+            return true;
+        }
+        public function sub_centers_table()
+        {
+        $this->db->query('CREATE TABLE `delto_db`.`sub_centers` ( `sub_center_id` INT(255) NOT NULL AUTO_INCREMENT , `center_id` INT(255) NOT NULL , `sub_center_fullname` VARCHAR(255) NOT NULL , `sub_center_name` VARCHAR(255) NOT NULL , `sub_center_created_at` DATE NOT NULL , `sub_center_status` INT NOT NULL , PRIMARY KEY (`sub_center_id`)) ENGINE = InnoDB');
+        
+        return true;
+        }
+
+        public function center_askfor_password()
+        {
+        $this->db->query('ALTER TABLE `centers` ADD `center_askfor_password` VARCHAR(255) NOT NULL AFTER `center_created_at`');
+        return true;
+        }
 
 
 

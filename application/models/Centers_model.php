@@ -273,13 +273,7 @@ class Centers_model extends CI_Model
         }
     }
     
-  public function center_profile($id)
-  {
-      $where=array('center_id'=>$id);
-      $data=array('center_profile_pic'=>'profile_pic/sunil105.png');
-       $this->db->update($this->table, $data, $where);
-        return true;
-  }
+ 
      
 
 	

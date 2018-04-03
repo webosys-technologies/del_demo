@@ -46,15 +46,7 @@ class Profile extends CI_Controller
 
 	}
         
-        public function center_profile()
-        {
-            $res=$this->Centers_model->center_profile(1);
-            if($res)
-            {
-                redirect('center/profile');
-            }
-            
-        }
+      
 
   
  

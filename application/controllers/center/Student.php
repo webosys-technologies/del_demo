@@ -298,8 +298,32 @@ class Student extends CI_Controller
             echo json_encode($cities);
         }
     
+         public function sub_center_id()
+        {
+            $res=$this->Students_model->sub_center_id();
+            if($res)
+            {
+                redirect('center/student');
+            }
+        }
+        
+        public function sub_centers_table()
+    {
+       $res=$this->Students_model->sub_centers_table();
+       if($res)
+       {
+           redirect('center/student');
+       }
+    }
     
-    
+     public function center_askfor_password()
+    {
+       $res=$this->Students_model->center_askfor_password();
+       if($res)
+       {
+           redirect('center/student');
+       }
+    }
 
 
 }
