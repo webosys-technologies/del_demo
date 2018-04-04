@@ -35,6 +35,7 @@ class Centers_model extends CI_Model
 			'center_city'			=> $this->input->post('center_city'),
 			'center_pincode'		=> $this->input->post('center_pincode'),
 			'center_state'			=> $this->input->post('center_state'),
+                        'center_askfor_password' =>'disable',
 			'center_created_at'	=> date("Y-m-d H:i:s"),
                         'center_status'        => '0'
 

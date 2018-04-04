@@ -64,6 +64,7 @@ class Centers extends CI_Controller
                 'center_city' => $this->input->post('center_city'),
                 'center_state' => $this->input->post('center_state'),
                 'center_pincode' =>$this->input->post('center_pincode'),
+                'center_askfor_password' =>'disable',
                 'center_created_at' => date('Y-m-d'),
                 'center_status'  => '0',
                 );
