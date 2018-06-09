@@ -25,7 +25,7 @@ class Profile extends CI_Controller
         {
          
           $uid=$this->session->userdata('user_id');
-            $result['system']=$this->System_model->get_info();
+//            $result['system']=$this->System_model->get_info();
             $result['user_info']=$this->User_model->get_user_by_id($uid);
                   
             $this->load->view('admin/header',$result);        
