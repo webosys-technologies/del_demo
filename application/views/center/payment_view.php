@@ -35,8 +35,8 @@
         <tr bgcolor="#338cbf" style="color:#fff">
           <th>ID</th>
           <th>ORDER ID</th>
-          <th>PAYMENT ID</th>
           <th>TRANSCATION ID</th>
+          <th>MERCHANT REFRENCE</th>
           <th>BANK REF No</th>
           <th>AMOUNT</th>
           <th>PAYMENT AT</th>

@@ -43,21 +43,32 @@ p{
     <section class="content-header">
     <div class="row">
     
-        <div class="col-md-6">
+       <div class="col-md-6">
          <?php
+        $this->load->helper('form');
+        $success = $this->session->flashdata('success');
+        if($success)
+        {
+            ?>
+            
+        <div class="alert alert-success alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $success; ?> 
+  </div>
+        <?php }?>
+             
+              <?php
         $this->load->helper('form');
         $error = $this->session->flashdata('error');
         if($error)
         {
-            ?>
-            <script>
-                alert("<?php echo $error; ?> ");
-             </script>
-        <!--            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <?php echo $error; ?>                    
-            </div>-->
-        <?php }?>
+            ?>           
+        <div class="alert alert-danger alert-dismissible" data-auto-dismiss="2000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $error; ?> 
+  </div>
+        <?php }?>    
+       
         </div>
     </div>
     <br>

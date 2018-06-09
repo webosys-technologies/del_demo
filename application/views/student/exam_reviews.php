@@ -233,17 +233,16 @@ function myFunction1() {
                    ?>
          
           <a href="#" onclick="show_review(<?php echo $exam->exam_id;?>)" id=""><div class="row"><div class="col-md-7"><?php if($i==0){echo $exam->exam_type;}else{echo $exam->exam_type." ".$i;}?></div><div class="col-md-5"><?php echo $exam->exam_date; ?></div></div></a>
-                         
-         
-          <?php 
+            
+           <?php 
           if($i==0)
           {?>
           <script>
               show_review(<?php echo $exam->exam_id;?>);
-              </script>
-             <?php 
+              </script>            
+         
+          <?php 
           }
-          
           $i++;}
              
                }

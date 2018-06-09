@@ -11,6 +11,7 @@ class Topics extends CI_Controller {
 		        $this->load->helper(array('form', 'url','file'));
 	 		$this->load->model('Topics_model');
                         $this->load->model('Courses_model');
+                        $this->load->model('System_model');
                          $this->load->model('User_model');
                          $this->load->library('image_lib');
                       
@@ -25,11 +26,12 @@ class Topics extends CI_Controller {
 		$data['topics']=$this->Topics_model->getall_topics();
                 $data['courses']=$this->Courses_model->getall_courses();
                 $uid=$this->session->userdata('user_id');
+            $result['system']=$this->System_model->get_info();
                 $result['user_info']=$this->User_model->get_user_by_id($uid);
        
             $this->load->view('admin/header',$result);
 		$this->load->view('admin/topic_view',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer',$result);
 
         }
         else
@@ -47,6 +49,8 @@ class Topics extends CI_Controller {
 			$topic_description=$this->input->post('topic_description');
 			$topic_video_play_time=$this->input->post('time');
 			$topic_status=$this->input->post('status');
+                        $path=$this->input->post('path');
+
                       
                       
                        
@@ -69,7 +73,8 @@ class Topics extends CI_Controller {
                                         'topic_description'=>$topic_description[$i],
                                         'topic_created_at' => $date,
                                         'topic_created_by' => 'admin',
-                                        'topic_status' => 1,
+                                        'topic_status' => $topic_status[$i],
+                                        'topic_video_path'=>'videos/'.$path[$i].".mp4",
                                         'topic_video_play_time'=>$topic_video_play_time[$i]
 				); 
                               $topic_id = $this->Topics_model->topic_add($data);
@@ -122,7 +127,11 @@ class Topics extends CI_Controller {
                         {
                         unlink($res->topic_video_path);
                         }
-                        $this->Topics_model->delete_topic_video($id);
+                       $result=$this->Topics_model->delete_topic_video($id);
+                         if($result)
+                {
+                $this->session->set_flashdata('success', 'Topic Deleted Successfully');
+                }
                         echo json_encode(array("status" => TRUE));
                 }
 
@@ -134,6 +143,7 @@ class Topics extends CI_Controller {
 			$topic_description=$this->input->post('topic_description');
 			$topic_video_play_time=$this->input->post('time');
                         $topic_status=$this->input->post('status');
+                        $path=$this->input->post('topic_path');
 			                                         
           
                         $config['upload_path'] = './videos'; # check path is correct
@@ -158,6 +168,7 @@ class Topics extends CI_Controller {
                            $data1 = array(
                                         'topic_name' => $topic_name,
                                         'course_id' => $course_id,
+                                        'topic_video_path'=>$path,
                                         'topic_description'=>$topic_description,
                                         'topic_created_by' => 'admin',
                                         'topic_status' => $topic_status,
@@ -249,6 +260,19 @@ private function set_upload_options()
     $config['overwrite']     = FALSE;
 
     return $config;
+}
+
+public function updatepath($id)
+{
+  $res=$this->Topics_model->updatepath($id);
+  if($res)
+  {
+    echo "success";  
+  }
+  else
+  {
+      echo "failed";
+  }
 }
 
 

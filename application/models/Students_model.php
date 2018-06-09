@@ -18,21 +18,29 @@ class Students_model extends CI_Model
         $this->db->join('tbl_roles as Roles','Roles.roleId = BaseTbl.roleId'); 
         $this->db->where('BaseTbl.email', $email);
         $this->db->where('BaseTbl.isDeleted', 0);  */
-         $this->db->where('student_email', $student_email);
-          $this->db->or_where('student_username', $student_email);
-          $this->db->where('student_password', $student_password);
-        $this->db->from('students as stud');        
-         $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
-        $query=$this->db->get();
+             if(true)
+             {
+         $this->db->where('student_email', $student_email);         
+         $this->db->where('student_password', $student_password);
+         $this->db->from('students as stud');        
+           $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
+          $query=$this->db->get();       
+          $result=$query->result();
+          
+             }
+             if(empty($result))
+             {
+           $this->db->where('student_username', $student_email);
+           $this->db->where('student_password', $student_password);
+           $this->db->from('students as stud');        
+           $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
+          $query=$this->db->get();       
+          $result=$query->result();
+             }
+       
         
-         $row = $query->num_rows();
-        $result=$query->result();
-        
-        $this->db->where('student_email', $student_email);
-        $this->db->or_where('student_username', $student_email);
-        $query2 = $this->db->get('students');
-        $valid_email=$query2->num_rows();
-        return array($row,$result,$valid_email);
+     
+        return $result;
         
    
     }
@@ -40,8 +48,10 @@ class Students_model extends CI_Model
 	public function getall_students()
     {
         $this->db->from('students as stud');        
-         $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
+        $this->db->join('books as bk','bk.book_id=stud.book_id','LEFT');
          $this->db->join('centers as cen','cen.center_id=stud.center_id','LEFT');
+         $this->db->join('batches as bch','bch.batch_id=stud.batch_id','LEFT');
+         $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
          
         $this->db->order_by("student_id","desc");
         $query=$this->db->get();
@@ -52,7 +62,23 @@ class Students_model extends CI_Model
     public function getall_students_no()
     {
         $this->db->from($this->table);        
+       // $this->db->where('student_status','1');
+        $query=$this->db->get();
+        return $query->num_rows();
+       
+    }
+    public function getall_admission_no()
+    {
+        $this->db->from($this->table);        
         $this->db->where('student_status','1');
+        $query=$this->db->get();
+        return $query->num_rows();
+       
+    }
+     public function get_all_stud($id)
+    {
+        $this->db->from($this->table); 
+        $this->db->where('center_id',$id);
         $query=$this->db->get();
         return $query->num_rows();
        
@@ -66,16 +92,16 @@ class Students_model extends CI_Model
         $query=$this->db->get();
         return $query->num_rows();
 
-        // $query=$this->db->from('topics as tp')
-        //     ->join('courses as crs', 'crs.course_id=tp.course_id', 'LEFT')
-        //     ->get();
+       
     }
 
     public function get_by_center_id($id)
 	{
         $this->db->from('students as stud');        
+        $this->db->join('books as bk','bk.book_id=stud.book_id','LEFT');
+         $this->db->join('batches as bch', 'bch.batch_id=stud.batch_id', 'LEFT');
          $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
-		$this->db->where('center_id',$id);
+		$this->db->where('stud.center_id',$id);
         $this->db->order_by("student_id","desc");
 
 		$query = $this->db->get();
@@ -87,6 +113,8 @@ class Students_model extends CI_Model
          public function get_by_id($id)
 	{
          $this->db->from('students as stud');        
+         $this->db->join('sub_centers as sc','sc.sub_center_id=stud.sub_center_id','LEFT');
+         $this->db->join('centers as cen','cen.center_id=stud.center_id','LEFT');
          $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
          $this->db->where('student_id',$id);
          $query = $this->db->get();
@@ -101,10 +129,7 @@ class Students_model extends CI_Model
          $this->db->where('student_id',$id);
          $query = $this->db->get();
        	return $query->row();
-	}
-        
-    
-               
+	}             
 
     public function student_add($data)
 	{
@@ -148,6 +173,7 @@ class Students_model extends CI_Model
 	{
 		$this->db->where('student_id', $id);
 		$this->db->delete($this->table);
+                return $this->db->affected_rows();
 	}
         
         public function delete_profile_pic($id)
@@ -156,6 +182,7 @@ class Students_model extends CI_Model
             $this->db->set('student_profile_pic',"");
                 $this->db->where('student_id', $id);
                 $this->db->update($this->table); 
+                 return $this->db->affected_rows();
                 
 	}
         
@@ -190,7 +217,7 @@ class Students_model extends CI_Model
         public function get_multiple_id($ids=array())
         {
             $this->db->from('students as stud');        
-             $this->db->join('books as bk', 'bk.course_id=stud.course_id', 'LEFT');
+             $this->db->join('books as bk', 'bk.book_id=stud.book_id', 'LEFT');
             
              $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
              foreach($ids as $id)
@@ -206,12 +233,57 @@ class Students_model extends CI_Model
 
                     
         $this->db->from('students as stud');        
-
+         $this->db->join('books as bk', 'bk.book_id=stud.book_id', 'LEFT');
+         $this->db->join('batches as bat', 'bat.batch_id=stud.batch_id', 'LEFT');
          $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
+
             $this->db->where('student_id',$id);
             $query = $this->db->get();
 
             return $query->row();
+        }
+        
+        public function get_center_by_id($id)
+        {
+            $this->db->from('students as stud');
+            $this->db->join('courses as crs', 'crs.course_id=stud.course_id', 'LEFT');
+            $query=$this->db->get();
+            return $query->row();
+        }
+        
+        public function get_center_id($id)
+        {
+           
+            $this->db->from('students as stud');
+            $this->db->join('centers as crs', 'stud.center_id=crs.center_id', 'LEFT');
+            $this->db->where('student_id',$id);
+            $query=$this->db->get();
+            return $query->row();
+        }
+        
+         public function get_center_detail($id)
+        {
+            $this->db->from('centers');
+            $this->db->where('center_id',$id);
+            $query=$this->db->get();
+            return $query->row();
+        }
+        
+        public function check_center_password($data)
+        {
+            $this->db->from('centers');
+            $this->db->where('center_id',$data['center_id']);
+            $query=$this->db->get();
+            $res=$query->row();
+           
+            if($res->center_password==$data['center_password'])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         
          
@@ -231,26 +303,70 @@ class Students_model extends CI_Model
 			return TRUE;
 		}
 	}
-        public function sub_center_id()
+        
+         public function sub_center_id()
         {
-            $this->db->query('ALTER TABLE `students` ADD `sub_center_id` INT(255) NOT NULL AFTER `center_id`');
+//            $this->db->query('ALTER TABLE `students` CHANGE `student_book` `book_id` INT(20) NOT NULL');
+          
+             $this->db->query(' ALTER TABLE `students` ADD `book_id` INT(11) NOT NULL AFTER `student_lname`');
             return true;
         }
         public function sub_centers_table()
         {
-        $this->db->query('CREATE TABLE `delto_db`.`sub_centers` ( `sub_center_id` INT(255) NOT NULL AUTO_INCREMENT , `center_id` INT(255) NOT NULL , `sub_center_fullname` VARCHAR(255) NOT NULL , `sub_center_name` VARCHAR(255) NOT NULL , `sub_center_created_at` DATE NOT NULL , `sub_center_status` INT NOT NULL , PRIMARY KEY (`sub_center_id`)) ENGINE = InnoDB');
+        $this->db->query('CREATE TABLE `sub_centers` ( `sub_center_id` INT(255) NOT NULL AUTO_INCREMENT , `center_id` INT(255) NOT NULL , `sub_center_fullname` VARCHAR(255) NOT NULL , `sub_center_name` VARCHAR(255) NOT NULL , `sub_center_created_at` DATE NOT NULL , `sub_center_status` INT NOT NULL , PRIMARY KEY (`sub_center_id`)) ENGINE = InnoDB');
         
         return true;
         }
 
         public function center_askfor_password()
         {
-        $this->db->query('ALTER TABLE `centers` ADD `center_askfor_password` VARCHAR(255) NOT NULL AFTER `center_created_at`');
-        return true;
+       
+            $this->db->query('ALTER TABLE `centers` ADD `center_askfor_password` VARCHAR(255) NOT NULL AFTER `center_created_at`');
+//       $this->db->query('CREATE TABLE `sub_centers` (
+//  `sub_center_id` int(255) NOT NULL,
+//  `center_id` int(255) NOT NULL,
+//  `sub_center_fullname` varchar(255) NOT NULL,
+//  `sub_center_name` varchar(255) NOT NULL,
+//  `sub_center_created_at` date NOT NULL,
+//  `sub_center_status` int(11) NOT NULL
+//) ENGINE=InnoDB DEFAULT CHARSET=latin1');
+            return true;
+        }
+        public function sub_centers_id()
+        {
+            $this->db->query('ALTER TABLE `students` ADD `sub_center_id` INT(255) NOT NULL AFTER `center_id');
+return true;
+            }
+        
+        public function batch_table()
+        {
+           $this->db->query('CREATE TABLE `batches` ( `batch_id` INT NOT NULL AUTO_INCREMENT , `center_id` INT NOT NULL , `batch_name` varchar(255) NOT NULL , `batch_time` varchar(255) NOT NULL , `batch_created_at` DATE NOT NULL , `batch_status` INT NOT NULL , PRIMARY KEY (`batch_id`)) ENGINE = InnoDB');
+        
+           return true;
+        }
+        
+         public function batch_id()
+        {
+           $this->db->query(' ALTER TABLE `students` ADD `batch_id` INT(11) NOT NULL AFTER `course_id`');
+        
+           return true;
+        }
+        public function coupon_code()
+        {
+            $this->db->query('ALTER TABLE `students` ADD `coupon_code` VARCHAR(255) NOT NULL AFTER `batch_id`');
+            return true;
         }
 
-
-
+        public function get_odrstud_info()
+        {
+            $this->db->from('students as stud');
+            $this->db->where('student_fname',"MCITERLEARNER");
+            $this->db->join('courses as cr','cr.course_id=stud.course_id','Left');
+            $this->db->join('books as bk','bk.book_id=stud.book_id','LEFT');
+            $query=$this->db->get();
+            return $query->result();
+        }
+       
 }
 
  ?>

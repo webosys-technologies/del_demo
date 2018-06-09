@@ -8,7 +8,7 @@ class Users extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('User_model');
-
+    $this->load->model('System_model');
 	}
 
 	public function index()
@@ -18,11 +18,12 @@ class Users extends CI_Controller
         {
           $data['user']=$this->User_model->getall_user();
           $uid=$this->session->userdata('user_id');
+            $result['system']=$this->System_model->get_info();
             $result['user_info']=$this->User_model->get_user_by_id($uid);
        
             $this->load->view('admin/header',$result);        
       		$this->load->view('admin/user_view',$data);
-          $this->load->view('admin/footer');
+          $this->load->view('admin/footer',$result);
 
 
 
@@ -94,7 +95,7 @@ class Users extends CI_Controller
 	{
 		$this->User_model->delete_by_id($id);
 
-		echo json_encode( array('status' => TRUE ,
+		echo json_encode( array('status' => TRUE,
                                         'msg'=>'User deleted successfully..!'));
 	}
 

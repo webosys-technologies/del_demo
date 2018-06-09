@@ -9,6 +9,8 @@ class Index extends CI_Controller
 		$this->load->database();
 		$this->load->model('User_model');
                 $this->load->model('Centers_model');
+                $this->load->model('Sub_centers_model');
+                $this->load->model('Batches_model');
                 $this->load->model('Login_model');
                 $this->load->model('Cities_model');
                 $this->load->library('email');
@@ -55,6 +57,23 @@ class Index extends CI_Controller
 			list($get_insert,$get_data)=$this->Centers_model->register();
 			if($get_insert)
 			{
+                            $default_sub_center=array('center_id'=>$get_insert,
+                                            'sub_center_fullname'=>'Owner Name',
+                                            'sub_center_name'=>'Main Sub-Center',
+                                            'sub_center_created_at'=>date('Y-m-d'),
+                                            'sub_center_status'=>'1');                    
+                              $this->Sub_centers_model->sub_center_add($default_sub_center); 
+                
+                                    $default_batch= array(
+                                    'center_id' =>$get_insert,
+                                    'batch_name' => 'Default Batch',
+                                    'batch_time' => 'Not Set',
+                                    'batch_created_at' => date('Y-m-d'),
+                                    'batch_status'  =>'1' ,
+                                    );               
+                              
+                              $this->Batches_model->batch_add($default_batch);
+                            
 				$msg=array(
                                     'title'=>'Delto Center Registration...!',
                                     'data'=>'Your Center Registration Successfully with delto',
@@ -65,7 +84,7 @@ class Index extends CI_Controller
                                $this->verification_email($get_data,$msg);
                                if($result==true)
                                 {
-                                  $this->session->set_flashdata('signup_success','Registration Successfull,please check & verify your email!');
+                                  $this->session->set_flashdata('signup_success','Registration Successfull,please check email & verify your Account!');
                                 //$this->load->view('center/signup');
                                   redirect('center/index/login');
                                 }
@@ -133,7 +152,7 @@ class Index extends CI_Controller
         if($result==true)
         {
            $this->session->set_flashdata('signup_success','Verification code send successfully,please check & verify your email!');
-                                //$this->load->view('center/signup');
+                                
              redirect('center/index/login'); 
         }
         else
@@ -147,11 +166,11 @@ class Index extends CI_Controller
          $hash= md5( rand(0,1000) );
                  $this->center_encrypt($getdata['center_email'],$hash);
                 
-                    $headers = "From: admin@webosys.com";
-                    $headers .= "MIME-Version: 1.0" . "\r\n";
+                    $headers = "From: no-reply@delto.in";
+                    $headers .= ". DELTO-Team" . "\r\n";
                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                     $to = $msg['email'];
-                    $subject = "Delto";
+                    $subject = "Delto.in - Account verification";
 
                     $txt = '<html>
                         <head>
@@ -190,9 +209,10 @@ class Index extends CI_Controller
                                                }
                                             </style>
                                         </head>
-                                             <body><div class="div1"><h2>Delto Center Verification...!<h2></div><div class="div2">Dear'." ".$getdata['center_fname']." ".$getdata['center_lname'].',<br><br> We re ready to activate your account.Simply Please Verify your email Address.<br><br><br>
+                                             <body><div class="div1"><h2>Delto Center Verification...!<h2></div><div class="div2">Dear'." ".$getdata['center_fname']." ".$getdata['center_lname'].',<br><br> We are ready to activate your account.Simply Please Verify your email Address.<br><br><br>
                                             
-                                              <center><a  href="http://webosys.com/del/center/index/center_verification/'.$getdata['center_email'].'/'.$hash.'">Click here to verify email </a></center> </div></body></html>';
+                                              <center><a  href="'.base_url().'center/index/center_verification/'.$getdata['center_email'].'/'.$hash.'">Click here to verify your account </a></center>'
+                            . '          <br>Best Regards,<br>Delto Team<br><a href="http://delto.in">http://delto.in</a><br> </div></body></html>';
                               
                                               
                                             
@@ -210,11 +230,11 @@ class Index extends CI_Controller
                  $hash= md5( rand(0,1000) );
                  $this->center_encrypt($getdata['center_email'],$hash);
                 
-                    $headers = "From: admin@webosys.com";
-                    $headers .= "MIME-Version: 1.0" . "\r\n";
+                    $headers = "From: support@delto.in";
+                    $headers .= ". DELTO-Team" . "\r\n";
                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                     $to = $msg['email'];
-                    $subject = "Delto";
+                    $subject = "Welcome To Delto.in";
 
                     $txt = '<html>
                         <head>
@@ -240,15 +260,15 @@ class Index extends CI_Controller
                                                }
                                             </style>
                                         </head>
-                                             <body><div class="div1"><h2>'.$msg['title'].'<h2></div><div class="div2">Dear Customer,<br>Your Center Registration Successfully with Delto as per the following Detail.<br><br>
-                                            <h3>Personal Details:</h3>
+                                             <body><div class="div1"><h2>'.$msg['title'].'<h2></div><div class="div2">Dear'.$getdata['center_fname'].' '.$getdata['center_lname'].'('.$getdata['center_name'].'),<br>Thank You for sign in with delto.<br><br>You can now login with following login details<br><br>
+                                            
                                             <b>center Owner Name :</b>'.$getdata['center_fname']." "
                                              .$getdata['center_lname'].
                                              "<br><b>Center Name :</b>".$getdata['center_name'].
-                                              "<br><b>Mobile No :</b>".$getdata['center_mobile'].
-                                              "<br><b>Username :</b>".$getdata['center_email'].
+                                             '<br><b>Center Login URL:</b> <a href="http://delto.in/center/index/login">http://delto.in/center/index/login</a>
+                                             <br><b>Email Id:</b>'.$getdata['center_email'].
                                               "<br><b>Password :</b>".$getdata['center_password'].
-                                              '<br>Thank You,<br>Webosys Technologies <br> </div></body></html>';
+                                              '<br>Best Regards,<br>Delto Team<br><a href="http://delto.in">http://delto.in</a><br></div></body></html>';
                               
                                               
                                             
@@ -299,9 +319,8 @@ class Index extends CI_Controller
                                                                                        
                                              
                             <div class="div2">Dear Customer,<br><b>Center Name :</b>'.$getdata['center_name'].'<br><br>'.$msg['data'].'<b id="color"> '.$getdata['otp'].'</b><br><br>
-                                               Thank You,<br>
-                                               Webosys Team,<br>
-                                               <a href="http://webosys.com/del/center/index/login">Sign In</a> </div></body></html>';                               
+                                              Best Regards,<br>Delto Team<br><a href="http://delto.in">http://delto.in</a><br>
+                                               <a href="'.base_url().'center/index/login">Sign In</a> </div></body></html>';                               
                                       
                                                                                                      
                      $success=  mail($to,$subject,$txt,$headers); 
@@ -361,7 +380,7 @@ class Index extends CI_Controller
                                               "<br><b>New Password :</b>".$msg['password'].'
                                                <br>Thank You,<br>
                                                Webosys Team,<br>
-                                               <a href="http://webosys.com/del/center/index/login">Sign In</a> </div></body></html>';
+                                               <a href=http:"'.base_url().'center/index/login">Sign In</a> </div></body></html>';
                                                 
                                       
                                             
@@ -626,6 +645,7 @@ class Index extends CI_Controller
   public function update_profile()
         {
              $center_LoggedIn = $this->session->userdata('center_LoggedIn');
+             
         
         if(isset($center_LoggedIn) || $center_LoggedIn == TRUE)
         {
@@ -734,7 +754,7 @@ class Index extends CI_Controller
            $verify=$this->Centers_model->email_verification($email,$hash);
            if($verify)
            {
-               $this->session->set_flashdata('email_verify','Email Verification Successfull,Please Login...!');
+               $this->session->set_flashdata('email_verify','Account Verification Successfull,Please Login...!');
                redirect('center/index/login');
            }
            else

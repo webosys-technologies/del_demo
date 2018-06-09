@@ -12,9 +12,11 @@ class Orders extends CI_Controller
         $this->load->model('Courses_model');
         $this->load->model('Centers_model');
         $this->load->model('Orders_model');
+        $this->load->model('Coupons_model');
+        $this->load->model('System_model');
         $this->load->model('Order_details_model');
         
-        
+        $this->load->helper('form');        
             $this->load->helper('url');
 
 
@@ -28,10 +30,11 @@ class Orders extends CI_Controller
 
             $id=$this->session->userdata('center_id');
             $data['orders']=$this->Orders_model->get_all_id($id);
+            $result['system']=$this->System_model->get_info();
               $result['data']=$this->Centers_model->get_by_id($id);           
               $this->load->view('center/header',$result);
             $this->load->view('center/orders_view',$data);
-            $this->load->view('center/footer');
+            $this->load->view('center/footer',$result);
 
 
         }
@@ -46,6 +49,14 @@ class Orders extends CI_Controller
             $data = $this->Order_details_model->get_id($id);
             
          
+            echo json_encode($data);
+    }
+
+    function invoice_details($id)
+    {
+            $data = $this->Order_details_model->get_invoice($id);
+            
+        // print_r($data);
             echo json_encode($data);
     }
 
@@ -67,10 +78,11 @@ class Orders extends CI_Controller
            
             $this->session->set_userdata($data);     
           $center_id=$this->session->userdata('center_id');
+            $result['system']=$this->System_model->get_info();
            $result['data']=$this->Centers_model->get_by_id($center_id);           
              $this->load->view('center/header',$result);
-          $this->load->view('center/student_selected',$data);
-          $this->load->view('center/footer');
+          $this->load->view('center/selected_student',$data);
+          $this->load->view('center/footer',$result);
         } 
         else{
            $this->session->set_flashdata('error','please select at least one student...!');
@@ -85,8 +97,51 @@ class Orders extends CI_Controller
         
     }
 
-    
+    public function get_coupon()
+    { 
 
+     $id=$this->session->userdata('center_id');
+      $ids=array('0',$id);
+     $code=$this->input->post('txt1');
+     $amt=$this->input->post('amt');
+     $std=$this->input->post('std');
+
+      $data=$this->Coupons_model->get_coupon($code);
+
+      //print_r($data);
+      $dt=date('Y-m-d');
+      if (isset($data)) {
+      
+      if(($data->center_id == 0 || $data->center_id == $id) && ($data->coupon_status == 1) && ($data->coupon_valid_from <= $dt && $data->coupon_valid_to >= $dt  ) && ($data->coupon_min_student <= $std) && ($data->coupon_limit >= 1))
+      {
+        $per=$data->coupon_percentage/100;
+        $dis=$amt*$per;
+        $net=$amt-$dis;
+         $ses="Coupon Applied successfully";
+        $value = array('discount' => $dis ,
+                        'success' =>$ses );
+
+          // $this->session->set_flashdata('success','Coupon added successfully');
+
+
+        echo json_encode($value);
+      }
+      else{
+
+           //$this->session->set_flashdata('error','Coupon code is not valid or expired');
+      
+          echo json_encode(array('msg'=>'Coupon code is not valid or expired'));
+
+      }
+    }
+    else{
+    echo json_encode(array('msg'=>'Coupon code is Invalid'));
+
+    }
+
+
+
+    }
     
 
 
@@ -99,13 +154,21 @@ class Orders extends CI_Controller
        $email=$this->session->userdata('center_email');
        $mobile=$this->session->userdata('center_mobile');
        $center_name=$this->session->userdata('center_name');
-      $amount=$this->input->post('amount');
+      $amount=$this->input->post('amount');       
+      $payable_amount=$this->input->post('payable_amount');
+      $discount=$this->input->post('discount');
       $student=$this->input->post('student');
+      $coupon_code=$this->input->post('coupon_code');
+      $gst=$this->input->post('gst');
+
+      
 
       $order=array(
         'center_id' => $id,
         'order_name' => "Admission",
         'order_amount' => $amount,
+        'order_discount' => $discount,
+        'order_payable_amount' => $payable_amount,
         'student_qty' => $student,
         'order_date' =>date('Y-m-d'),
         'order_status' => "pending"
@@ -126,11 +189,18 @@ class Orders extends CI_Controller
           //optional udf values 
           $udf1 = $id;
           $udf2 = $res;
-          $udf3 = '';
           $udf4 = '';
           $udf5 = '';
-          
-           $hashstring = $MERCHANT_KEY . '|' . $txnid . '|' . $amount . '|' . $product_info . '|' . $customer_name . '|' . $customer_email . '|' . $udf1 . '|' . $udf2 . '|' . $udf3 . '|' . $udf4 . '|' . $udf5 . '||||||' . $SALT;
+
+          if (empty($coupon_code)) {
+        $udf3 ='';
+        
+
+      }else{
+          $udf3 = $coupon_code;
+
+      }
+           $hashstring = $MERCHANT_KEY . '|' . $txnid . '|' . $payable_amount . '|' . $product_info . '|' . $customer_name . '|' . $customer_email . '|' . $udf1 . '|' . $udf2 . '|' . $udf3 . '|' . $udf4 . '|' . $udf5 . '||||||' . $SALT;
            $hash = strtolower(hash('sha512', $hashstring));
            
          $success = base_url() . 'center/payment/status';  
@@ -142,13 +212,14 @@ class Orders extends CI_Controller
               'mkey' => $MERCHANT_KEY,
               'tid' => $txnid,
               'hash' => $hash,
-              'amount' => $amount,           
+              'amount' => $payable_amount,           
               'firstname' => $customer_name,
               'productinfo' => $product_info,
               'email' => $customer_email,
               'phone' => $customer_mobile,
               'udf1' => $udf1,
               'udf2' =>$udf2,
+              'udf3' =>$udf3,
               'no_of_student'=>$student,
               'center_name' =>$center_name,
               'service_provider' => ".payu_paisa", //for live change action  https://secure.payu.in
@@ -156,11 +227,14 @@ class Orders extends CI_Controller
               'failure' => $fail,
               'cancel' => $cancel            
           );
+
+           // print_r($data);
            
+            $result['system']=$this->System_model->get_info();
           $result['data']=$this->Centers_model->get_by_id($id);           
              $this->load->view('center/header',$result);
               $this->load->view('center/payu_view',$data);
-                 $this->load->view('center/footer');
+                 $this->load->view('center/footer',$result);
           
 
         }
@@ -173,10 +247,21 @@ class Orders extends CI_Controller
             
     }
 
-    // function test($data)
-    // {
+    function test()
+    {
+      $res=$this->Orders_model->test();
+      if ($res) {
+        $this->index();
+      }
+    }
 
-    // }
+    function test1()
+    {
+      $res=$this->Orders_model->test1();
+      if ($res) {
+        $this->index();
+      }
+    }
 
 
 

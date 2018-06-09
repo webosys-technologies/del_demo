@@ -68,6 +68,7 @@ class Topics_model extends CI_Model
              $this->db->set('topic_video_path',"");
                 $this->db->where('topic_id', $id);
                 $this->db->update($this->table); 
+                return $this->db->affected_rows();
         }
 
 	public function delete_by_id($id)
@@ -106,4 +107,13 @@ class Topics_model extends CI_Model
 		return $query->row();
 
 	}
+        
+        public function updatepath($id)
+        {
+            $data=array('topic_video_path'=>'videos/'.$id.'.mp4');
+            $where=array('topic_id'=>$id);
+            $query=$this->db->update($this->table,$data,$where);
+            
+            return $this->db->affected_rows();
+        }
 }

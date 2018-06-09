@@ -12,9 +12,13 @@ class Student extends CI_Controller
        // $this->load->view('center/header');
 
         $this->load->model('Students_model');
+        $this->load->model('Books_model');        
         $this->load->model('Centers_model');
         $this->load->model('Courses_model');
         $this->load->model('Cities_model');
+        $this->load->model('Batches_model');
+        $this->load->model('System_model');
+        $this->load->model('Sub_centers_model');
         $this->load->library('session');
         $this->load->helper(array('form', 'url','file'));
 
@@ -34,12 +38,16 @@ class Student extends CI_Controller
         {         $id=$this->session->userdata('center_id');
       		$data['student_data']=$this->Students_model->get_by_center_id($id);
           $data['courses']=$this->Courses_model->getall_courses();
+           $data['sub_center_data']=$this->Sub_centers_model->get_sub_centers_by_id($id);
           $data['cities']=$this->Cities_model->getall_cities("Maharashtra");
              $result['data']=$this->Centers_model->get_by_id($id);
+             $data['batches']=$this->Batches_model->get_batches_by_id($id);
+            $result['system']=$this->System_model->get_info();
+              
            
              $this->load->view('center/header',$result);
       		$this->load->view('center/student',$data);
-          $this->load->view('center/footer');
+          $this->load->view('center/footer',$result);
 
 
 
@@ -59,32 +67,13 @@ class Student extends CI_Controller
         $id=$this->session->userdata('center_id');
 
 		         
-            // $this->load->library('form_validation');
-            // $this->form_validation->set_rules('course','Course','required');             
-            // $this->form_validation->set_rules('fname','First Name','trim|required|max_length[128]');            
-            // $this->form_validation->set_rules('lname','Last Name','trim|required|max_length[128]');
-            // $this->form_validation->set_rules('email','Email','trim|required|valid_email|max_length[128]');;
-            // $this->form_validation->set_rules('mobile','Mobile Number','required|min_length[10]');
-            // $this->form_validation->set_rules('gender','Gender','required');
-            // $this->form_validation->set_rules('dob','Date of Birth','required');
-            // $this->form_validation->set_rules('last_education','Last Education','trim|required|max_length[128]');
-            // $this->form_validation->set_rules('address','Address','trim|required');
-            // $this->form_validation->set_rules('city','City','trim|required');
-            // $this->form_validation->set_rules('state','State','trim|required');
-            // $this->form_validation->set_rules('pincode','Pincode','trim|required|max_length[6]');
-            
-            // $data=false;
-            // if($data==FALSE)
-            // {
-            //     echo json_encode(array("status" => FALSE));
-
-            // }
-            // else
-            // {
+           
             	$data= array(
                 'center_id' =>$id,
+                'sub_center_id' => $this->input->post('sub_center_id'),
                 'course_id' => $this->input->post('course_id'),
-                'student_book' =>$this->input->post('book'),
+                'batch_id' => $this->input->post('batch_id'),
+                'book_id' =>$this->input->post('book_id'),
                 'student_fname' => strtoupper($this->input->post('student_fname')),
                 'student_lname' => strtoupper($this->input->post('student_lname')),
                 'student_email' => $this->input->post('student_email'),
@@ -120,7 +109,7 @@ class Student extends CI_Controller
   function ajax_edit($id)
     {
             $data = $this->Students_model->get_id($id);
-         
+//         print_r($data);
             echo json_encode($data);
     }
     
@@ -148,12 +137,12 @@ class Student extends CI_Controller
     function student_update()
     {
         
-            
+//             echo $this->input->post('batch_id');
           
                 $data= array(
                 'student_id'=>$this->input->post('student_id'),
-                'course_id' => $this->input->post('course_id'),
-                'student_book' =>$this->input->post('book'),                
+                'sub_center_id' => $this->input->post('sub_center_id'),
+                'batch_id' => $this->input->post('batch_id'),                  
                 'student_fname' => strtoupper($this->input->post('student_fname')),
                 'student_lname' => strtoupper($this->input->post('student_lname')),
                 'student_email' => $this->input->post('student_email'),
@@ -168,6 +157,14 @@ class Student extends CI_Controller
                 
                 
                 );
+                $status=$this->input->post('student_status');
+
+                if ($status == 0) {
+                  $data['course_id']=$this->input->post('course_id');
+                  $data['book_id']=$this->input->post('book_id');
+                }
+
+
 
                 $res=$this->pic_upload($data);              
                     
@@ -289,7 +286,16 @@ class Student extends CI_Controller
 
             
     }
+
+
     
+ function show_book($id)
+        {
+           
+            $books=$this->Books_model->book_by_course_id($id);
+            echo json_encode($books);
+        }
+
      function show_cities($state)
         {
            
@@ -298,7 +304,7 @@ class Student extends CI_Controller
             echo json_encode($cities);
         }
     
-         public function sub_center_id()
+    public function sub_center_id()
         {
             $res=$this->Students_model->sub_center_id();
             if($res)
@@ -307,7 +313,17 @@ class Student extends CI_Controller
             }
         }
         
-        public function sub_centers_table()
+         public function sub_centers_id()
+        {
+            $res=$this->Students_model->sub_centers_id();
+            if($res)
+            {
+                redirect('center/student');
+            }
+        }
+        
+        
+    public function sub_centers_table()
     {
        $res=$this->Students_model->sub_centers_table();
        if($res)
@@ -324,11 +340,42 @@ class Student extends CI_Controller
            redirect('center/student');
        }
     }
+   
+    public function batch_table()
+  {
+      $res=$this->Students_model->batch_table();
+  
+      if($res)
+       {
+           redirect('center/student');
+       }
+  }
+  
+  public function batch_id()
+  {
+      $res=$this->Students_model->batch_id();
+  
+      if($res)
+       {
+           redirect('center/student');
+       }
+  }
+   public function coupon_code()
+  {
+      $res=$this->Students_model->coupon_code();
+  
+      if($res)
+       {
+           redirect('center/student');
+       }
+  }
+  
+  
 
 
 }
 
-                     
+  
 
 
 

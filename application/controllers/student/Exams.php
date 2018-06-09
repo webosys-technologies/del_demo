@@ -249,7 +249,7 @@ class Exams extends CI_Controller
                
                 $rand=$this->Questions_model->no_of_questions();
                            
-                  $que_field=array();
+              
                   $i=1;
                   while($i<=10)
                   {
@@ -258,12 +258,8 @@ class Exams extends CI_Controller
                   $question=$this->Questions_model->get_questions($qid,$course_id);
                if($question)
                {                         
-                 if(in_array($question->question_id, array_column($que_field, 'question_id')))
-                 {                   
-                 }
-                 else
-                 {
-                     $que_field['q'.$i]=array('qno'=>$i,
+                 
+                   $que_field['q'.$i]=array('qno'=>$i,
                                     'question_id'=>$question->question_id,
                                     'question_name'=>$question->question_name,
                                     'question_option_a'=>$question->question_option_a,
@@ -273,7 +269,7 @@ class Exams extends CI_Controller
                                     'qp_no_of_qsn'=>10
                                    );
                      $i++;
-                 }
+
                  
                }
                              
@@ -377,7 +373,7 @@ class Exams extends CI_Controller
                                 'exam_taken_time'=>$min.':'.$sec,
                                 'exam_percentage'=>$per,
                                 'exam_result'=>$result,
-                                'exam_date'=>date('Y-m-d h:i:sa'),
+                                'exam_date'=>date('Y-m-d'),
                                 'exam_type'=>$type,
                                 'exam_status'=>'1');
              

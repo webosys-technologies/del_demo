@@ -174,6 +174,7 @@
                      var length=str_value.length;
                      var alpha_exp=/^[a-zA-Z]+$/;
                      var space_exp=/\s/;
+                    
                      
                       if(str_value=="")
                      {
@@ -295,11 +296,9 @@
                   {
                        $('#mobile_err').html("Invalid Mobile Number ");
                       $('#mobile_err').show();
-                      
-                     // err_msg=true;
+                                         
                   }
-                 
-                    else if(lenght<10 || length>11)
+                  else if(lenght<10 || length>11)
                   {
                       $('#mobile_err').html("Mobile no digit should be 10 or 11 digit");
                       $('#mobile_err').show();

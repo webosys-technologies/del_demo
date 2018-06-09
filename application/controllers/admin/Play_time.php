@@ -10,6 +10,7 @@ class Play_time extends CI_Controller {
 			$this->load->helper('url');
 	 		$this->load->model('Courses_model');
 	 		$this->load->model('User_model');
+            $this->load->model('System_model');
                         $this->load->model('Students_model');
                          $this->load->model('Play_time_model');
 
@@ -25,11 +26,12 @@ class Play_time extends CI_Controller {
                
 		$data['student_data']=$this->Students_model->getall_students();
                 $uid=$this->session->userdata('user_id');
+            $result['system']=$this->System_model->get_info();
                 $result['user_info']=$this->User_model->get_user_by_id($uid);
        
                 $this->load->view('admin/header',$result);
 		$this->load->view('admin/play_time_view',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer',$result);
 
         }
         else
@@ -64,9 +66,13 @@ class Play_time extends CI_Controller {
              $result=$this->Play_time_model->update_stud_play_time(array ('remaining_play_time' => ltrim($play_time[$i]),
 	     					                          ),
                                                                      array('student_id'=>$id,'topic_id'=>$topic_id[$i]));
-	   }
+	   if($result)
+            {
+                $this->session->set_flashdata('success', 'Play Time Updated Successfully');
+            }
+             }
 	   
-//	    die;
+              
      
               echo json_encode(array('status'=>true));
     }

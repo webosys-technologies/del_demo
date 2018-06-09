@@ -45,29 +45,46 @@ p{
         <li >Manage Student</li>
       </ol>
     </section><br>
-    <form id="table" name="table" action="" method="post">
+    <form id="table" name="table" action="<?php echo base_url(); ?>admin/Orders/selected_mem" method="post">
     <section class="content-header">
     <div class="row">
     <div class="col-md-4">
-    <button type="button" class="btn btn-primary" onclick="add_student()"><i class="glyphicon glyphicon-plus"></i> Add Student</button>
+    <button type="button" class="btn btn-primary" onclick="add_student()"><i class="glyphicon glyphicon-plus"></i> Add Student</button>  
+       <button type="submit" class="btn btn-warning" id="payment"  ><i class="fa fa-inr"></i> Make Payment</button>
+
+      <!-- <button type="button" class="btn btn-warning" onclick="upload_student_view()"><i class="glyphicon glyphicon-plus"></i> Upload via</button>     -->
+    </div>
+    <div class="col-md">
     
     </div>
         <div class="col-md-6">
          <?php
         $this->load->helper('form');
+        $success = $this->session->flashdata('success');
+        if($success)
+        {
+            ?>
+            
+        <div class="alert alert-success alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $success; ?> 
+  </div>
+        <?php }?>
+             
+              <?php
+        $this->load->helper('form');
         $error = $this->session->flashdata('error');
         if($error)
         {
-            ?>
-            <script>
-                alert("<?php echo $error; ?> ");
-             </script>
-        <!--            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <?php echo $error; ?>                    
-            </div>-->
-        <?php }?>
+            ?>           
+        <div class="alert alert-danger alert-dismissible" data-auto-dismiss="2000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> <?php echo $error; ?> 
+  </div>
+        <?php }?>    
+       
         </div>
+      
     </div>
     <br>
     <div class="form-group" style="width:350px" >
@@ -83,18 +100,18 @@ p{
         
       <thead class="thead-dark">
         <tr bgcolor="#338cbf" style="color:#fff">
-          <th width=5%>SELECT <input type="checkbox" id="select_all"/> ALL</th>          
+          <th style="width:3%;">ALL<input type="checkbox" id="select_all"/> </th>          
           <th>ID</th>
           <th width=10%>PICTURE</th>
           <th>NAME</th>
           <th>COURSE</th>
-          <th>MOBILE</th>
-          <th>CITY</th>
+          <th>CENTER</th>
+          <th>BATCH</th>
+          <th>BOOK</th>
           <th>CREATED AT</th>
           <th>STATUS</th>
 
-          <th style="width:150px;">ACTION
-          </th>
+          <th style="width:10%;">ACTION</th>
         </tr>
       </thead>
       <tbody id="myTable">
@@ -105,16 +122,17 @@ p{
           
          foreach($student_data as $res){
           $status=$res->student_status; ?>
-             <tr <?php if($status == 1) { ?> style="background-color:#61F48B "  <?php } ?> >
-                            <td><input  <?php if($status == 0) { ?> class="checkbox" <?php } ?>
+             <tr <?php if($status == 1) { ?> style="background-color:#61F48B "  <?php }elseif ($status == 2) { ?> style="background-color:#ec5858; " <?php  } ?> >
+                            <td><input  <?php if($status == 0 || $status == 2 ) { ?> class="checkbox" <?php } ?>
                               type="checkbox" name="cba[]"  value="<?php echo $res->student_id; ?>"
                               <?php if($status == 1) { ?> disabled <?php } ?> ></td>
                                         <td><?php echo $res->student_id;?></td>
                                         <td><img src="<?php echo base_url(); ?><?php if (!empty($res->student_profile_pic)){echo $res->student_profile_pic;} else{echo "profile_pic/avatar.png";}?>" class="avatar img-responsive"  width="40px" height="30px"></td>
                                         <td><?php echo $res->student_fname.' '. $res->student_lname; ?></td>
                                         <td><?php echo $res->course_name;?></td>
-                                       <td><?php echo $res->student_mobile;?></td>
-                                       <td><?php echo $res->student_city;?></td>
+                                       <td><?php echo $res->center_name;?></td>
+                                       <td><?php echo $res->batch_name;?></td>
+                                       <td><?php echo $res->book_name ; ?></td>
                                        <td><?php echo $res->student_created_at;?></td>
                                        <td>
                                            <?php 
@@ -122,16 +140,19 @@ p{
                                        {
                                            echo "Active";
                                        }
-                                       else 
+                                       elseif ($status == 2) {
+                                         echo "Completed";
+                                         }
+                                       else
                                        {
                                            echo "Not Active";
                                        }
                                        ?></td>
                                        <td>
   
-                  <button type="button" class="btn btn-success" onclick="edit_student(<?php echo $res->student_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="Edit Student" ><i class="glyphicon glyphicon-pencil"></i></button>
-                  <button type="button" class="btn btn-info" onclick="view_student(<?php echo $res->student_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="View Student"><i class="glyphicon glyphicon-eye-open"></i></button>
-                  <button type="button" class="btn btn-danger" onclick="delete_student(<?php echo $res->student_id;?>)" data-toggle="tooltip" data-placement="bottom" title="Delete Student" ><i class="glyphicon glyphicon-trash"></i></button>
+                  <button type="button" class="btn btn-success btn-xs" onclick="edit_student(<?php echo $res->student_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="Edit Student" ><i class="glyphicon glyphicon-pencil"></i></button>
+                  <button type="button" class="btn btn-info btn-xs" onclick="view_student(<?php echo $res->student_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="View Student"><i class="glyphicon glyphicon-eye-open"></i></button>
+                  <button type="button" class="btn btn-danger btn-xs" onclick="delete_student(<?php echo $res->student_id;?>)" data-toggle="tooltip" data-placement="bottom" title="Delete Student" ><i class="glyphicon glyphicon-trash"></i></button>
 
 
                 </td>
@@ -220,6 +241,81 @@ $("#img").change(function (e) {
      
      
      
+       $(document).ready( function () {
+
+     $("#course_id").change(function() {     
+
+   var el = $(this) ;
+              $("#book").html("");
+
+
+var id=el.val();
+
+        if(id>0)
+        {
+      $.ajax({
+       url : "<?php echo site_url('index.php/admin/Students/show_book')?>/" + id,        
+       type: "GET",
+              
+       dataType: "JSON",
+       success: function(data)
+       {
+        
+          $.each(data,function(i,row)
+          {
+          
+              $("#book").append('<option value="'+ row.book_id +'">' + row.book_name + '</option>');
+          }
+          );
+       },
+       error: function (jqXHR, textStatus, errorThrown)
+       {
+         alert('Error...!');
+       }
+     });
+     }
+    
+ });
+ 
+ 
+      $("#center_id").change(function() {
+        
+   var el = $(this) ;
+              $("#batch_id").html("");
+
+
+var id=el.val();
+
+        if(id>0)
+        {
+      $.ajax({
+       url : "<?php echo site_url('index.php/admin/Students/show_batch')?>/" + id,        
+       type: "GET",
+              
+       dataType: "JSON",
+       success: function(data)
+       {
+        
+          $.each(data,function(i,row)
+          {
+          
+              $("#batch_id").append('<option value="'+ row.batch_id +'">' + row.batch_name+'&nbsp;&nbsp;&nbsp;('+row.batch_time+')</option>');
+          }
+          );
+       },
+       error: function (jqXHR, textStatus, errorThrown)
+       {
+         alert('Error...!');
+       }
+     });
+     }
+    
+ });
+
+
+   });
+     
+     
      
    function remove_profile_pic(id)
    {
@@ -261,13 +357,21 @@ $("#myName").on("keyup", function() {
       $("#img_box").hide();
       $("#box").show();
       $('#remove_pic').hide();
+      $('#pass').hide();
+//       $("#book").html("");
+       
+        $('#course_id').attr("disabled",false);
+              $("#book").attr("disabled",false);
+              $('[name="center_id"]').attr("disabled",false);
     }
 
     function edit_student(id)
     {
+      $('#pass').show();
+
       save_method = 'update';
      $('#form')[0].reset(); // reset form on modals
-
+      $("#book").html("");
       //Ajax Load data from ajax
       $.ajax({
         url : "<?php echo site_url('index.php/center/Student/ajax_edit/')?>/" + id,        
@@ -276,11 +380,15 @@ $("#myName").on("keyup", function() {
         dataType: "JSON",
         success: function(data)
         {        
+           
 //                     $("#append_city").remove();
             $('[name="student_id"]').val(data.student_id);
             $('[name="center_id"]').val(data.center_id);
             $('[name="course_id"]').val(data.course_id);
-            $('[name="book"]').val(data.student_book);            
+             $("#book").append('<option id="book_n" value="'+ data.book_id +'">' + data.book_name + '</option>');            
+              $("#batch_id").append('<option id="batch_n" value="'+ data.batch_id +'">' + data.batch_name + '</option>');            
+           
+//            $('[name="book"]').val(data.student_book);            
             $('[name="student_fname"]').val(data.student_fname);
             $('[name="student_lname"]').val(data.student_lname);
             $('[name="student_email"]').val(data.student_email);
@@ -290,6 +398,21 @@ $("#myName").on("keyup", function() {
             $('[name="student_last_education"]').val(data.student_last_education);
             $('[name="student_address"]').val(data.student_address);  
             $('[name="student_city"]').val(data.student_city);
+            $('[name="student_status"]').val(data.student_status);
+            $('[name="student_password"]').val(data.student_password);
+             if(data.student_status >= 1)
+            {
+              $('#course_id').attr("disabled",true);
+              $("#book").attr("disabled",true);
+              $('[name="center_id"]').attr("disabled",true);
+
+            }else{ 
+              $('#course_id').attr("disabled",false);
+              $("#book").attr("disabled",false);
+              $('[name="center_id"]').attr("disabled",false);
+             }
+            
+            
              if(data.student_profile_pic)
             {
                 $('#remove_pic').show();
@@ -306,7 +429,7 @@ $("#myName").on("keyup", function() {
             
             if(data.student_profile_pic)
             {
-                 $("#box").hide();
+            $("#box").hide();
             $("#img_box").show();            
             }
             else
@@ -314,6 +437,8 @@ $("#myName").on("keyup", function() {
                  $("#img_box").hide(); 
                 $("#box").show();
             }
+
+           
             
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Student'); // Set title to Bootstrap modal title
@@ -384,6 +509,10 @@ $("#myName").on("keyup", function() {
 
     function save()
     {
+        
+        var val= true;
+        if(val ==true)
+        {
         var data = new FormData(document.getElementById("form"));
 
       var url;
@@ -407,11 +536,8 @@ $("#myName").on("keyup", function() {
             dataType: "JSON",
             success: function(json)
             {
-                // if(data.error!=='true')
-                // {
-                //     alert(data.error);
-                // }
-                    alert("Data Save Successfully...!"); 
+               
+                    
                //if success close modal and reload ajax table
                $('#modal_form').modal('hide');
               location.reload();// for reload a page
@@ -423,6 +549,7 @@ $("#myName").on("keyup", function() {
                 alert('Error adding / update data in student');
             }
         });
+        }
     }
 
     function delete_student(id)
@@ -436,7 +563,7 @@ $("#myName").on("keyup", function() {
             //dataType: "JSON",
             success: function(data)
             {
-                alert("Deleted successfully");  
+                
                location.reload();
             },
             error: function (jqXHR, textStatus, errorThrown)
@@ -469,6 +596,69 @@ $("#myName").on("keyup", function() {
         }
     });
     
+    function show_password() {
+  
+    var x =$("#password").prop('readonly');
+    if(x == true)
+     {
+         
+        $("#password").prop('readonly',false);
+    }
+    else
+    {
+        
+        $("#password").prop('readonly',true);
+   }
+   }
+
+   function upload_student_view()
+   {
+
+      $('#form')[0].reset(); // reset form on modals
+      $('#modal_form3').modal('show'); // show bootstrap modal
+      $('.modal-title').text('Upload Student'); // Set Title to Bootstrap modal title
+
+   }
+
+   function save_upload_student()
+   {
+    var val= true;
+        if(val ==true)
+        {
+        var data = new FormData(document.getElementById("form3"));
+
+      
+        url = "<?php echo site_url('index.php/admin/Students/ExcelDataAdd')?>";
+      
+
+       // ajax adding data to database
+          $.ajax({
+            url : url,
+            type: "POST",
+            async: false,
+            processData: false,
+            contentType: false,            
+            data: data,
+            dataType: "JSON",
+            success: function(json)
+            {
+
+              alert('success');
+               
+                    
+              //  //if success close modal and reload ajax table
+              //  $('#modal_form').modal('hide');
+              // location.reload();// for reload a page
+             
+            
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data in student');
+            }
+        });
+        }
+   }
  
     
      
@@ -481,7 +671,7 @@ $("#myName").on("keyup", function() {
     <div class="modal-content">
       <div class="modal-header" style="color:#fff; background-color:#338cbf" >
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center><h3 class="modal-title"></h3></center>
+        <center><h3 class="modal-title">Course Form</h3></center>
       </div>
          <form action="#" name="form_student" id="form2" class="form-horizontal">
       <div class="modal-body form">
@@ -606,6 +796,8 @@ $("#myName").on("keyup", function() {
       <div class="modal-body form">
           <input type="hidden" value="" name="student_id"/>
           <input type="hidden" value="" name="center_id"/>
+          <input type="hidden" value="" name="student_status">
+           
 
           <div class="box-body">
                <div class="row">
@@ -627,9 +819,9 @@ $("#myName").on("keyup", function() {
                  <div class="row">
                                 <div class="col-md-5">                                
                                     <div class="form-group">
-                                        <label for="fname">Center</label>
-                                           <select name="center_id" class="form-control required" required>
-                                                <!--<option value="0">Select Course</option>-->
+                                        <label for="fname">Center<span style="color:red">*</span></label>
+                                           <select name="center_id" id="center_id" class="form-control required" required>
+                                             <option value="">--Select Center--</option>  
                                             <?php 
                                             foreach($centers as $row)
                                             { 
@@ -639,18 +831,37 @@ $("#myName").on("keyup", function() {
                                         </select>
 
                                         </div>
-                                    
-                                </div>                               
-                                
-                            </div>
+                                    <span style="color:red" id="select1_error"></span>
+                                </div>  
+                     
+                     
+                      <div class="col-md-5 col-md-offset-1">                                
+                                    <div class="form-group">
+                                        <label for="">Batch Name<span style="color:red">*</span></label>
+                                           <select name="batch_id" id="batch_id" class="form-control required" required>
+                                             <option value="">--Select Batch--</option>  
+                                            <?php 
+                                            foreach($batches as $bat)
+                                            { 
+                                              if ($bat->batch_status==1)
+                                                  {                                                
+                                              echo '<option value="'.$bat->batch_id.'">'.$bat->batch_name.'&nbsp;&nbsp;&nbsp;('.$bat->batch_time.')</option>';
+                                            }
+                                            }
+                                            ?>
+                                        </select>
+                                        </div>                                    
+                    <span style="color:red" id="select2_error"></span>
+                      </div>
+                       </div>
               
               
                             <div class="row">
                                 <div class="col-md-5">                                
                                     <div class="form-group">
-                                        <label for="fname">Course</label>
-                                           <select name="course_id" class="form-control required" required>
-                                                <!--<option value="0">Select Course</option>-->
+                                        <label for="fname">Course<span style="color:red">*</span></label>
+                                           <select name="course_id" id="course_id" class="form-control required" required>
+                                                <option value="">--Select Course--</option>
                                             <?php 
                                             foreach($courses as $row)
                                             { 
@@ -660,85 +871,98 @@ $("#myName").on("keyup", function() {
                                         </select>
 
                                         </div>
-                                    
+                               <span style="color:red" id="select3_error"></span>     
                                 </div>
+                               
+
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="lname">Book</label>
-                                        <select name="book" class="form-control required" required>
-                                          <option value="1">With Book</option>
-                                          <option value="0">Without Book</option>
+                                        <label for="lname">Book<span style="color:red">*</span></label>
+                                        <select name="book" id="book" class="form-control required" required>
+                                            <option value="">--Select Book--</option> 
                                         </select>
                                       <span class="text-danger" id="lname_err"></span>
                                     </div>
+                                  <span style="color:red" id="select4_error"></span>
+
                                 </div>
                                 
                             </div>
+
                             <div class="row">
                                 <div class="col-md-5  ">                                
                                     <div class="form-group">
-                                        <label for="fname">First Name</label>
-                                        <input type="text" class="form-control required" id="fname" name="student_fname" maxlength="128"   style="text-transform:uppercase" required>
+                                        <label for="fname">First Name<span style="color:red">*</span></label>
+                                        <input type="text" placeholder="First Name" class="form-control required" id="fname" name="student_fname" maxlength="128"   style="text-transform:uppercase" required>
                                         <span class="text-danger" id="fname_err"></span>
-
+                                        
                                     </div>
+                                    <span style="color:red" id="text_field1_error"></span>
                                     
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="lname">Last Name</label>
-                                        <input type="text" class="form-control required email" id="lname"  name="student_lname" maxlength="128"  style="text-transform:uppercase" required>
+                                        <label for="lname">Last Name<span style="color:red">*</span></label>
+                                        <input type="text" placeholder="Last Name" class="form-control required email" id="lname"  name="student_lname" maxlength="128"  style="text-transform:uppercase" required>
                                       <span class="text-danger" id="lname_err"></span>
                                     </div>
+                                    <span style="color:red" id="text_field2_error"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="email">E-mail</label>
-                                        <input type="email" class="form-control required" id="email"  name="student_email" maxlength="128" required>
-                                        <span class="text-danger" id="email_err"></span>
+                                        <input type="email" placeholder="Email (optional)" class="form-control required" id="email"  name="student_email" maxlength="128" required>
+                                        <span style="color:red" id="email_err"></span>
                                     </div>
+                                    
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="mobile">Mobile Number</label>
-                                        <input type="text" class="form-control required digits" id="mobile" name="student_mobile" maxlength="10" required>
+                                        <label for="mobile">Mobile Number<span style="color:red">*</span></label>
+                                        <input type="text" placeholder="Mobile no" class="form-control required digits" id="mobile" name="student_mobile" maxlength="10" required>
                                        <span class="text-danger" id="mobile_err"></span>
                                     </div>
+                                    <span style="color:red" id="text_field3_error"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <label for="gender">Gender</label>
+                                        <label for="gender">Gender<span style="color:red">*</span></label>
                                         <select class="form-control required" id="gender" name="student_gender" required>
                                             <option value="0">Select Gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                         </select>
                                     </div>
+                                    <span style="color:red" id="select5_error"></span>
                                 </div> 
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="dob">Date Of Birth</label>
+                                        <label for="dob">Date Of Birth<span style="color:red">*</span></label>
                                         <input type="date" class="form-control required digits" id="dob" name="student_dob" maxlength="10" required>
                                     </div>
+                                     <span style="color:red" id="select6_error"></span>
                                 </div>   
+                               
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="last_education">Last Education</label>
-                                        <input type="text" class="form-control required" id="last_education"  name="student_last_education" maxlength="128" required>
+                                        <input type="text" placeholder="Last Education (optional)" class="form-control required" id="last_education"  name="student_last_education" maxlength="128" required>
                                     </div>
+                                    
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <textarea class="form-control required " id="address" name="student_address" maxlength="128" required></textarea>
+                                        <label for="address">Address<span style="color:red">*</span></label>
+                                        <textarea class="form-control required " placeholder="Address Line1" id="address" name="student_address" maxlength="128" required></textarea>
                                     </div>
+                                    <span style="color:red" id="text_field4_error"></span>
                                 </div>
                             </div>
 <!--                            <div class="row">
@@ -760,16 +984,17 @@ $("#myName").on("keyup", function() {
                              <div class="row">
                                  <div class="col-md-5" >
                                 <div class="form-group">
-                                <label for="text">State</label><span style="color:red">*</span>
+                                <label for="text">State<span style="color:red">*</span></label>
                                 <select name="student_state" id="state" class="form-control">
                                     <option value="">-- Select State --</option>
                                   <option value="Maharashtra">Maharashtra</option>
                                 </select>
                                 </div>
+                                      <span style="color:red" id="select7_error"></span>
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">                            
                                 <div class="form-group">
-                                <label for="text">City</label><span style="color:red">*</span>
+                                <label for="text">City<span style="color:red">*</span></label>
                                 <select class="form-control" id="city_name" name="student_city">
                                   <option value="">-- Select City --</option>
                                  <?php 
@@ -781,16 +1006,18 @@ $("#myName").on("keyup", function() {
                                   <!--<option id="city_names"></option>-->
                                 </select>
                                 </div>
+                                     <span style="color:red" id="select8_error"></span>
                                 </div>
                             </div>
               
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <label for="pincode">Pincode</label>
-                                        <input type="text" class="form-control required" id="pincode"  name="student_pincode" maxlength="6" required>
+                                        <label for="pincode">Pincode<span style="color:red">*</span></label>
+                                        <input type="text" placeholder="pincode" class="form-control required" id="pincode"  name="student_pincode" maxlength="6" required>
                                         <span class="text-danger" id="pincode_err"></span>
                                     </div>
+                                    <span style="color:red" id="text_field5_error"></span>
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">
                                       <div class="form-group">
@@ -800,16 +1027,31 @@ $("#myName").on("keyup", function() {
                                           Choose Image</label> <br>
                                           <span id="img_error" style="color:red"></span>
                                       </div>
+                                    <span style="color:red" id="text_field6_error"></span>
                                 </div>
+                            </div>
+                            <div class="row " id="pass">
+                              <div class="form-group">
+
+                                <div class="col-md-5">
+                            <label for="subject">Password<span style="color:red">*</span><input type="checkbox" name="ch" id="chkpass" onclick="show_password()" ></label>
+                              <input class="form-control" name="student_password" value="" id="password" required="" minlength="8" placeholder="Password" type="text" readonly="true" />
+                                <span class="text-danger" id="password_err"></span>
+          
+                                 </div>
+                                
+                              </div>
+                              
                             </div>
                         </div><!-- /.box-body -->
     
         
           </div>
-          <div class="modal-footer">
+            <div class="modal-footer">
             <button type="button" id="btnSave" onclick="save()"  class="btn btn-success">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
+        
           </form>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -817,6 +1059,45 @@ $("#myName").on("keyup", function() {
   <!-- End Bootstrap modal -->
 
 <!-- for Payment view -->
+
+  <!-- Bootstrap modal -->
+  <div class="modal fade" id="modal_form3" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#338cbf" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title">Course Form</h3></center>
+      </div>
+         <form action="#" name="form_student" id="form3" class="form-horizontal">
+      <div class="modal-body form">
+
+
+                                <div class="col-md-5 col-md-offset-1">
+                                      <div class="form-group">
+                                          <label for="state">Choose File</label> <br>
+                                          <label id="file_label" class="btn btn-info">
+                                          <input type = "file" name ="userfile" id="img" accept="file/*" required />
+                                          Choose File</label> <br>
+                                          <span id="img_error" style="color:red"></span>
+                                      </div>
+                                    <span style="color:red" id="text_field6_error"></span>
+                                </div>
+
+
+       
+          
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="btnSave" onclick="save_upload_student()"  class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+
+          </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+  
 
 
 

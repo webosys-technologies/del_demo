@@ -22,6 +22,20 @@ class Books_model extends CI_Model
         return $query->result();
         }
         
+        public function check_book($check)
+        {
+            $this->db->from($this->table);
+            $this->db->where($check);
+            $query=$this->db->get();
+            $res=$query->num_rows();
+            if($res>0)
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
          public function get_book_rows()
         {
         $this->db->from($this->table);
@@ -67,13 +81,28 @@ class Books_model extends CI_Model
 	}
         
         
-        public function get_book_count()
-        {   
-            $this->db->from($this->table);
-            $this->db->where('book_status','1');
-            $query=$this->db->get();
-            return $query->num_rows();
-            
+    public function get_book_count()
+    {   
+        $this->db->from($this->table);
+        $this->db->where('book_status','1');
+        $query=$this->db->get();
+        return $query->num_rows();
+        
+    }
+
+    public function book_by_course_id($id)
+	{
+		$this->db->from($this->table);
+		$this->db->where('course_id',$id);
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+        
+        public function book_created_at()
+        {
+            $this->db->query('ALTER TABLE `books` ADD `book_created_at` DATE NOT NULL AFTER `book_price`');
+            return true;
         }
 
 	

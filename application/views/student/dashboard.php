@@ -1,5 +1,5 @@
 
-    <!--next here sunil-->
+<!--next here sunil-->
 <!DOCTYPE html>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -234,8 +234,8 @@
               <div class="pull-right box-tools">
                 <!-- button with a dropdown -->
                 <div class="btn-group">
-<!--                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-bars"></i></button>-->
+                  <!--<button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">-->
+                    <!--<i class="fa fa-bars"></i></button>-->
                   <ul class="dropdown-menu pull-right" role="menu">
                     <li><a href="#">Add new event</a></li>
                     <li><a href="#">Clear events</a></li>
@@ -515,11 +515,11 @@
   $.widget.bridge('uibutton', $.ui.button);
 </script>-->
  <!--Bootstrap 3.3.7--> 
-<!--<script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
- <!--Morris.js charts--> 
-<!--<script src="<?php echo base_url(); ?>assets/bower_components/raphael/raphael.min.js"></script>-->
-<!--<script src="<?php echo base_url(); ?>assets/bower_components/morris.js/morris.min.js"></script>-->
- <!--Sparkline--> 
+<!--<script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+ Morris.js charts 
+<script src="<?php echo base_url(); ?>assets/bower_components/raphael/raphael.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/bower_components/morris.js/morris.min.js"></script>
+ Sparkline -->
 <script src="<?php echo base_url(); ?>assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
  <!--jvectormap--> 
 <script src="<?php echo base_url(); ?>assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
@@ -534,14 +534,14 @@
  <!--Bootstrap WYSIHTML5--> 
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
  <!--Slimscroll--> 
-<!--<script src="<?php echo base_url(); ?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>-->
+<script src="<?php // echo base_url(); ?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
  <!--FastClick--> 
-<!--<script src="<?php echo base_url(); ?>assets/bower_components/fastclick/lib/fastclick.js"></script>
- AdminLTE App 
-<script src="<?php echo base_url(); ?>assets/dist/js/adminlte.min.js"></script>-->
+<script src="<?php echo base_url(); ?>assets/bower_components/fastclick/lib/fastclick.js"></script>
+ <!--AdminLTE App--> 
+<!--<script src="<?php echo base_url(); ?>assets/dist/js/adminlte.min.js"></script>-->
  <!--AdminLTE dashboard demo (This is only for demo purposes)--> 
 <script src="<?php echo base_url(); ?>assets/dist/js/pages/dashboard.js"></script>
- <!--AdminLTE for demo purposes--> 
-<!--<script src="<?php echo base_url(); ?>assets/dist/js/demo.js"></script>-->
+<!-- AdminLTE for demo purposes 
+<script src="<?php echo base_url(); ?>assets/dist/js/demo.js"></script>-->
 <!--</body>
 </html>-->

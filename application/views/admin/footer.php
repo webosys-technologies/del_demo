@@ -4,7 +4,7 @@
         <div class="pull-right hidden-xs">
           
         </div>
-        <strong>Copyright &copy; 2018 <a href="http://webosys.com/">Webosys Technologies</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2018 <a href="http://webosys.com/"><?php echo $system->system_merchant_name ; ?></a>.</strong> All rights reserved.
     </footer>
     
     <!-- jQuery UI 1.11.2 -->
@@ -18,6 +18,8 @@
     <script src="<?php echo base_url(); ?>assets/js/validation.js" type="text/javascript"></script>
     <script src="<?php echo base_url(); ?>assets/js/validation.js" type="text/javascript"></script>
     <script src="<?php echo base_url(); ?>assets/js/validation1.js" type="text/javascript"></script>
+    <!--modal form validation-->
+    <script src="<?php echo base_url('assets/js/modal_form_validation.js'); ?>" type="text/javascript"></script>
     
 <script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

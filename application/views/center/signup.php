@@ -63,7 +63,7 @@
 	<div class="col-md-offset-3 col-md-6 col-md-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-heading" style="background:#3c8dbc">
-                            <h4 style="color:white">Center Registration Form</h4>
+                            <h4 style="color:white">Center Registration</h4>
 			</div>
 			<div class="panel-body">
 				<?php $attributes = array("name" => "registrationform");
@@ -202,12 +202,14 @@
                             <div class="col-md-5" > 
 				<div class="form-group">
 					<button name="submit" type="submit" class="btn btn-success">Signup</button>
-					<button name="cancel" type="reset" class="btn btn-danger">Cancel</button>
+					<button name="cancel" type="reset" class="btn btn-danger">Clear</button>
 				</div>
                            </div>
                                 </div>
-                                <div class="col-md-offset-6">
+                            <div class="row">
+                                <div class="col-md-8">
                                     <a href="<?php echo base_url();?>center/index/login">I already have an account? Sign in here.</a>    
+                                </div>
                                 </div>
                             </div>
 				<?php echo form_close(); ?>

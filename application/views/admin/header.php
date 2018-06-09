@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>Admin| Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -80,7 +80,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini">DLT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>DELTO</b></span>
+      <span class="logo-lg"><b><?php echo $system->system_nickname; ?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -127,9 +127,8 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                        
-                      
+                       <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                     
                       </div>
                       <h4>
                         AdminLTE Design Team
@@ -345,7 +344,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url(); ?>profile_pic/boss.png" class="img-circle" alt="User Image">
+          <img src="<?php if($user_profile_pic){echo base_url(); echo $user_profile_pic;}else{ echo base_url()."profile_pic/boss.png"; }?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $user_fname." ".$user_lname;?></p>
@@ -378,10 +377,29 @@
             </span>
           </a>
         </li>
+        <li>
+          <a href="<?php echo base_url(); ?>admin/Sub_center">
+            <i class="fa fa-institution"></i> <span>Sub Centers</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
 
        <li>
           <a href="<?php echo base_url(); ?>admin/Courses">
             <i class="fa fa-book"></i> <span>Courses</span>
+            
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo base_url(); ?>admin/Batches">
+            <i class="fa fa-book"></i> <span>Batches</span>
+            
+          </a>
+        </li>
+         <li>
+          <a href="<?php echo base_url(); ?>admin/Coupon">
+            <i class="fa fa-book"></i> <span>Coupons</span>
             
           </a>
         </li>
@@ -426,6 +444,7 @@
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url(); ?>admin/Students"><i class="fa fa-circle-o"></i>Manage Students</a></li>
             <li><a href="<?php echo base_url(); ?>admin/Admission"><i class="fa fa-circle-o"></i> Admissions</a></li>
+            <li><a href="<?php echo base_url(); ?>admin/Admission/old_admission"><i class="fa fa-circle-o"></i> Old Admissions</a></li>
             <li><a href="<?php echo base_url(); ?>admin/Results"><i class="fa fa-circle-o"></i> Results</a></li>
              </ul>
         </li>

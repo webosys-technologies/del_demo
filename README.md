@@ -1,2 +1,2 @@
-# delto
-This is classes web portal
+# del
+this is an delto project (Parag Joshi)

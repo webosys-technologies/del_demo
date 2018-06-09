@@ -192,10 +192,49 @@
     }
     
     
-   
+    
+    function view_user(id)
+    {
+    
 
-    
-    
+      //Ajax Load data from ajax
+      $.ajax({
+        url : "<?php echo site_url('index.php/admin/Users/ajax_edit/')?>/" + id,        
+        type: "GET",
+               
+        dataType: "JSON",
+        success: function(data)
+        {          
+            $('#ufname').html(data.user_fname);
+            $('#ulname').html(data.user_lname); 
+            $('#uemail').html(data.user_email);
+            $('#umobile').html(data.user_mobile);
+            $('#ugender').html(data.user_gender);
+            if(data.user_profile_pic)
+            {
+            $('#uprofile_pic').attr("src", "<?php  echo base_url();?>"+data.user_profile_pic);
+             }
+             else
+             {
+               $('#uprofile_pic').attr("src", "<?php echo base_url(); ?>profile_pic/boss.png");
+             }
+//            $('#remove_pic').attr("onclick","remove_profile_pic("+data.student_id+")");
+            $('#udob').html(data.user_dob);
+            $('#uaddress').html(data.user_address);  
+            $('#ucity').html(data.user_city);
+            $('#ustate').html(data.user_state);
+            $('#upincode').html(data.user_pincode);
+            
+            $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('User Data'); // Set title to Bootstrap modal title
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax 1');
+        }
+    });
+    }
 
     function delete_user(id)
     {
@@ -223,6 +262,123 @@
 
   </script>
 
+<!-- Bootstrap modal -->
+  <div class="modal fade" id="modal_form2" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#338cbf" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title"></h3></center>
+      </div>
+         <form action="#" name="" id="" class="form-horizontal">
+      <div class="modal-body form">
+       
+          <input type="hidden" value="" name="student_id"/>
+          <input type="hidden" value="" name="center_id"/>
+
+          <div class="box-body">
+                            
+              
+              
+              <div class="row">
+                
+                  <div class="col-md-3" >
+                      
+                      <img id='uprofile_pic' src='' width="100px" hieght="100px" >
+                  </div><br><br>
+                 <!--<button id='remove_pic' value="" onclick="" class="btn btn-danger">Remove Profile Photo</button>-->
+                   
+              </div>
+            
+              <br>
+               <div class="row">
+                   <div class="col-md-5"> 
+                <label for="pincode">User Name :</label><span id="ufname"></span>&nbsp;<span id="ulname"></span>
+                   </div>
+                                   
+
+                   
+                   <div class="col-md-5">                                   
+                    <label for="pincode">Course :</label><span id="ucourse_name"></span>
+                     </div>
+               </div>
+              <br>
+              
+               <div class="row">
+                   <div class="col-md-5">                                    
+                   <label for="pincode">Admission Month :</label><span id="saddmission_month"></span>                                 
+                   </div>
+                   
+                   <div class="col-md-5">                                   
+                    <label for="pincode">Course End Date :</label><span id="ucourse_end_date"></span>
+                     </div>
+               </div>
+              <br>
+              
+               <div class="row">
+                   <div class="col-md-5">                                    
+                   <label for="pincode">Username :</label><span id="uusername"></span>                                 
+                   </div>
+                   
+                   <div class="col-md-5">                                   
+                    <label for="pincode">Password :</label><span id="upassword"></span>
+                     </div>
+               </div>
+              
+              <br>
+               <div class="row">
+                   <div class="col-md-5">                                    
+                   <label for="pincode">Email :</label><span id="uemail"></span>                                 
+                   </div>
+                   
+                   <div class="col-md-5">                                   
+                    <label for="pincode">Mobile Number :</label><span id="umobile"></span>
+                     </div>
+               </div>
+              
+              <br>
+               <div class="row">
+                   <div class="col-md-5">                                    
+                   <label for="pincode">Gender :</label><span id="ugender"></span>                                 
+                   </div>
+                   
+                   <div class="col-md-5">                                   
+                    <label for="pincode">DOB :</label><span id="udob"></span>
+                     </div>
+               </div>
+              <br>
+              <div class="row">
+                   <div class="col-md-5">                                    
+                   <label for="pincode">Last Education :</label><span id="ulast_education"></span>                                 
+                   </div>
+                   
+                   <div class="col-md-5">                                   
+                    <label for="pincode">Address :</label><span id="uaddress"></span>
+                     </div>
+               </div>
+              <br>
+              <div class="row">
+                   <div class="col-md-5">                                    
+                   <label for="pincode">City :</label><span id="ucity"></span>                                 
+                   </div>
+                   
+                   <div class="col-md-5">                                   
+                    <label for="pincode">State :</label><span id="ustate"></span>
+                     </div>
+               </div>
+                         
+               </div><!-- /.box-body -->
+    
+        
+          </div>
+
+          </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>  
+  
+  
+  
    <!-- Bootstrap modal -->
   <div class="modal fade" id="modal_form" role="dialog">
   <div class="modal-dialog">

@@ -35,18 +35,27 @@ class Centers_model extends CI_Model
 			'center_city'			=> $this->input->post('center_city'),
 			'center_pincode'		=> $this->input->post('center_pincode'),
 			'center_state'			=> $this->input->post('center_state'),
-                        'center_askfor_password' =>'disable',
+                        'center_askfor_password'       =>'disable',
 			'center_created_at'	=> date("Y-m-d H:i:s"),
                         'center_status'        => '0'
 
 
 		);
 
-		$insert=$this->db->insert('centers',$data);
-		//return $insert;
+		$this->db->insert('centers',$data);
+		$insert=$this->db->insert_id();
+                 //return $insert;
                 return array($insert,$data);
 	}
         
+        public function center_askfor_password($ask_value,$id)
+        {
+            $data=array('center_askfor_password'=>$ask_value);
+            $where=array('center_id'=>$id);
+            $this->db->update($this->table,$data,$where);
+            return $this->db->affected_rows();
+            
+        }
         
         function loginMe($center_email, $center_password)
     {
@@ -138,6 +147,7 @@ class Centers_model extends CI_Model
 	{
 		$this->db->where('center_id', $id);
 		$this->db->delete($this->table);
+                return $this->db->affected_rows();
 	}
         
     function reset_password($data)
@@ -274,7 +284,7 @@ class Centers_model extends CI_Model
         }
     }
     
- 
+  
      
 
 	

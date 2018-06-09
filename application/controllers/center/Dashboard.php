@@ -27,6 +27,9 @@ class Dashboard extends CI_Controller
         $this->load->model('Courses_model');
         $this->load->model('Payment_model');
         $this->load->model('Orders_model');
+        $this->load->model('Sub_centers_model');
+        $this->load->model('Batches_model');
+        $this->load->model('System_model');
         
 
       
@@ -48,11 +51,14 @@ class Dashboard extends CI_Controller
              $result['courses']=$this->Courses_model->get_course_rows();
              $result['payments']=$this->Payment_model->get_by_center_id($id);
              $result['orders']=$this->Orders_model->get_orders($id);
-             
-           
+             $result['manage_stud']=$this->Students_model->get_all_stud($id);
+             $result['sub_centers']=$this->Sub_centers_model->get_sub_by_id($id);
+             $result['batches']=$this->Batches_model->get_batch_count($id);
+            $result['system']=$this->System_model->get_info();
+
              $this->load->view('center/header',$result);
              $this->load->view('center/dashboard',$result);
-             $this->load->view('center/footer');
+             $this->load->view('center/footer',$result);
              
 
         }

@@ -8,6 +8,7 @@ class Results extends CI_Controller
 		$this->load->model('Students_model');
 		$this->load->model('Exams_model');
 		$this->load->model('Centers_model');
+    $this->load->model('System_model');
     $this->load->model('Orders_model');
 	}
 
@@ -20,10 +21,11 @@ class Results extends CI_Controller
             $id=$this->session->userdata('center_id');
         	
         	$data['exam_data']=$this->Exams_model->get_by_center_id($id);
+            $result['system']=$this->System_model->get_info();
               $result['data']=$this->Centers_model->get_by_id($id);           
               $this->load->view('center/header',$result);
             $this->load->view('center/results_view',$data);
-            $this->load->view('center/footer');
+            $this->load->view('center/footer',$result);
 
 
         }
@@ -52,10 +54,11 @@ class Results extends CI_Controller
             $this->session->set_userdata($data);
      
           $center_id=$this->session->userdata('center_id');
+            $result['system']=$this->System_model->get_info();
            $result['data']=$this->Centers_model->get_by_id($center_id);           
              $this->load->view('center/header',$result);
           $this->load->view('center/reexam_payment',$data);
-          $this->load->view('center/footer');
+          $this->load->view('center/footer',$result);
         } 
         else{
            $this->session->set_flashdata('error','please select at least one student...!');
@@ -89,7 +92,8 @@ class Results extends CI_Controller
         'order_amount' => $amount,
         'student_qty' => $student,
         'order_date' =>date('Y-m-d'),
-        'order_status' => "pending"
+        'order_status' => "pending",
+        'order_payable_amount' => $amount,
       );
       $res=$this->Orders_model->order($order);
       if ($res) {
@@ -130,6 +134,7 @@ class Results extends CI_Controller
               'phone' => $customer_mobile,
               'udf1' => $udf1,
               'udf2' =>$udf2,
+              'udf3' =>$udf3,
               'no_of_student'=>$student,
               'center_name' =>$center_name,
               'service_provider' => ".payu_paisa", //for live change action  https://secure.payu.in
@@ -138,10 +143,11 @@ class Results extends CI_Controller
               'cancel' => $cancel            
           );
            
+            $result['system']=$this->System_model->get_info();
           $result['data']=$this->Centers_model->get_by_id($id);           
              $this->load->view('center/header',$result);
               $this->load->view('center/payu_view',$data);
-                 $this->load->view('center/footer');
+                 $this->load->view('center/footer',$result);
           
 
         }
@@ -157,8 +163,8 @@ class Results extends CI_Controller
         {
            $center_LoggedIn = $this->session->userdata('center_LoggedIn');
              if(isset($center_LoggedIn) || $center_LoggedIn == TRUE)
-        {
-           
+             {
+            
         		 
              $data=array('exam_id'=>$exam_id,
                          );
@@ -166,8 +172,8 @@ class Results extends CI_Controller
              
               $correct_ans=0;
               $wrong_ans=0;              
-              $total_que=10;
-              $total_mark=10;
+              $total_que=50;
+              $total_mark=50;
                           
               foreach($exam_result as $res)
               {
@@ -195,7 +201,7 @@ class Results extends CI_Controller
         }
         else
         {
-            redirect('center/index/login');
+             redirect('center/index/login');
         }  
         }
 

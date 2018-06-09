@@ -55,14 +55,14 @@
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-yellow">
+          <div class="small-box" style="background:lightblue;">
             <div class="inner">
-              <h3><?php if(isset($students)){echo $students;}else{echo "0";}?></h3>
+              <h3 id="num"><?php if(isset($students)){echo $students;}else{echo "0";}?></h3>
 
-              <p>Students</p>
+              <p id="num">Total Students</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="fa fa-user"></i>
             </div>
             <a href="<?php echo base_url(); ?>admin/Students" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -148,6 +148,89 @@
         <!-- ./col -->
       </div>
       <!-- /.row -->
+      
+      
+      
+            <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box" style="background:#90EE90;">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($sub_centers)){echo $sub_centers;}else{echo "0";}?></h3>
+
+              <p id="num">Sub Centers</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-mortar-board"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>admin/Sub_center" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box" style="background:#FA8072;">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($batches)){echo $batches;}else{echo "0";}?><sup style="font-size: 20px"></sup></h3>
+
+              <p id="num">Batches</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-book"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>admin/Batches" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box" style="background:#FFB6C1;">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($coupons)){echo $coupons;}else{echo "0";}?></h3>
+
+              <p id="num">Coupons</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-question-circle"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>admin/Coupon" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3><?php if(isset($admission)){echo $admission;}else{echo "0";}?></h3>
+
+              <p>Admission</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>admin/Admission" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        
+        <!-- ./col -->
+<!--        <div class="col-lg-3 col-xs-6">
+           small box 
+          <div class="small-box" style="background:#008080">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($books)){echo $books;}else{echo "0";}?></h3>
+
+              <p id="num">Books</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-book"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>admin/Books" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>-->
+        <!-- ./col -->
+      </div>
+      
+      
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
@@ -512,8 +595,8 @@
               <div class="pull-right box-tools">
                 <!-- button with a dropdown -->
                 <div class="btn-group">
-                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-bars"></i></button>
+<!--                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bars"></i></button>-->
                   <ul class="dropdown-menu pull-right" role="menu">
                     <li><a href="#">Add new event</a></li>
                     <li><a href="#">Clear events</a></li>
@@ -534,10 +617,10 @@
               <div id="calendar" style="width: 100%"></div>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer text-black">
+<!--            <div class="box-footer text-black">
               <div class="row">
                 <div class="col-sm-6">
-                  <!-- Progress bars -->
+                   Progress bars 
                   <div class="clearfix">
                     <span class="pull-left">Task #1</span>
                     <small class="pull-right">90%</small>
@@ -554,7 +637,7 @@
                     <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
                   </div>
                 </div>
-                <!-- /.col -->
+                 /.col 
                 <div class="col-sm-6">
                   <div class="clearfix">
                     <span class="pull-left">Task #3</span>
@@ -572,10 +655,10 @@
                     <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
                   </div>
                 </div>
-                <!-- /.col -->
+                 /.col 
               </div>
-              <!-- /.row -->
-            </div>
+               /.row 
+            </div>-->
           </div>
           <!-- /.box -->
 

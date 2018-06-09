@@ -1,4 +1,8 @@
-
+<style>
+    #num{
+        color:white;
+    }
+    </style>
 <!--next here sunil-->
 <!DOCTYPE html>
   <!-- Content Wrapper. Contains page content -->
@@ -69,7 +73,7 @@
               }
                   ?></h3>
 
-              <p>ADMISSION</p>
+              <p>Admission</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -108,6 +112,69 @@
             <a href="<?php echo base_url(); ?>center/Payment" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        <!-- ./col -->
+      </div>
+      
+            <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box" style="background:#FF99CC;">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($manage_stud)){echo $manage_stud;}else{echo "0";}?></h3>
+
+              <p id="num">Manage Students</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-users"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>center/Student" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box" style="background:#FFCC33;">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($sub_centers)){echo $sub_centers;}else{echo "0";}?><sup style="font-size: 20px"></sup></h3>
+
+              <p id="num">Sub Centers</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-institution"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>center/Sub_center" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box" style="background:#7FB3D5">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($batches)){echo $batches;}else{echo "0";}?></h3>
+
+              <p id="num">Batches</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-book"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>center/Batches" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+<!--        <div class="col-lg-3 col-xs-6">
+           small box 
+          <div class="small-box" style="background:#008080">
+            <div class="inner">
+              <h3 id="num"><?php if(isset($books)){echo $books;}else{echo "0";}?></h3>
+
+              <p id="num">Books</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-book"></i>
+            </div>
+            <a href="<?php echo base_url(); ?>admin/Books" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>-->
         <!-- ./col -->
       </div>
       <!-- /.row -->
@@ -235,8 +302,8 @@
               <div class="pull-right box-tools">
                 <!-- button with a dropdown -->
                 <div class="btn-group">
-                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-bars"></i></button>
+<!--                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bars"></i></button>-->
                   <ul class="dropdown-menu pull-right" role="menu">
                     <li><a href="#">Add new event</a></li>
                     <li><a href="#">Clear events</a></li>
@@ -257,10 +324,10 @@
               <div id="calendar" style="width: 100%"></div>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer text-black">
+<!--            <div class="box-footer text-black">
               <div class="row">
                 <div class="col-sm-6">
-                  <!-- Progress bars -->
+                   Progress bars 
                   <div class="clearfix">
                     <span class="pull-left">Task #1</span>
                     <small class="pull-right">90%</small>
@@ -277,7 +344,7 @@
                     <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
                   </div>
                 </div>
-                <!-- /.col -->
+                 /.col 
                 <div class="col-sm-6">
                   <div class="clearfix">
                     <span class="pull-left">Task #3</span>
@@ -295,10 +362,10 @@
                     <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
                   </div>
                 </div>
-                <!-- /.col -->
+                 /.col 
               </div>
-              <!-- /.row -->
-            </div>
+               /.row 
+            </div>-->
           </div>
 
           

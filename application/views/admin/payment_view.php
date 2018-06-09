@@ -28,8 +28,8 @@
           <th>ID</th>
           <th>ORDER ID</th>
           <th>CENTER</th>
-          <th>PAYMENT ID</th>
           <th>TRANSCATION ID</th>
+          <th>MERCHANT REFRENCE</th>
           <th>BANK REF No</th>
           <th>AMOUNT</th>
           <th>PAYMENT AT</th>
