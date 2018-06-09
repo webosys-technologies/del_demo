@@ -13,8 +13,38 @@
       <section class="content">
         <br>
         
-    
+        <div class="row">
+    <div class="col-md-4">
     <button class="btn btn-primary" onclick="add_book()"><i class="glyphicon glyphicon-plus"></i> Add Book</button>
+    </div>
+             <div class="col-md-6">
+         <?php
+        $this->load->helper('form');
+        $success = $this->session->flashdata('success');
+        if($success)
+        {
+            ?>
+            
+        <div class="alert alert-success alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $success; ?> 
+  </div>
+        <?php }?>
+             
+              <?php
+        $this->load->helper('form');
+        $error = $this->session->flashdata('error');
+        if($error)
+        {
+            ?>           
+        <div class="alert alert-danger alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> <?php echo $error; ?> 
+  </div>
+        <?php }?>    
+       
+        </div>
+            </div>
     <br />
     <div class="form-group" style="width:350px" >
             <label for="name">SEARCH</label>
@@ -92,10 +122,17 @@
       $('#form')[0].reset(); // reset form on modals
       $('#modal_form').modal('show'); // show bootstrap modal
       $('.modal-title').text('Add Course'); // Set Title to Bootstrap modal title
+      $("#text_field1_error").html("");
+      $("#text_field2_error").html("");
+      $("#select1_error").html("");
     }
 
     function edit_book(id)
     {
+        $("#text_field1_error").html("");
+      $("#text_field2_error").html("");
+      $("#select1_error").html("");
+        
       save_method = 'update';
       $('#form')[0].reset(); // reset form on modals
 
@@ -128,6 +165,9 @@
 
     function save()
     {
+       var val=book_validation();
+       if(val)
+        {           
       var url;
       if(save_method == 'add')
       {
@@ -143,19 +183,25 @@
             url : url,
             type: "POST",
             data: $('#form').serialize(),
-           // dataType: "JSON",
+            dataType: "JSON",
             success: function(data)
             {
-              alert('Data added successfully..!!');
-               //if success close modal and reload ajax table
+                
+               if(data.error)
+               {
+                   $("#text_field1_error").html(data.error);
+               }else{
+                   
                $('#modal_form').modal('hide');
                 location.reload();// for reload a page
+            }
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
                 alert('Error adding / update data');
             }
         });
+        }
     }
 
     function delete_book(id)
@@ -196,10 +242,10 @@
           <input type="hidden" value="" name="id"/>
           <div class="form-body">
             <div class="form-group">
-              <label class="control-label col-md-3">Course Name</label>
+              <label class="control-label col-md-3">Course Name<span style="color:red">*</span></label>
               <div class="col-md-9">
                 <select name="course_id" class="form-control">
-                    <!--<option value="0">Select Course</option>-->
+                    <option value="">--Select Course--</option>
                 <?php 
                 foreach($courses as $row)
                 { 
@@ -207,24 +253,27 @@
                 }
                 ?>
             </select>
+                <span id="select1_error" style="color:red"></span>  
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3">Book Name</label>
+              <label class="control-label col-md-3">Book Name<span style="color:red">*</span></label>
               <div class="col-md-9">
                 <input name="name" placeholder="Book Name" class="form-control" type="text">
+                <span id="text_field1_error" style="color:red"></span>  
               </div>
             </div>
             
             <div class="form-group">
-              <label class="control-label col-md-3">Books Price</label>
+              <label class="control-label col-md-3">Books Price<span style="color:red">*</span></label>
               <div class="col-md-9">
                 <input name="price" placeholder="Book Price" class="form-control" type="text">
+                      <span id="text_field2_error" style="color:red"></span>  
               </div>
             </div>
             
               <div class="form-group">
-              <label class="control-label col-md-3">Status</label>
+              <label class="control-label col-md-3">Status<span style="color:red">*</span></label>
               <div class="col-md-9">
                   <select name="status" class="form-control">
                       <option value="1">Active</option>

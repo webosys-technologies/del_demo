@@ -21,15 +21,7 @@ class Play_time_model extends CI_Model
 		$this->load->database();
 	}
 
-        public function update_play_time($id)
-        {
-        $where=array('student_id'=>$id);
-        $data=array('remaining_play_time'=>'3');
-        
-        $this->db->update($this->table,$data,$where);
-        return true;
-        }
-        
+
         public function getall_topics()
         {
 //        $this->db->from('topics');
@@ -216,13 +208,6 @@ class Play_time_model extends CI_Model
            return $query->result();  
         }
         
-        public function students_topic($sid)
-        {
-          $this->db->from($this->table);
-          $this->db->where('student_id',$sid);
-          $query=$this->db->get();
-          return $query->result();
-        }
         
         public function play_time($id,$topics)
         {
@@ -248,12 +233,22 @@ class Play_time_model extends CI_Model
               return $data;
         }
         
+        
+         public function students_topic($sid)
+        {
+          $this->db->from($this->table);
+          $this->db->where('student_id',$sid);
+          $query=$this->db->get();
+          return $query->result();
+        }
+        
+        
         public function update_stud_play_time($data,$where)
 	{
 //		$this->db->set($data);
                 $this->db->where($where);
                 $this->db->update($this->table,$data); 
-//                return true;
+                return $this->db->affected_rows();
 	}
 
 }

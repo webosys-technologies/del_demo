@@ -59,6 +59,15 @@
     </style>
     <!-- jQuery 2.1.4 -->
     <script src="<?php echo base_url(); ?>assets/js/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+      function demo_view()
+    {
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not Change Password');
+
+    }
+    </script>
  
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -68,12 +77,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <script>
-      function demo_version()
-      {
-          $('#demo_form2').modal('show');
-      }
-      </script>
+  
   
   
   <body class="skin-blue sidebar-mini">
@@ -85,7 +89,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini">DLT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>DELTO</b></span>
+          <span class="logo-lg"><b><?php echo $system->system_nickname ; ?></b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -153,8 +157,7 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-<!--                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#pass"><i class="fa fa-key"></i> Change Password</button>-->
-                        <button type="button" class="btn btn-default btn-flat" onclick="demo_version()"><i class="fa fa-key"></i> Change Password</button>
+                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="" onclick="demo_view()"><i class="fa fa-key"></i> Change Password</button>
                     </div>
                     <div class="pull-right">
                       <a href="<?php echo base_url(); ?>center/Index/signout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Sign out</a>
@@ -167,18 +170,7 @@
         </nav>
       </header>
         
-     <div class="modal fade" id="demo_form2" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center><h3 class="modal-title1">This is Demo Version</h3></center>
-         <center><h3 class="modal-title2">You can not edit profile</h3></center>
-      </div>
-        
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
+    
         
         
         <form  class="modal fade" id="pass" role="dialog" action="<?php echo base_url(); ?>student/index/reset_password" method="post">
@@ -250,11 +242,23 @@
                 <span>Manage Students</span>
               </a>
             </li>
+             <li class="treeview">
+              <a href="<?php echo base_url(); ?>center/Sub_center" >
+                <i class="fa fa-child"></i>
+                <span>Sub Centers</span>
+              </a>
+            </li>
 
             <li class="treeview">
               <a href="<?php echo base_url(); ?>center/Courses">
                 <i class="fa fa-book"></i>
                 <span>Courses</span>
+              </a>
+            </li>
+              <li class="treeview">
+              <a href="<?php echo base_url(); ?>center/Batches">
+                <i class="fa fa-book"></i>
+                <span>Batches</span>
               </a>
             </li>
             
@@ -282,6 +286,12 @@
               </a>
             </li>
            
+           <li class="treeview">
+              <a href="<?php echo base_url(); ?>center/Login_detail/old_admission" >
+                <i class="glyphicon glyphicon-user"></i>
+                <span>Old Admission</span>
+              </a>
+            </li>
 
             <li class="treeview">
               <a href="<?php echo base_url(); ?>center/Results" >
@@ -294,6 +304,12 @@
               <a href="<?php echo base_url(); ?>center/Reports" >
                 <i class="fa fa-files-o"></i>
                 <span>Reports</span>
+              </a>
+            </li>
+             <li class="treeview">
+              <a href="<?php echo base_url(); ?>center/Setting" >
+                <i class="fa fa-child"></i>
+                <span>Setting</span>
               </a>
             </li>
             <li class="treeview">
@@ -310,3 +326,16 @@
       </aside>
       
      
+     <!-- Bootstrap modal -->
+  <div class="modal fade" id="demo_form" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title1"></h3></center>
+         <center><h3 class="modal-title2"></h3></center>
+      </div>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>

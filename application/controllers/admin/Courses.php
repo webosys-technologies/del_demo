@@ -10,7 +10,9 @@ class Courses extends CI_Controller {
 			$this->load->helper('url');
 	 		$this->load->model('Courses_model');
                          $this->load->model('User_model');
+                         $this->load->model('Books_model');
                          $this->load->model('Students_model');
+                         $this->load->model('System_model');
                       
 	 	}
 
@@ -22,11 +24,12 @@ class Courses extends CI_Controller {
         
 		$data['courses']=$this->Courses_model->getall_courses();
                $uid=$this->session->userdata('user_id');
+            $result['system']=$this->System_model->get_info();
             $result['user_info']=$this->User_model->get_user_by_id($uid);
        
             $this->load->view('admin/header',$result);
 		$this->load->view('admin/course_view',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer',$result);
 
         }
         else
@@ -50,6 +53,21 @@ class Courses extends CI_Controller {
                                         'course_status' => $this->input->post('status'),
 				);
 			$insert = $this->Courses_model->course_add($data);
+
+			$book=array(
+					'book_name' => 'No Book',
+					'course_id' => $insert,
+					'book_price' => 0,
+                                        'book_created_at' => date('Y-m-d'),
+					'book_status' => 1,
+			);
+
+
+			$insert = $this->Books_model->book_add($book);
+                        if($insert)
+                {
+                $this->session->set_flashdata('success', 'Course Added Successfully');
+                }
 			echo json_encode(array("status" => TRUE));
 		}
 		public function ajax_edit($id)
@@ -76,13 +94,21 @@ class Courses extends CI_Controller {
 				);
                 
                 $this->student_course_date_update($data);
-		$this->Courses_model->course_update(array('course_id' => $this->input->post('id')), $data);
+		$result=$this->Courses_model->course_update(array('course_id' => $this->input->post('id')), $data);
+                 if($result)
+                {
+                $this->session->set_flashdata('success', 'Course Updated Successfully');
+                }
 		echo json_encode(array("status" => TRUE));
 	}
 
 	public function course_delete($id)
 	{
-		$this->Courses_model->delete_by_id($id);
+		$result=$this->Courses_model->delete_by_id($id);
+                  if($result)
+                {
+                $this->session->set_flashdata('success', 'Course Deleted Successfully');
+                }
 		echo json_encode(array("status" => TRUE));
 	}
         

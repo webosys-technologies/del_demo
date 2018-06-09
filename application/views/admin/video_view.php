@@ -56,7 +56,7 @@
                 </video>
           <div class="small-box bg-aqua">
            
-              <span class="small-box-footer"><?php echo substr($top->topic_name,0,35);?></span>
+              <span class="small-box-footer"><?php echo $top->topic_id;?>.<?php echo substr($top->topic_name,0,35);?></span>
               <center><label><?php echo substr($top->course_name,0,35);?></label></center>
           </div>
                 </tbody>
@@ -64,7 +64,7 @@
           <label  style="background-color:red">Video is not Available.</label>
           <div class="small-box bg-aqua">
            
-              <span class="small-box-footer"><?php echo substr($top->topic_name,0,35);?></span>
+              <span class="small-box-footer"><?php echo $top->topic_id;?>.<?php echo substr($top->topic_name,0,35);?></span>
               <center><label><?php echo substr($top->course_name,0,35);?></label></center>
           </div>
           <?php } ?>

@@ -25,11 +25,12 @@ class Profile extends CI_Controller
         {
          
           $uid=$this->session->userdata('user_id');
+            $result['system']=$this->System_model->get_info();
             $result['user_info']=$this->User_model->get_user_by_id($uid);
                   
             $this->load->view('admin/header',$result);        
       		$this->load->view('admin/profile_view',$result);
-            $this->load->view('admin/footer');
+            $this->load->view('admin/footer',$result);
 
 
 
@@ -55,7 +56,7 @@ class Profile extends CI_Controller
                 'user_id' =>$this->input->post('user_id'),
                 'user_fname' => strtoupper($this->input->post('user_fname')),
                 'user_lname' => strtoupper($this->input->post('user_lname')),
-                'user_mobile' => $this->input->post('user_mobile'),
+               'user_mobile' => $this->input->post('user_mobile'),
                 'user_password' => $this->input->post('user_password'),
                 
                 );
@@ -107,13 +108,13 @@ class Profile extends CI_Controller
                        }
                        else
                        {
-                            $res=$this->User_model->get_user_by_id($id);
+                           $res=$this->User_model->get_user_by_id($id);
                             if(file_exists($res->user_profile_pic))
                             {
                             unlink($res->user_profile_pic);
                             }
-                           //$date=date('Y-m-d');
-                            $ext= explode(".",$this->upload->data('file_name'));  
+                           
+                           $ext= explode(".",$this->upload->data('file_name'));  
                             $img_name =$new_file.".".end($ext); //video name as path in db
                              $img_path='profile_pic/'.str_replace(' ','_',$img_name);
                           $pic = array(

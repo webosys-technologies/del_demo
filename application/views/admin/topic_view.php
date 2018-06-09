@@ -45,7 +45,38 @@
     </section>
     <br>
       <section class="content">
+          <div class="row">
+              <div class="col-md-4">
     <button class="btn btn-primary" onclick="add_topic()" data-toggle="tooltip" data-placement="bottom" title="Add Topic"><i class="glyphicon glyphicon-plus"></i> Add Topic</button>
+    </div>
+          <div class="col-md-6">
+         <?php
+        $this->load->helper('form');
+        $success = $this->session->flashdata('success');
+        if($success)
+        {
+            ?>
+            
+        <div class="alert alert-success alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $success; ?> 
+  </div>
+        <?php }?>
+             
+              <?php
+        $this->load->helper('form');
+        $error = $this->session->flashdata('error');
+        if($error)
+        {
+            ?>           
+        <div class="alert alert-danger alert-dismissible" data-auto-dismiss="2000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> <?php echo $error; ?> 
+  </div>
+        <?php }?>    
+       
+        </div>
+    </div>
     <br />
     <br />
     <div class="form-group" style="width:350px" >
@@ -119,7 +150,7 @@
             var i = 1;
             $('#add').click(function(){
                 i++;
-                $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="form-body"><div class="form-group"><label class="control-label col-md-3">      Course Name</label><div class="col-md-9"><select name="course_id[]" class="form-control"><?php foreach($courses as $row){echo '<option value="'.$row->course_id.'">'.$row->course_name.'</option>'; }?></select></div></div><div class="form-group"><label class="control-label col-md-3">Topic Name</label><div class="col-md-9"><input name="name[]" placeholder="Topic Name" class="form-control" type="text"></div></div><div class="form-group"><label class="control-label col-md-3">Topic Description</label><div class="col-md-9"><textarea class="form-control" name="topic_description[]"   rows="4" cols="40" ></textarea></div></div>       <div class="form-group"><label  class="control-label col-md-3">Upload Video</label><div class="col-md-9"><input type="file" id="file" name="video1"><span id="file1"></span></div></div>   <div class="form-group"><label class="control-label col-md-3">Topic Play Time</label><div class="col-md-3"><input name="time[]"  class="form-control" type="number" ></div></div> <div class="form-group"><label class="control-label col-md-3">Status</label><div class="col-md-9"><select name="status[]" class="form-control"><option value="1">Active</option><option value="0">Not Active</option></select> </div></div></td></td><td><button name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="form-body"><div class="form-group"><label class="control-label col-md-3">      Course Name</label><div class="col-md-9"><select name="course_id[]" class="form-control"><?php foreach($courses as $row){echo '<option value="'.$row->course_id.'">'.$row->course_name.'</option>'; }?></select></div></div><div class="form-group"><label class="control-label col-md-3">Topic Name</label><div class="col-md-9"><input name="name[]" placeholder="Topic Name" class="form-control" type="text"></div></div><div class="form-group"><label class="control-label col-md-3">Topic Description</label><div class="col-md-9"><textarea class="form-control" name="topic_description[]"   rows="4" cols="40" ></textarea></div></div>       <div class="form-group"><label  class="control-label col-md-3">Upload Video</label><div class="col-md-9"><input type="file" id="file" name="video1"><span id="file1"></span></div></div>   <div class="form-group"><label class="control-label col-md-3">Topic Path</label><div class="col-md-9"><input name="path[]"  class="form-control" placeholder="Topic Path" type="text" ></div></div>   <div class="form-group"><label class="control-label col-md-3">Topic Play Time</label><div class="col-md-3"><input name="time[]"  class="form-control" type="number" ></div></div> <div class="form-group"><label class="control-label col-md-3">Status</label><div class="col-md-9"><select name="status[]" class="form-control"><option value="1">Active</option><option value="0">Not Active</option></select> </div></div></td></td><td><button name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
             });
 
             $(document).on('click','.btn_remove', function(){
@@ -184,6 +215,7 @@
 
             $('[name="id"]').val(data.topic_id);
             $('[name="name"]').val(data.topic_name);
+            $('[name="topic_path"]').val(data.topic_video_path);
             $('[name="course_id"]').val(data.course_id);
             $('[name="topic_description"]').val(data.topic_description);
             $('[name="time"]').val(data.topic_video_play_time);
@@ -363,6 +395,13 @@
               </div>
               </div>
               
+              <div class="form-group">
+              <label class="control-label col-md-3">Topic Path</label>
+              <div class="col-md-9">
+                <input name="path[]" placeholder="Topic Path" value="" class="form-control" type="text">
+              </div>
+            </div> 
+              
                 <div class="form-group">
               <label class="control-label col-md-3">Topic Play Time</label>
               <div class="col-md-3">
@@ -470,6 +509,12 @@
               <input type="file" id="file" name="video"><span id="file1"></span>
               </div>
               </div>
+               <div class="form-group">
+              <label class="control-label col-md-3">Topic Path</label>
+              <div class="col-md-9">
+                <input name="topic_path" placeholder="Topic Path" value="" class="form-control" type="text">
+              </div>
+            </div> 
               
                 <div class="form-group">
               <label class="control-label col-md-3">Topic Play Time</label>

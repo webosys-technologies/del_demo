@@ -56,6 +56,18 @@ class Orders_model extends CI_Model
 		return $query->result();
 	}
 
+	public function test()
+	{
+		$query=$this->db->query("ALTER TABLE `orders` ADD `order_gst` INT(20) NOT NULL AFTER `order_amount`");
+		$this->db->query("ALTER TABLE coupons ADD coupon_min_student INT(20) NOT NULL AFTER coupon_limit ");
+		return $query;
+	}
+
+	public function test1()
+	{
+		$query=$this->db->query("ALTER TABLE `orders` ADD `order_discount` INT(20) NOT NULL AFTER `order_amount`, ADD `order_payable_amount` INT(20) NOT NULL AFTER `order_discount`");
+		return $query;
+	}
 	
 }
 

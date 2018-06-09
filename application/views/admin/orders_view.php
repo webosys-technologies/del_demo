@@ -1,4 +1,74 @@
 
+<style type="text/css">
+
+  .modal fade{
+    display: block !important;
+}
+.modal-dialog{
+  width: 1000px;
+  /*overflow-x: !important;*/
+}
+.modal-body{
+  max-height: 450px ;
+  overflow-y: auto;
+}
+input[type='search']
+{
+  border-radius: 0.3em;
+  padding: 0.3em;
+  border-style: ridge;
+  border-width: 0.1em ;
+}
+        
+        .hr1 {
+    display: block;
+    height: 1px;
+/*    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;*/
+    padding: 0; 
+}
+
+  .hr2 {
+    display: block;
+    height: 1px;
+     /*width:30%;*/
+     
+/*    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;*/
+    padding: 0; 
+}
+
+
+.address{
+    line-height:0.5cm; 
+    font-size:15px;
+    word-spacing:normal;
+    /*font-weight:bold;*/
+    text-size:0.2cm;
+}
+.tab_data{
+    line-height:0.6cm; 
+    font-size:12px;
+    color:#2E86C1;
+    word-spacing:normal;
+    text-size:0.2cm;
+}
+        
+    .invoice-box {
+        max-width: 900px;
+        margin: auto;
+        padding: 15px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+</style>
+
 <!Doctype html>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -31,6 +101,9 @@
           <th>NO. OF STUDENT</th>
           <th>PAYMENT FOR</th>
           <th>AMOUNT</th>
+          <th>GST</th>
+          <th>DISCOUNT</th>
+          <th>PAYABLE AMOUNT</th>
           <th>STATUS</th>
           <th>ACTION</th>
 
@@ -50,7 +123,10 @@
                                         <td><?php echo $res->center_name; ?></td>
                                        <td><?php echo $res->student_qty;?></td>
                                        <td><?php echo $res->order_name ;?></td>
-                                        <td><?php echo $res->order_amount;?></td>                                       
+                                        <td><?php echo $res->order_amount;?></td>
+                                        <td><?php echo $res->order_gst ; ?></td>                                       
+                                        <td><?php echo $res->order_discount;?></td>                                       
+                                        <td><?php echo $res->order_payable_amount;?></td>                                       
                                        <td><?php echo $res->order_status;?></td>
                                        <td>      
              <button type="button" class="btn btn-info" onclick="order_details(<?php echo $res->order_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="View Admission"><i class="glyphicon glyphicon-eye-open"></i></button>
@@ -106,6 +182,11 @@
              sum=sum+parseInt(row.od_total_amount);
 
              $('[name="sum"]').val(sum);
+             $('#total_amount').html(row.order_amount);
+             $('#discount').html(row.order_discount);
+             $('#gst').html(row.order_gst);
+             $('#payable_amount').html(row.order_payable_amount);
+
                           
 
        });
@@ -164,12 +245,54 @@
     <div id="ajax-content-container">
       
     </div>
-        <div class="row">
-          <label class="col-md-3">Total amount is </label>
-          <div class="col-md-3">
-            <input type="text" name="sum" value="" readonly>
-          </div>
+         <row>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+
         </div>
+        <!--Section Left end-->
+        
+        <!--Section right start-->
+        
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-12"></div>  
+                 <div class="col-md-3 col-sm-3 col-xs-12">Total Amount</div>  
+                 <div class="col-md-3 col-sm-3 col-xs-12"><span id="total_amount"></span></div>
+
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-12"></div>  
+                 <div class="col-md-3 col-sm-3 col-xs-12">GST</div>  
+                 <div class="col-md-3 col-sm-3 col-xs-12"><span id="gst"></span></div>
+
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-12"></div>  
+                 <div class="col-md-3 col-sm-3 col-xs-12"> Offer Discount</div>  
+                 <div class="col-md-3 col-sm-3 col-xs-12"><span id="discount"></span></div>
+            </div>
+                      
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-12"></div>  
+                <div class="col-md-3 col-sm-3 col-xs-12" style="border-top:1px solid #DBD8D7; "> <label style="margin-top: 10px;" class="form-label">Net Payable Amount</label></div>  
+                 <div class="col-md-3 col-sm-3 col-xs-12" style="border-top:1px solid #DBD8D7;">
+                     <div style="margin-top: 10px;">
+                         <label><span id="payable_amount"></span></label>
+                    </div>
+                 </div>
+            </div>
+            
+            <div class="row">
+                &nbsp;
+            </div>
+            
+            
+            
+        </div>
+    </row>
+   
           
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>

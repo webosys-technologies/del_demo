@@ -26,9 +26,42 @@
       </ol>
     </section><br>
     <section class="content">
+        <div class="row">
+         <div class="col-md-4">
     <button class="btn btn-primary" onclick="add_student()" data-toggle="tooltip" data-placement="bottom" title="Add Center">      <i class="glyphicon glyphicon-plus"></i> Add Centers</button>
 <!--    <button class="btn btn-success" onclick="add_student()"><i class="glyphicon glyphicon-plus"></i> Payment</button>-->
-  <br><br>
+    </div>
+    <div class="col-md-6">
+         <?php
+        $this->load->helper('form');
+        $success = $this->session->flashdata('success');
+        if($success)
+        {
+            ?>
+            
+        <div class="alert alert-success alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $success; ?> 
+  </div>
+        <?php }?>
+             
+              <?php
+        $this->load->helper('form');
+        $error = $this->session->flashdata('error');
+        if($error)
+        {
+            ?>           
+        <div class="alert alert-danger alert-dismissible" data-auto-dismiss="2000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> <?php echo $error; ?> 
+  </div>
+        <?php }?>
+             
+             
+       
+        </div>
+        </div>
+    <br><br>
     <div class="form-group" style="width:350px" >
             <label for="name">SEARCH</label>
         <input id="myName" class="form-control" type="text" placeholder="Search..." >
@@ -232,7 +265,7 @@ function view_center(id)
             {
                 if(data.status)
                 {
-                alert(data.msg);
+               
                //if success close modal and reload ajax table
                $('#modal_form').modal('hide');
               location.reload();// for reload a page
@@ -262,7 +295,7 @@ function view_center(id)
             {
                
                location.reload();
-               alert(data.msg);
+              
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -273,15 +306,18 @@ function view_center(id)
       }
     }
 
-    function show_password() {
+
+   function show_password() {
   
     var x =$("#password").prop('readonly');
     if(x == true)
-     {        
+     {
+         
         $("#password").prop('readonly',false);
     }
     else
-    {        
+    {
+        
         $("#password").prop('readonly',true);
    }
    }
@@ -308,14 +344,14 @@ function view_center(id)
                             <div class="col-md-5 col-md-offset-1">
                                 
 					<label for="name">First Name</label><span style="color:red">*</span>
-					<input class="form-control" name="center_fname" id="fname" placeholder="First Name"  required="" type="text"  value="" /><span class="text-danger" id="fname_err"></span>
+					<input class="form-control" name="center_fname" id="fname" placeholder="First Name" required="" type="text"  value="" /><span class="text-danger" id="fname_err" style="text-transform:uppercase"></span>
 					
 				
                              </div>
                           <div class="col-md-5 ">
 				
 					<label for="name">Last Name</label><span style="color:red">*</span>
-                                        <input class="form-control" name="center_lname" id="lname" required="" placeholder="Last Name" type="text" value=""><span class="text-danger" id="lname_err"></span>
+                                        <input class="form-control" name="center_lname" id="lname" required="" placeholder="Last Name" type="text" value=""><span class="text-danger" id="lname_err" style="text-transform:uppercase"></span>
 			</div>
                         </div>
                              </div>
@@ -325,7 +361,7 @@ function view_center(id)
                         <div class="form-group">
                     <div class="col-md-5 col-md-offset-1">
                                 <label for="name">Center Name</label><span style="color:red">*</span>
-					<input class="form-control" name="center_name" id="center_name"  required="" placeholder="Enter Center Name" type="text" value="" />
+					<input class="form-control" name="center_name" id="center_name" required="" placeholder="Enter Center Name" type="text" value="" style="text-transform:uppercase" />
                                          <span class="text-danger" id="center_name_err"></span>
                    				
                     </div>
@@ -348,7 +384,7 @@ function view_center(id)
                                 </div>
                                 <div class="col-md-5">
                             <label for="subject">Password<span style="color:red">*</span><input type="checkbox" name="ch" id="chkpass" onclick="show_password()" ></label>
-                              <input class="form-control" name="center_password" value="" id="password" required="" minlength="8" placeholder="Password" type="text" readonly />
+                              <input class="form-control" name="center_password" value="" id="password" required="" minlength="8" placeholder="Password" type="text" readonly="true" />
                                 <span class="text-danger" id="password_err"></span>
           
                                  </div>

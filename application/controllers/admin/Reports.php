@@ -16,6 +16,7 @@ class Reports extends CI_Controller
         $this->load->model('Courses_model');
          $this->load->model('Centers_model');
          $this->load->model('User_model');
+         $this->load->model('System_model');
 
         $this->load->helper('url');
 
@@ -32,12 +33,13 @@ class Reports extends CI_Controller
         {   
             $id=$this->session->userdata('user_id');
             $data['center_data']=$this->Centers_model->getall();
+            $result['system']=$this->System_model->get_info();
                        
              $result['user_info']=$this->User_model->get_user_by_id($id);
            
              $this->load->view('admin/header',$result);
             $this->load->view('admin/center_report_view',$data);
-            $this->load->view('admin/footer');
+            $this->load->view('admin/footer',$result);
 
 
 
@@ -104,11 +106,12 @@ class Reports extends CI_Controller
             $id=$this->session->userdata('user_id');
       		  $data['student_data']=$this->Students_model->getall_students();
                        
+            $result['system']=$this->System_model->get_info();
              $result['user_info']=$this->User_model->get_user_by_id($id);
            
              $this->load->view('admin/header',$result);
       		  $this->load->view('admin/student_report_view',$data);
-            $this->load->view('admin/footer');
+            $this->load->view('admin/footer',$result);
 
 
 

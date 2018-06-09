@@ -12,6 +12,7 @@ class Question extends CI_Controller
 		$this->load->model('Courses_model');
 		$this->load->model('Questions_model');
                  $this->load->model('User_model');
+                 $this->load->model('System_model');
 
 	}
 
@@ -24,11 +25,12 @@ class Question extends CI_Controller
 
 			$data['courses']=$this->Courses_model->getall_courses();
 		$uid=$this->session->userdata('user_id');
+            $result['system']=$this->System_model->get_info();
             $result['user_info']=$this->User_model->get_user_by_id($uid);
        
             $this->load->view('admin/header',$result);
 			$this->load->view('admin/question_view',$data);
-			$this->load->view('admin/footer');
+			$this->load->view('admin/footer',$result);
 
         }
         else
@@ -51,8 +53,9 @@ class Question extends CI_Controller
 	   $option_c = $this->input->post('option_c'); 
 	   $option_d = $this->input->post('option_d'); 
 	   $answer = $this->input->post('answer'); 
+	   $answer = $this->input->post('answer'); 
 	   $status = $this->input->post('status'); 
-          
+
 	   for($i=0;$i<sizeof($answer);$i++)
 	   {
 	     $dataSet[$i] = array (                'course_id' => $course[$i],
@@ -69,8 +72,6 @@ class Question extends CI_Controller
 	     					);
 	   }
 	   // $dataSet is an array of array
-//           print_r($dataSet);
-//           die;
 	   $this->Questions_model->add($dataSet);
 	   
         echo json_encode(array("status" => TRUE));

@@ -46,21 +46,37 @@ p{
     <section class="content-header">
     <div class="row">
     <div class="col-md-4">
-    <button type="button" class="btn btn-primary" onclick="add_student()"><i class="glyphicon glyphicon-plus"></i> Add Student</button>
-       <button type="submit" class="btn btn-warning" id="payment"  ><i class="fa fa-inr"></i> Make Payment</button>
+    <button type="button" class="btn btn-primary" onclick="demo_view()"><i class="glyphicon glyphicon-plus"></i> Add Student</button>
+       <button type="button" class="btn btn-warning" id="payment" onclick="demo_view1()" ><i class="fa fa-inr"></i> Make Payment</button>
     </div>
-        <div class="col-md-6">
+            <div class="col-md-6">
          <?php
+        $this->load->helper('form');
+        $success = $this->session->flashdata('success');
+        if($success)
+        {
+            ?>
+            
+        <div class="alert alert-success alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $success; ?> 
+  </div>
+        <?php }?>
+             
+              <?php
         $this->load->helper('form');
         $error = $this->session->flashdata('error');
         if($error)
         {
-            ?>
-            <script>
-                alert("<?php echo $error; ?> ");
-             </script>
-            
+            ?>           
+        <div class="alert alert-danger alert-dismissible" data-auto-dismiss="2000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> <?php echo $error; ?> 
+  </div>
         <?php }?>
+             
+             
+       
         </div>
     </div>
     <br>
@@ -82,8 +98,8 @@ p{
           <th width=10%>PICTURE</th>
           <th>NAME</th>
           <th>COURSE</th>
-          <th>MOBILE</th>
-          <th>CITY</th>
+          <th>BATCH</th>
+          <th>BOOK</th>
           <th>CREATED AT</th>
           <th>STATUS</th>
 
@@ -99,16 +115,16 @@ p{
           
          foreach($student_data as $res){
           $status=$res->student_status; ?>
-             <tr <?php if($status == 1) { ?> style="background-color: #61F48B "  <?php } ?> >
+             <tr <?php if($status == 1) { ?> style="background-color:#61F48B "  <?php }elseif ($status == 2) { ?> style="background-color:#ec5858; " <?php  } ?> >
                             <td><input  <?php if($status == 0) { ?> class="checkbox" <?php } ?>
                               type="checkbox" name="cba[]"  value="<?php echo $res->student_id; ?>"
-                              <?php if($status == 1) { ?> disabled <?php } ?> ></td>
+                              <?php if($status == 1 || $status == 2) { ?> disabled <?php } ?> ></td>
                                         <td><?php echo $res->student_id;?></td>
                                         <td><img src="<?php echo base_url(); ?><?php if (!empty($res->student_profile_pic)){echo $res->student_profile_pic;} else{echo "profile_pic/avatar.png";}?>" class="avatar img-responsive"  width="40px" height="30px"></td>
                                         <td><?php echo $res->student_fname.' '. $res->student_lname; ?></td>
                                         <td><?php echo $res->course_name;?></td>
-                                       <td><?php echo $res->student_mobile;?></td>
-                                       <td><?php echo $res->student_city;?></td>
+                                       <td><?php echo $res->batch_name;?></td>
+                                       <td><?php echo $res->book_name;?></td>
                                        <td><?php echo $res->student_created_at;?></td>
                                        <td>
                                            <?php 
@@ -116,16 +132,20 @@ p{
                                        {
                                            echo "Active";
                                        }
-                                       else 
+                                       elseif ($status == 2) {
+                                          
+                                          echo "Completed";
+                                        } 
+                                      else
                                        {
                                            echo "Not Active";
                                        }
                                        ?></td>
                                        <td>
   
-                  <button type="button" class="btn btn-success" onclick="edit_student(<?php echo $res->student_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="Edit Student" ><i class="glyphicon glyphicon-pencil"></i></button>
-                  <button type="button" class="btn btn-info" onclick="view_student(<?php echo $res->student_id; ?>)" data-toggle="tooltip" data-placement="bottom" title="View Student"><i class="glyphicon glyphicon-eye-open"></i></button>
-                  <button type="button" class="btn btn-danger" onclick="delete_student(<?php echo $res->student_id;?>)" data-toggle="tooltip" data-placement="bottom" title="Delete Student" ><i class="glyphicon glyphicon-trash"></i></button>
+                  <button type="button" class="btn btn-success" id="id_for_book" value="<?php echo $res->course_id; ?>" onclick="demo_view()" data-toggle="tooltip" data-placement="bottom" title="Edit Student" ><i class="glyphicon glyphicon-pencil"></i></button>
+                  <button type="button" class="btn btn-info" onclick="view_student(<?php echo $res->student_id ?>)" data-toggle="tooltip" data-placement="bottom" title="View Student"><i class="glyphicon glyphicon-eye-open"></i></button>
+                  <button type="button" class="btn btn-danger" onclick="demo_view()" data-toggle="tooltip" data-placement="bottom" title="Delete Student" ><i class="glyphicon glyphicon-trash"></i></button>
 
 
                 </td>
@@ -246,84 +266,100 @@ $("#myName").on("keyup", function() {
     
     function add_student()
     {
-//      save_method = 'add';
-//      $('#form')[0].reset(); // reset form on modals
-//      $('#modal_form').modal('show'); // show bootstrap modal
-//      $('.modal-title').text('Add Student'); // Set Title to Bootstrap modal title
-//      $("#img_box").hide();
-//      $("#box").show();
-//      $('#remove_pic').hide();
+      save_method = 'add';
+      $('#form')[0].reset(); // reset form on modals
+      $('#modal_form').modal('show'); // show bootstrap modal
+      $('.modal-title').text('Add Student'); // Set Title to Bootstrap modal title
+      $("#img_box").hide();
+      $("#box").show();
+      $('#remove_pic').hide();
 
-      $('#demo_form').modal('show'); // show bootstrap modal
-     $('.modal-title1').text('This is Demo Version');
-      $('.modal-title2').text('You can not ADD,EDIT,DELETE');
+//       $("#book_id").html("");
+        $('#course_id').attr("disabled",false);
+        $('#book_id').attr("disabled",false);
+
+
     }
 
     function edit_student(id)
     {
-         $('#demo_form').modal('show'); // show bootstrap modal
-          $('.modal-title1').text('This is Demo Version');
-      $('.modal-title2').text('You can not ADD,EDIT,DELETE');
-//      save_method = 'update';
-//     $('#form')[0].reset(); // reset form on modals
-//
-//      //Ajax Load data from ajax
-//      $.ajax({
-//        url : "<?php echo site_url('index.php/center/Student/ajax_edit/')?>/" + id,        
-//        type: "GET",
-//               
-//        dataType: "JSON",
-//        success: function(data)
-//        {        
-//
-//            $('[name="student_id"]').val(data.student_id);
-//            $('[name="center_id"]').val(data.center_id);
-//            $('[name="course_id"]').val(data.course_id);
-//            $('[name="book"]').val(data.student_book);            
-//            $('[name="student_fname"]').val(data.student_fname);
-//            $('[name="student_lname"]').val(data.student_lname);
-//            $('[name="student_email"]').val(data.student_email);
-//            $('[name="student_mobile"]').val(data.student_mobile);
-//            $('[name="student_gender"]').val(data.student_gender);
-//            $('[name="student_dob"]').val(data.student_dob);
-//            $('[name="student_last_education"]').val(data.student_last_education);
-//            $('[name="student_address"]').val(data.student_address);  
-//            $('[name="student_city"]').val(data.student_city);
-//            if(data.student_profile_pic)
-//            {
-//                $('#remove_pic').show();
-//                $('#remove_pic').attr("onclick","remove_profile_pic("+data.student_id+")");
-//            }
-//           else
-//           {
-//                $('#remove_pic').hide();
-//           }
-////             $("#city").append('<option value="'+ data.student_city +'" id="append_city">' + data.student_city + '</option>');
-//            $('[name="student_state"]').val(data.student_state);
-//            $('[name="student_pincode"]').val(data.student_pincode);
-//            $('#profile_pic').attr("src", "<?php echo base_url();?>"+data.student_profile_pic);
-//            
-//            if(data.student_profile_pic)
-//            {
-//                 $("#box").hide();
-//            $("#img_box").show();            
-//            }
-//            else
-//            {
-//                $("#img_box").hide(); 
-//                $("#box").show();
-//            }
-//            
-//            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-//            $('.modal-title').text('Edit Student'); // Set title to Bootstrap modal title
-//            
-//
-//        },
-//        error: function (jqXHR, textStatus, errorThrown)
-//        {
-//            alert('Error get data from ajax 1');
-//        }
-//    });
+      save_method = 'update';
+     $('#form')[0].reset(); // reset form on modals
+
+              $("#book_id").html("");
+
+      //Ajax Load data from ajax
+      $.ajax({
+        url : "<?php echo site_url('index.php/center/Student/ajax_edit/')?>/" + id,        
+        type: "GET",
+               
+        dataType: "JSON",
+        success: function(data)
+        {        
+         
+//                     $("#append_city").remove();
+            $('[name="student_id"]').val(data.student_id);
+            $('[name="center_id"]').val(data.center_id);
+            $('[name="sub_center_id"]').val(data.sub_center_id);
+            $('[name="course_id"]').val(data.course_id);         
+             $("#book_id").append('<option id="book_n" value="'+ data.book_id +'">' + data.book_name + '</option>');          
+            $('[name="batch_id"]').val(data.batch_id);
+              // alert($("#book_"+data.book_id).val());
+            $('[name="student_fname"]').val(data.student_fname);
+            $('[name="student_lname"]').val(data.student_lname);
+            $('[name="student_email"]').val(data.student_email);
+            $('[name="student_mobile"]').val(data.student_mobile);
+            $('[name="student_gender"]').val(data.student_gender);
+            $('[name="student_dob"]').val(data.student_dob);
+            $('[name="student_last_education"]').val(data.student_last_education);
+            $('[name="student_address"]').val(data.student_address);  
+            $('[name="student_city"]').val(data.student_city);
+            $('[name="student_status"]').val(data.student_status);
+            if(data.student_profile_pic)
+            {
+                $('#remove_pic').show();
+                $('#remove_pic').attr("onclick","remove_profile_pic("+data.student_id+")");
+            }
+           else
+           {
+                $('#remove_pic').hide();
+           }
+//             $("#city").append('<option value="'+ data.student_city +'" id="append_city">' + data.student_city + '</option>');
+            $('[name="student_state"]').val(data.student_state);
+            $('[name="student_pincode"]').val(data.student_pincode);
+            $('#profile_pic').attr("src", "<?php echo base_url();?>"+data.student_profile_pic);
+            
+            if(data.student_profile_pic)
+            {
+                 $("#box").hide();
+            $("#img_box").show();            
+            }
+            else
+            {
+                $("#img_box").hide(); 
+                $("#box").show();
+            }
+            
+            if(data.student_status >= 1)
+            {
+              $('#course_id').attr("disabled",true);
+              $('#book_id').attr("disabled",true);
+
+            }else{ 
+              $('#course_id').attr("disabled",false);
+              $('#book_id').attr("disabled",false);
+             }
+            
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Student'); // Set title to Bootstrap modal title
+            
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax 1');
+        }
+    });
     }
     
     function view_student(id)
@@ -345,7 +381,7 @@ $("#myName").on("keyup", function() {
             $('#semail').html(data.student_email);
             $('#smobile').html(data.student_mobile);
             $('#sgender').html(data.student_gender);
-            $('#saddmission_month').html(data.student_payment_date);
+            $('#saddmission_month').html(data.student_admission_month);
             $('#scourse_end_date').html(data.student_course_end_date);
             $('#slast_education').html(data.student_last_education);
             if(data.student_profile_pic)
@@ -378,12 +414,15 @@ $("#myName").on("keyup", function() {
     }
 
 
+         
 
-
-
+    
     function save()
     {
-        var data = new FormData(document.getElementById("form"));
+
+  
+
+      var data = new FormData(document.getElementById("form"));
 
       var url;
       if(save_method == 'add')
@@ -426,30 +465,69 @@ $("#myName").on("keyup", function() {
 
     function delete_student(id)
     {
-        
-         $('#demo_form').modal('show'); // show bootstrap modal
-          $('.modal-title1').text('This is Demo Version');
-      $('.modal-title2').text('You can not ADD,EDIT,DELETE');
-//      if(confirm('Are you sure delete this data?'))
-//      {
-//        // ajax delete data from database
-//          $.ajax({
-//            url : "<?php echo site_url('index.php/center/Student/student_delete')?>/"+id,
-//            type: "POST",
-//            //dataType: "JSON",
-//            success: function(data)
-//            {
-//                alert("Deleted successfully");  
-//               location.reload();
-//            },
-//            error: function (jqXHR, textStatus, errorThrown)
-//            {
-//                alert('Error deleting data');
-//            }
-//        });
-//
-//      }
+      if(confirm('Are you sure delete this data?'))
+      {
+        // ajax delete data from database
+          $.ajax({
+            url : "<?php echo site_url('index.php/center/Student/student_delete')?>/"+id,
+            type: "POST",
+            //dataType: "JSON",
+            success: function(data)
+            {
+                alert("Deleted successfully");  
+               location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+
+      }
     }
+
+
+
+
+
+    $(document).ready(function () {
+
+     $("#course_id").change(function() {
+
+
+   var el = $(this) ;
+              $("#book_id").html("");
+
+
+var id=el.val();
+          if(id>0)
+          {
+      $.ajax({
+       url : "<?php echo site_url('index.php/center/Student/show_book')?>/" + id,        
+       type: "GET",
+              
+       dataType: "JSON",
+       success: function(data)
+       {
+        
+          $.each(data,function(i,row)
+          {
+           
+              $("#book_id").append('<option value="'+ row.book_id +'">' + row.book_name + '</option>');
+          }
+          );
+       },
+       error: function (jqXHR, textStatus, errorThrown)
+       {
+         alert('Error...!');
+       }
+     });
+     }
+    
+ });
+
+   });
+
 
 
         //select all checkboxes
@@ -472,13 +550,29 @@ $("#myName").on("keyup", function() {
         }
     });
     
+    function demo_view()
+    {
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not ADD,EDIT,DELETE');
+
+    }
+    
+    function demo_view1()
+    {
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not make Payment');
+
+    }
+
+
  
     
      
   </script>
   
-  
-     <!-- Bootstrap modal -->
+   <!-- Bootstrap modal -->
   <div class="modal fade" id="demo_form" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -491,8 +585,6 @@ $("#myName").on("keyup", function() {
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div>
-     
-    
   
   <!-- Bootstrap modal -->
   <div class="modal fade" id="modal_form2" role="dialog">
@@ -612,10 +704,7 @@ $("#myName").on("keyup", function() {
     
         
           </div>
-<!--          <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save()"  class="btn btn-success">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          </div>-->
+
           </form>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -633,7 +722,7 @@ $("#myName").on("keyup", function() {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <center><h3 class="modal-title">Course Form</h3></center>
       </div>
-        <form action="#" name="form_student" id="form" class="form-horizontal">
+        <form action="#" name="form_student" data-async data-target="#modal_form" id="form" class="form-horizontal">
       <div class="modal-body form">
           <input type="hidden" value="" name="student_id"/>
           <input type="hidden" value="" name="center_id"/>
@@ -652,15 +741,53 @@ $("#myName").on("keyup", function() {
                     <button id='remove_pic' value="" onclick="" class="btn btn-danger">Remove Profile Photo</button>
                    </div>
                     </div><br>
+                        <div class="row">
+                                <div class="col-md-5 col-md-offset-1">                                
+                                    <div class="form-group">
+                                        <label for="">Sub-Center Name</label><span style="color:red">*</span>
+                                           <select name="sub_center_id" class="form-control required" required>
+                                                <option value="">--Select Sub Center--</option>
+                                            <?php 
+                                            foreach($sub_center_data as $center)
+                                            { 
+                                              if ($center->sub_center_status==1)
+                                                  {                                                
+                                              echo '<option value="'.$center->sub_center_id.'">'.$center->sub_center_name.'</option>';
+                                            }
+                                            }
+                                            ?>
+                                        </select>
+                                        </div>                                    
+                                </div>
+                            <div class="col-md-5 col-md-offset-1">                                
+                                    <div class="form-group">
+                                        <label for="">Batch Name</label>
+                                           <select name="batch_id" class="form-control required" required>
+                                              <option value="">--Select Batch--</option>  
+                                            <?php 
+                                            foreach($batches as $bat)
+                                            { 
+                                              if ($bat->batch_status==1)
+                                                  {                                                
+                                              echo '<option value="'.$bat->batch_id.'">'.$bat->batch_name.'&nbsp;&nbsp;&nbsp;('.$bat->batch_time.')</option>';
+                                            }
+                                            }
+                                            ?>
+                                        </select>
+                                        </div>                                    
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-5 col-md-offset-1">                                
                                     <div class="form-group">
-                                        <label for="fname">Course</label>
-                                           <select name="course_id" class="form-control required" required>
-                                                <!--<option value="0">Select Course</option>-->
+                                        <label for="fname">Course</label><span style="color:red">*</span>
+                                           
+                                           <select name="course_id" id="course_id" class="form-control required" required >
+                                                <option value="">--Select Course--</option>
                                             <?php 
                                             foreach($courses as $row)
                                             { 
+
                                               if ($row->course_status==1) {
                                                 
                                               echo '<option value="'.$row->course_id.'">'.$row->course_name.'</option>';
@@ -674,20 +801,31 @@ $("#myName").on("keyup", function() {
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="lname">Book</label>
-                                        <select name="book" class="form-control required" required>
-                                          <option value="1">With Book</option>
-                                          <option value="0">Without Book</option>
+                                        <label for="lname">Book</label><span style="color:red">*</span>
+                                        <select name="book_id" class="form-control required" id="book_id" required>
+                                            <option>--Select Book--</option>
                                         </select>
                                       <span class="text-danger" id="lname_err"></span>
                                     </div>
                                 </div>
                                 
                             </div>
+                    
+<!--                     <div class="row">
+                                <div class="col-md-5 col-md-offset-1 ">                                
+                                    <div class="form-group">
+                                        <label for="fname">Apply Coupon Code</label>
+                                        <input type="text" class="form-control required" id="coupon_code" name="coupon_code" maxlength="128"  required>
+                                        <span class="text-danger" id="fname_err"></span>
+
+                                    </div>
+                                    
+                                </div>
+                    </div>-->
                             <div class="row">
                                 <div class="col-md-5 col-md-offset-1  ">                                
                                     <div class="form-group">
-                                        <label for="fname">First Name</label>
+                                        <label for="fname">First Name</label><span style="color:red">*</span>
                                         <input type="text" class="form-control required" id="fname" name="student_fname" maxlength="128"   style="text-transform:uppercase" required>
                                         <span class="text-danger" id="fname_err"></span>
 
@@ -696,7 +834,7 @@ $("#myName").on("keyup", function() {
                                 </div>
                                 <div class="col-md-5 col-md-offset-1 ">
                                     <div class="form-group">
-                                        <label for="lname">Last Name</label>
+                                        <label for="lname">Last Name</label><span style="color:red">*</span>
                                         <input type="text" class="form-control required email" id="lname"  name="student_lname" maxlength="128"  style="text-transform:uppercase" required>
                                       <span class="text-danger" id="lname_err"></span>
                                     </div>
@@ -712,7 +850,7 @@ $("#myName").on("keyup", function() {
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="mobile">Mobile Number</label>
+                                        <label for="mobile">Mobile Number</label><span style="color:red">*</span>
                                         <input type="text" class="form-control required digits" id="mobile" name="student_mobile" maxlength="10" required>
                                        <span class="text-danger" id="mobile_err"></span>
                                     </div>
@@ -722,7 +860,7 @@ $("#myName").on("keyup", function() {
                                 
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="gender">Gender</label>
+                                        <label for="gender">Gender</label><span style="color:red">*</span>
                                         <select class="form-control required" id="gender" name="student_gender" required>
                                             <option value="0">Select Gender</option>
                                             <option value="male">Male</option>
@@ -732,7 +870,7 @@ $("#myName").on("keyup", function() {
                                 </div> 
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="dob">Date Of Birth</label>
+                                        <label for="dob">Date Of Birth</label><span style="color:red">*</span>
                                         <input type="date" class="form-control required digits" id="dob" name="student_dob" maxlength="10" required>
                                     </div>
                                 </div>   
@@ -746,7 +884,7 @@ $("#myName").on("keyup", function() {
                                 </div>
                                 <div class="col-md-5 col-md-offset-1 ">
                                     <div class="form-group">
-                                        <label for="address">Address</label>
+                                        <label for="address">Address</label><span style="color:red">*</span>
                                         <textarea class="form-control required " id="address" name="student_address" maxlength="128" required></textarea>
                                     </div>
                                 </div>
@@ -784,14 +922,14 @@ $("#myName").on("keyup", function() {
                             <div class="row">
                                 <div class="col-md-5 col-md-offset-1">
                                     <div class="form-group">
-                                        <label for="pincode">Pincode</label>
+                                        <label for="pincode">Pincode</label><span style="color:red">*</span>
                                         <input type="text" class="form-control required" id="pincode"  name="student_pincode" maxlength="6" required>
                                         <span class="text-danger" id="pincode_err"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-5 col-md-offset-1">
                                       <div class="form-group ">
-                                          <label for="state">Profile Picture</label>  <br>
+                                          <label for="state">Profile Picture</label><span style="color:red">*</span>  <br>
                                            <label id="file_label" class="btn btn-info">
                                           <input type = "file" name ="img" id="img" accept="image/*" />
                                           Choose Image
@@ -800,13 +938,14 @@ $("#myName").on("keyup", function() {
                                           <span id="img_error" style="color:red"></span>
                                       </div>
                                 </div>
+                                <input type="hidden" name="student_status">
                             </div>
                         </div><!-- /.box-body -->
     
         
           </div>
           <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save()"  class="btn btn-success">Save</button>
+            <button type="submit" id="btnSave" onclick="save()"  class="btn btn-success">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
           </form>

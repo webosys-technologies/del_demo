@@ -16,6 +16,7 @@ class Profile extends CI_Controller
         $this->load->model('Students_model');
         $this->load->model('Courses_model');
          $this->load->model('Centers_model');
+         $this->load->model('System_model');
         $this->load->helper('url');
 
 	}
@@ -28,12 +29,13 @@ class Profile extends CI_Controller
         {      
           $id=$this->session->userdata('center_id');
 
+            $result['system']=$this->System_model->get_info();
          $result['data']=$this->Centers_model->get_by_id($id);
          //print_r($result['data']);
            
           $this->load->view('center/header',$result);
       	 $this->load->view('center/profile_view');
-          $this->load->view('center/footer');
+          $this->load->view('center/footer',$result);
 
 
 
@@ -45,8 +47,6 @@ class Profile extends CI_Controller
 
 
 	}
-        
-      
 
   
  

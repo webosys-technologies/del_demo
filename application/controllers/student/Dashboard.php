@@ -25,7 +25,7 @@ class Dashboard extends CI_Controller
         $this->load->model('Exams_model');
          $this->load->model('Centers_model');
             $this->load->model('User_model');
-             $this->load->model('Exam_details_model');
+            $this->load->model('Exam_details_model');
 
         
               
@@ -52,7 +52,7 @@ class Dashboard extends CI_Controller
                 $result['exams']=$this->Exams_model->no_of_exams($id);                 
                 $result['courses']=$this->Courses_model->course_by_id($course_id);
                 $result['count']=$this->Topics_model->topic_count($course_id);
-                 $result['que_count']=$this->Exam_details_model->get_all_result($id);
+                $result['que_count']=$this->Exam_details_model->get_all_result($id);
              
              $this->load->view('student/header',$result);
              $this->load->view('student/dashboard',$result);

@@ -64,6 +64,7 @@ class Courses_model extends CI_Model
 	{
 		$this->db->where('course_id', $id);
 		$this->db->delete($this->table);
+                return $this->db->affected_rows();
 	}
 
 	

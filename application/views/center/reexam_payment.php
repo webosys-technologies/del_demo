@@ -28,7 +28,7 @@
           <th>Reexam fees</th>
 
           <th style="width:125px;">Action
-          </p></th>
+          </th>
         </tr>
       </thead>
       <tbody id="tagContainer">
@@ -66,7 +66,7 @@
     $sid=array();
     foreach ($student_data as $key) {
       $sid[]=$key->student_id;
-      $amt[]=$key->course_fees;
+      $amt[]=$key->course_reexam_fees;
     } 
     $total=array_sum($amt);
     $student=count($sid);
@@ -79,33 +79,59 @@
   </div>
 
     <div class="col-md-offset-10">
-      <button type="submit" class="btn btn-warning" id="payment"  ><i class="glyphicon glyphicon-plus"></i>Proceed to Payment</button>
+      <button type="button" class="btn btn-warning" id="payment" onclick="demo_viewi()"   ><i class="glyphicon glyphicon-plus"></i>Proceed to Payment</button>
     </div>
 </form>
   </div>
 
+
 <script type="text/javascript">
-  $(function() {
-    $("#tagsContainer").on('click', ".tagDelete", function() {
-        var $deleteButton = $(this).attr('disabled', true),
-            $wrapper = $deleteButton.closest(".tagWrapper"),
-            $tag = $wrapper.find('.tag');
-        $.ajax({
-            url: "links/livesearch.php"
-            data: {
-                action: 'tagdelete',
-                tag: $tag.text(),
-                //other params here, eg. to identify the user and the context of the deletion
-            },
-            success: function(data, textStatus, jqXHR) {
-                $wrapper.remove();
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $deleteButton.attr('disabled', false),
-                //display error message?
-            }
-        });
-    });
-});
+  function demo_viewi()
+    {
+      // alert();
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not make Payment');
+
+    }
+
+//   $(function() {
+//     $("#tagsContainer").on('click', ".tagDelete", function() {
+//         var $deleteButton = $(this).attr('disabled', true),
+//             $wrapper = $deleteButton.closest(".tagWrapper"),
+//             $tag = $wrapper.find('.tag');
+//         $.ajax({
+//             url: "links/livesearch.php"
+//             data: {
+//                 action: 'tagdelete',
+//                 tag: $tag.text(),
+//                 //other params here, eg. to identify the user and the context of the deletion
+//             },
+//             success: function(data, textStatus, jqXHR) {
+//                 $wrapper.remove();
+//             },
+//             error: function(jqXHR, textStatus, errorThrown) {
+//                 $deleteButton.attr('disabled', false),
+//                 //display error message?
+//             }
+//         });
+//     });
+// });
+
 
 </script>
+
+
+     <!-- Bootstrap modal -->
+  <div class="modal fade" id="demo_form" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title1"></h3></center>
+         <center><h3 class="modal-title2"></h3></center>
+      </div>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>

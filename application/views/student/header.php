@@ -5,6 +5,14 @@
     <title>Student|Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
+    <!--<link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">-->
+
+  <!-- If you'd like to support IE8 -->
+<!--  <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>-->
+   <script src="http://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+  <script src="https://vjs.zencdn.net/7.0.3/video.js"></script>
+   <link href="https://vjs.zencdn.net/7.0.3/video-js.css" rel="stylesheet">
     <!-- FontAwesome 4.3.0 -->
     <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons 2.0.0 -->
@@ -72,7 +80,7 @@ button:hover {
     cursor: pointer;
 }
 
-#center{
+#sub_center{
     font-size: 20px;
     color:white;
      padding-left:10cm;
@@ -91,6 +99,9 @@ button:hover {
       
    
   </head>
+  
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
   <script>
 $(document).ready(function(){
     $("button").click(function(){
@@ -106,17 +117,20 @@ $(document).ready(function(){
     
    //    alert("hello");
 });
-
-
-function demo_version()
-{
-    $('#demo_form').modal('show');
-}
 </script>
  
    <script>
       
-
+      $(document).ready(function(){
+         // $( "#color" ).addClass( "active" );
+          alert("hello");
+//           $("#color").click(function(){
+//      //  $("#color").addClass("active");
+//      alert("hello");
+        
+//    });
+    
+});
 
     window.open("https://www.w3schools.com", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
       
@@ -201,12 +215,31 @@ function demo_version()
           <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>   
           </a>
+
+            <label id="sub_center"><?php
+          if(isset($data))
+          { 
+              foreach($data as $res)
+              { 
+                if (isset($res->sub_center_name) ) {
+                echo $res->sub_center_name."-".$res->center_name;
+                  
+                }else{
+               echo $res->center_name;
+
+                }
+              }
+          
+          }
+          ?></label>
+
           <label id="center"><?php
           if(isset($center_names))
           { 
               foreach($center_names as $center_name)
-              {
-                echo $center_name->center_name;
+              { 
+
+               // echo $center_name->center_name;
               }
           
           }
@@ -264,8 +297,7 @@ function demo_version()
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-<!--                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#myModal"><i class="fa fa-key"></i> Change Password</button>-->
-                        <button type="button" class="btn btn-default btn-flat" onclick="demo_version()"><i class="fa fa-key"></i> Change Password</button>
+                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#myModal"><i class="fa fa-key"></i> Change Password</button>
                     </div>
                      
                     <div class="pull-right">
@@ -279,18 +311,7 @@ function demo_version()
         </nav>
       </header>
         
-        <div class="modal fade" id="demo_form" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center><h3 class="modal-title1">This is Demo Version</h3></center>
-         <center><h3 class="modal-title2">You can not change password</h3></center>
-      </div>
-        
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
+       
         
         
         <form class="modal fade" id="myModal" role="dialog" action="<?php echo base_url(); ?>student/index/reset_password" method="post">

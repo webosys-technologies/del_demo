@@ -15,6 +15,7 @@ class Login_detail extends CI_Controller
         $this->load->model('Students_model');
         $this->load->model('Courses_model');
          $this->load->model('Centers_model');
+         $this->load->model('System_model');
         $this->load->helper('url');
 
 
@@ -32,11 +33,12 @@ class Login_detail extends CI_Controller
         {        $id=$this->session->userdata('center_id');
       		$data['student_data']=$this->Students_model->get_by_center_id($id);
           $data['courses']=$this->Courses_model->getall_courses();
+            $result['system']=$this->System_model->get_info();
          $result['data']=$this->Centers_model->get_by_id($id);
            
              $this->load->view('center/header',$result);
       		$this->load->view('center/login_detail',$data);
-          $this->load->view('center/footer');
+          $this->load->view('center/footer',$result);
 
 
 
@@ -66,6 +68,29 @@ class Login_detail extends CI_Controller
                    echo json_encode(array("status" => TRUE));
              
 
+  }
+
+  function old_admission()
+  {
+    $center_LoggedIn=$this->session->userdata('center_LoggedIn');
+
+        if(isset($center_LoggedIn) || $center_LoggedIn == TRUE)
+        {        $id=$this->session->userdata('center_id');
+          $data['student_data']=$this->Students_model->get_by_center_id($id);
+          $data['courses']=$this->Courses_model->getall_courses();
+         $result['data']=$this->Centers_model->get_by_id($id);
+            $result['system']=$this->System_model->get_info();
+           
+             $this->load->view('center/header',$result);
+          $this->load->view('center/old_admission_view',$data);
+          $this->load->view('center/footer',$result);
+
+
+
+        }
+        else{
+          redirect('center/index/login');
+        }
   }
  
 }

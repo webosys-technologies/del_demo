@@ -18,8 +18,7 @@
     <div class="row">
     <div class="col-md-4">
     <button type="button" class="btn btn-danger" id="print" ><i class="glyphicon glyphicon-print"></i> Print</button>
-       <!--<button type="submit" class="btn btn-warning" id="payment"  ><i class="fa fa-inr"></i> Make Payment</button>-->
-    <button type="button" onclick="demo_version()" class="btn btn-warning"  ><i class="fa fa-inr"></i> Make Payment</button>
+       <button type="button" class="btn btn-warning" id="payment" onclick="demo_view()" ><i class="fa fa-inr"></i> Make Payment</button>
 
 
     </div>
@@ -128,18 +127,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
       
-     <div class="modal fade" id="demo_form1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center><h3 class="modal-title1">This is Demo Version</h3></center>
-         <center><h3 class="modal-title2">You can not make payment</h3></center>
-      </div>
-        
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
+    
 </section>
 </form>
     
@@ -165,10 +153,6 @@
     });
   });
 
-     function demo_version()
-     {
-        $('#demo_form1').modal('show'); 
-     }
      
   function printData()
 {
@@ -239,7 +223,24 @@ printData();
     }
     
     
+function create_passcode(id)
+{
 
+  $.ajax({
+        url : "<?php echo site_url('index.php/center/Login_detail/create_passcode')?>/" + id,        
+        type: "POST",
+               
+        dataType: "JSON",
+        success: function(data)
+        {
+          location.reload();
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+          alert('Error while creating passcode');
+        }
+      });
+}
 
 
           //select all checkboxes
@@ -261,9 +262,30 @@ printData();
               $("#select_all")[0].checked = true; //change "select all" checked status to true
           }
       });
+
+      function demo_view()
+    {
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not make Payment');
+
+    }
     
    </script>
 
 
  </aside>
 
+ <!-- Bootstrap modal -->
+  <div class="modal fade" id="demo_form" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="color:#fff; background-color:#FF5733" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title1"></h3></center>
+         <center><h3 class="modal-title2"></h3></center>
+      </div>
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>

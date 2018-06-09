@@ -13,6 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $this->load->model('Orders_model');
         $this->load->model('Order_details_model');
         $this->load->model('Students_model');
+        $this->load->model('Coupons_model');
+        $this->load->model('System_model');
        // $this->load->view('center/header');
         
 
@@ -27,10 +29,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $id=$this->session->userdata('center_id');
     $data['payment']=$this->Payment_model->get_by_center_id($id);
+            $result['system']=$this->System_model->get_info();
     $result['data']=$this->Centers_model->get_by_id($id);           
     $this->load->view('center/header',$result);
     $this->load->view('center/payment_view',$data);
-    $this->load->view('center/footer');
+    $this->load->view('center/footer',$result);
         }
         else{
           redirect('center/index/login');
@@ -56,6 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $id=$this->input->post('payuMoneyId');
         $center_id=$this->input->post('udf1');
         $order_id=$this->input->post('udf2');
+        $coupon_code=$this->input->post('udf3');
         $error=$this->input->post('error');
 
 
@@ -93,6 +97,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   $this->Orders_model->update_order($order_id);
                     if($status)
                     {
+                       $pay['error']=$error;
+                       $pay['coupon_code']=$coupon_code;
+                       $pay['productinfo']=$productinfo;
+
                       $this->Order_details($pay);
                     }
                     $id=$this->session->userdata('center_id');
@@ -120,18 +128,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       foreach ($stud_data as $key )
       {
           $pass['student_id']=$key->student_id;
-          $pass['course_id']=1;
+          $pass['course_id']=$key->course_id;
           $course_fees=$key->course_fees;
+          $reexam_fees=$key->course_reexam_fees;
           $student_email=$key->student_email;
           $order_id=$data['order_id'];
           $center_id=$data['center_id'];
           $status=$data['payment_status'];
-
-          if ($key->student_book == 1) {
             $price=$key->book_price;
-          }else{ $price=0; }
 
+
+          if ($data['productinfo'] == 'Reexam') 
+          {
+            $amt=$reexam_fees;
+            $total=$reexam_fees;
+          }
+          else{
+              $amt=$course_fees;
           $total=$course_fees+$price;
+
+            }
+
 
           $pass['student_fname']=$key->student_fname;
 
@@ -140,18 +157,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             'center_id' =>$center_id,
             'student_id' =>$pass['student_id'],
             'course_id' => $pass['course_id'],
-            'od_course_fees' =>$course_fees,
+            'od_course_fees' =>$amt,
             'od_book_price' =>$price,
             'od_total_amount' =>$total,
             'order_detail_status'=>$status ,
 
           );
+          
+            $coupon=$data['coupon_code'];
+            
 
           $res=$this->Order_details_model->addorder($order);
           if($res)
           {
             if ($status == 'success') {
+              
+              if (!empty($coupon)) {
+             $coupon_data=$this->Coupons_model->get_coupon($coupon);
+              $limit=$coupon_data->coupon_limit-1;
+              $data=array('coupon_limit' => $limit );
+
+              $this->Coupons_model->coupon_update(array('coupon_code' =>$coupon ),$data);
+              }
+
+
              $this->login_create($pass);
+
               
             }
           }
@@ -163,7 +194,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     {
       $res=$this->Courses_model->course_by_id($pass['course_id']);
       foreach ($res as $key) {
-       echo $dur=$key->course_duration;
+      // echo $dur=$key->course_duration;
       }
        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
              $password = array(); 
@@ -182,7 +213,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       $data = array('student_admission_month' => date('M-Y'),
                     'student_admission_date' => date('Y-m-d '),
-                    'student_username' =>$pass['student_fname'].$pass['student_id'] ,
+                    'student_username' =>strtolower($pass['student_fname']).$pass['student_id'] ,
                     'student_password' =>$pwd ,
                     'student_status' =>'1' );
              $this->Students_model->student_update(array('student_id'=>$pass['student_id']),$data);
@@ -200,20 +231,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     function test()
     {
-      $data = array(
-      'name' => $this->session->userdata('name'),
-      'email' => $this->session->userdata('email'),
-      'mobile' => $this->session->userdata('mobile'),
-      'amount' => $this->session->userdata('amount'),
-      'payment_status' => $this->session->userdata('payment_status'),
-       );
-      
-    $id=$this->session->userdata('center_id');
-      $result['data']=$this->Centers_model->get_by_id($id);           
-    $this->load->view('center/header',$result);
-      $this->load->view('center/status',$data);
-      $this->load->view('center/footer');
-    }
+      $center_LoggedIn=$this->session->userdata('center_LoggedIn');
+
+        if(isset($center_LoggedIn) || $center_LoggedIn == TRUE)
+        {
+          $data = array(
+                'name' => $this->session->userdata('name'),
+                'email' => $this->session->userdata('email'),
+                'mobile' => $this->session->userdata('mobile'),
+                'amount' => $this->session->userdata('amount'),
+                'payment_status' => $this->session->userdata('payment_status'),
+                'error'=>$this->session->userdata('error'),
+                 );
+                
+              $id=$this->session->userdata('center_id');
+            $result['system']=$this->System_model->get_info();
+                $result['data']=$this->Centers_model->get_by_id($id);           
+              $this->load->view('center/header',$result);
+                $this->load->view('center/status',$data);
+                $this->load->view('center/footer',$result);
+              
+        }
+        else{
+          redirect('center/index/login');
+        }
+      }
 
 
     

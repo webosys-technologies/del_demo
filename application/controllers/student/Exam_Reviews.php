@@ -47,11 +47,11 @@ class Exam_Reviews extends CI_Controller
 				 
               $cid=$this->session->userdata('center_id');
               $result['center_names']=$this->Centers_model->center_name($cid);  //get center detail
-              $result['exams']=$this->Exams_model->getdata($id);
+              $exam_result['exams']=$this->Exams_model->getdata($id);
              
         	
             $this->load->view('student/header',$result);
-                $this->load->view('student/exam_reviews',$result);
+                $this->load->view('student/exam_reviews',$exam_result);
                 $this->load->view('student/footer');
                   
         }
@@ -74,8 +74,8 @@ class Exam_Reviews extends CI_Controller
               
               $correct_ans=0;
               $wrong_ans=0;              
-              $total_que=10;
-              $total_mark=10;
+              $total_que=50;
+              $total_mark=50;
                           
               foreach($exam_result as $res)
               {

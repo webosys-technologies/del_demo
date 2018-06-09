@@ -27,6 +27,10 @@ class Dashboard extends CI_Controller
          $this->load->model('Questions_model');
          $this->load->model('Topics_model');
          $this->load->model('Books_model');
+         $this->load->model('Batches_model');
+         $this->load->model('Coupons_model');
+         $this->load->model('Sub_centers_model');
+         $this->load->model('System_model');
        
       //  $this->isLoggedIn();   
     }
@@ -42,13 +46,19 @@ class Dashboard extends CI_Controller
             $uid=$this->session->userdata('user_id');
             $result['user_info']=$this->User_model->get_user_by_id($uid);
             $payments=$this->Payment_model->getall_payment();
-            $result['students']=$this->Students_model->getall_students_no();
+            $result['admission']=$this->Students_model->getall_admission_no();
+            $result['students']=$this->Students_model->getall_students_no();            
             $result['centers']=$this->Centers_model->getall_centers_no();
             $result['orders']=$this->Orders_model->getall_orders_num();
             $result['courses']=$this->Courses_model->get_course_rows();
             $result['topics']=$this->Topics_model->get_topic_count();
             $result['questions']=$this->Questions_model->get_question_count();
             $result['books']=$this->Books_model->get_book_count();
+            $result['sub_centers']=$this->Sub_centers_model->getall_sub_center();
+             $result['batches']=$this->Batches_model->get_allbatch();
+            $result['system']=$this->System_model->get_info();
+              $result['coupons']=$this->Coupons_model->get_allcoupon();
+            
             $amount=0;
             if(isset($payments))
             {
@@ -62,7 +72,7 @@ class Dashboard extends CI_Controller
        
             $this->load->view('admin/header',$result);
              $this->load->view('admin/dashboard',$result);
-             $this->load->view('student/footer');
+             $this->load->view('student/footer',$result);
         }
         else
         {

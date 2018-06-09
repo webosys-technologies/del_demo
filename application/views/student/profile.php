@@ -1,9 +1,4 @@
-<script>
-    function demo_version()
-    {
-        $('#demo_form').modal('show');
-    }
-    </script>
+
 <div style="background-color:white"  class="content-wrapper">
      <section class="content-header">
       <h1>
@@ -17,7 +12,23 @@
     </section>
     <hr>
 
-     <section class="content">    
+<!--<div class="panel-group">-->
+    
+     <!--<div class="panel panel-default">-->
+     
+     
+     <section class="content">
+
+
+
+
+
+
+
+
+
+	
+        
         
         
          <?php
@@ -62,8 +73,7 @@
           <label> <i class="fa fa-venus-mars"></i><span> Gender :</span></label><?php echo $info['student_gender'];?><br>
           <label> <span class="fa fa-birthday-cake"></span> DOB :</label><?php echo $info['student_dob'];?><br>
           <label> <span class="glyphicon glyphicon-home"></span> Address :</label><?php echo $info['student_address'];?><br>
-<!--          <h4><a href="#" data-toggle="collapse" data-target="#demo">Edit Pofile?</a></h4>-->
-<h4><a href="#" onclick="demo_version()">Edit Pofile?</a></h4>
+          <h4><a href="#" data-toggle="collapse" data-target="" onclick="demo_view()">Edit Pofile?</a></h4>
   
                
                    
@@ -134,7 +144,26 @@
                                         <span class="text-danger"><?php echo form_error('student_address'); ?></span>
 				</div>   
                             
-
+<!--                            <div class="row">
+                                 <div class="col-md-6" >
+                                <div class="form-group">
+                                <label for="text">State</label>
+                                <select name="student_state" class="form-control">
+                                  <option value="Maharashtra">Maharashtra</option>
+                                  </select>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                            
+                                <div class="form-group">
+                                <label for="text">City</label>
+                                <select class="form-control" name="student_city">
+                                  <option value="pune">Pune</option>
+                                  <option value="Ahmednagar">Ahmednagar</option>
+                                </select>
+                                </div>
+                                </div>
+                            </div>-->
                             
                             <div class="row">
                             <div class="col-md-6" >
@@ -161,26 +190,35 @@
 
    </div> 
         </section>
+  
+</div>
     
-        <!-- Bootstrap modal -->
+        <script type="text/javascript">
+              function demo_view()
+    {
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not Edit Profile');
+
+    }
+
+
+        </script>
+    
+        
+      <!-- Bootstrap modal -->
   <div class="modal fade" id="demo_form" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="color:#fff; background-color:#FF5733" >
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center><h3 class="modal-title1">This is Demo Version</h3></center>
-         <center><h3 class="modal-title2">You can not ADD,EDIT,DELETE</h3></center>
+        <center><h3 class="modal-title1"></h3></center>
+         <center><h3 class="modal-title2"></h3></center>
       </div>
         
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div>
-  
-</div>
-    
-        
-    
-
 
 
 <!--     </div>

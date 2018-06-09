@@ -10,11 +10,12 @@ class Index extends CI_Controller
 		$this->load->database();
 		$this->load->model('User_model');
                 $this->load->model('Students_model');
-                $this->load->model('Play_time_model');
+                $this->load->model('Exams_model');
 	}
 	
 	function index()
 	{
+//            $this->load->view('student/ask_center_password');
 		$this->login();
 	}
    
@@ -32,9 +33,11 @@ class Index extends CI_Controller
         }
     }
     
-    
-    
-    
+    public function ask_center_password()
+    {
+        $this->load->view('student/ask_center_password');
+    }
+          
     
     public function loginMe()
     {
@@ -57,36 +60,44 @@ class Index extends CI_Controller
             $check=$this->check_student_email($student_email);
             if($check)
             {
-           list($result,$getdata,$valid_email) = $this->Students_model->loginMe($student_email, $student_password);  
+           $getdata = $this->Students_model->loginMe($student_email, $student_password);  
            
              if($getdata)
              {
            foreach($getdata as $res)  
           {   
             $status=array('student_status'=>$res->student_status,
-                          'student_profile_pic'=>$res->student_profile_pic);
+                          'student_profile_pic'=>$res->student_profile_pic,
+                          'center_id'=>$res->center_id,
+                          'student_id'=>$res->student_id,
+                           'student_course_end_date'=>$res->student_course_end_date,
+                            'student_course_start_date'=>$res->student_course_start_date,
+                            'course_duration'=>$res->course_duration,
+                          );
+            
            }
         
-//                  echo $status['student_profile_pic'];
-//                  die;
            
-            if($status['student_status']==1 && (!empty($status['student_profile_pic'])))
+
+           
+            if($status['student_status']>=1 && (!empty($status['student_profile_pic'])))
             {
-                 
-              
-                if($res->student_course_start_date=='0000-00-00'){
-                    $dur=$res->course_duration;
+             $center_detail=$this->Students_model->get_center_detail($status['center_id']);
+             if($center_detail->center_askfor_password=='disable')
+             {                
+                if($status['student_course_start_date']=='0000-00-00'){
+                    $dur=$status['course_duration'];
                     $date=date('Y-m-d');
                     $data=array('student_course_start_date'=>$date,
                    'student_course_end_date' =>date('Y-m-d', strtotime("+".$dur."months", strtotime($date))));
-                    $this->Students_model->student_update(array('student_id'=>$res->student_id),$data);
+                    $this->Students_model->student_update(array('student_id'=>$status['student_id']),$data);
                     }
-                 
-                    if($res->student_course_end_date==date('Y-m-d'))
+                    $stud_data=$this->Students_model->get_student_by_id($status['student_id']);
+                    if($stud_data->student_course_end_date < date('Y-m-d'))
                     {
-                        $update_status=array('student_status'=>'0',
-                                             'student_course_start_date'=>'0000-00-00');
-                        $this->Students_model->student_update(array('student_id'=>$res->student_id),$update_status);
+                        $update_status=array('student_status'=>'2' );
+                        $this->Students_model->student_update(array('student_id'=>$status['student_id']),$update_status);
+                       $this->session->set_flashdata('success','course Completed...!');
                         redirect('student/index/login');
                     }
                
@@ -102,13 +113,18 @@ class Index extends CI_Controller
                     'center_id'=>$res->center_id,
                     'student_LoggedIn' => true
                                     );
-                                    
-                    
-                    $this->session->set_userdata($sessionArray);  
-                    $this->Play_time_model->update_play_time($this->session->userdata('student_id'));
-                    redirect('student/Dashboard');
-                  //  $this->load->view('center/signup');
+                                                
+                  
                }
+               $this->session->set_userdata($sessionArray);                   
+                    redirect('student/Dashboard');
+             }
+               else
+               {
+                   
+                   $this->load->view('student/ask_center_password',$status);
+               }
+               
               }
               
             else
@@ -156,6 +172,78 @@ class Index extends CI_Controller
 //   /*     redirect('controller_class/login');
 //        $this->session->unset_userdata('student_LoggedIn'); 
            redirect('student/Index/login');  
+    }
+    
+    public function check_center_password()
+    {
+        $stud_id=$this->input->post('student_id');
+        $pass=$this->input->post('center_password');
+        $res=$this->Students_model->get_center_id($stud_id);
+        
+        $data=array('center_id'=>$res->center_id,
+                    'center_password'=>$pass);
+        
+        $result=$this->Students_model->check_center_password($data);
+       
+        if($result)
+        {
+            $getdata = $this->Students_model->get_by_id($stud_id);
+            foreach($getdata as $res)  
+          {   
+            $status=array('student_status'=>$res->student_status,
+                          'student_profile_pic'=>$res->student_profile_pic,
+                          'center_id'=>$res->center_id,
+                          'student_id'=>$res->student_id,
+                           'student_course_end_date'=>$res->student_course_end_date,
+                            'student_course_start_date'=>$res->student_course_start_date,
+                            'course_duration'=>$res->course_duration,
+                          );
+            
+           }
+            
+            
+          if($status['student_course_start_date']=='0000-00-00'){
+                    $dur=$status['course_duration'];
+                    $date=date('Y-m-d');
+                    $data=array('student_course_start_date'=>$date,
+                   'student_course_end_date' =>date('Y-m-d', strtotime("+".$dur."months", strtotime($date))));
+                    $this->Students_model->student_update(array('student_id'=>$status['student_id']),$data);
+                    }
+                $stud_data=$this->Students_model->get_student_by_id($stud_id);
+                    if($stud_data->student_course_end_date < date('Y-m-d'))
+                    {
+                        $update_status=array('student_status'=>'2' );
+                        $this->Students_model->student_update(array('student_id'=>$status['student_id']),$update_status);
+                        $this->session->set_flashdata('success','course Completed...!');
+      
+         redirect('student/index/login');
+                    }
+               
+                foreach ($getdata as $res)
+                {
+                    $sessionArray = array(
+                        
+                     'student_id' => $res->student_id,
+                    'student_fname' => $res->student_fname,
+                    'student_lname' => $res->student_lname,
+                    'student_email' => $res->student_email,
+                    'student_course_id' => $res->course_id,
+                    'center_id'=>$res->center_id,
+                    'student_LoggedIn' => true
+                                    );                                  
+                   
+                  
+               }  
+                $this->session->set_userdata($sessionArray);                      
+                    redirect('student/Dashboard');
+               
+        }
+        else
+        {
+            $this->session->set_flashdata('error','Center Administrative password does not match');
+            $stud_data['student_id']=$stud_id;
+            $this->load->view('student/ask_center_password',$stud_data);
+        }
     }
         
     

@@ -81,8 +81,7 @@
           <label> <span class="glyphicon glyphicon-user"></span>&nbsp; Gender :</label><?php echo $info['center_gender'];?><br>
           <label> <span class="fa fa-birthday-cake"></span>&nbsp; DOB :</label><?php echo $info['center_dob'];?><br>
           <label> <span class="glyphicon glyphicon-home"></span>&nbsp; Address :</label><?php echo $info['center_address'];?><br>
-          <!--<h4><a href="#" data-toggle="collapse" data-target="#demo" onclick="edit_profile(<?php echo $info['center_id']; ?>)">Edit Pofile?</a></h4>-->
-          <h4><a href="#" onclick="demo_version()">Edit Pofile?</a></h4>
+          <h4><a href="#" data-toggle="collapse" data-target="#demo" onclick="demo_view()">Edit Pofile?</a></h4>
   
                
                    
@@ -142,11 +141,6 @@ $("#img").change(function (e) {
 
 
         });
-        
-        function demo_version()
-        {
-            $('#demo_form').modal('show');
-        }
 
     function edit_profile(id)
     {
@@ -222,22 +216,34 @@ $("#img").change(function (e) {
         });
     }
 
+    function demo_view()
+    {
+         $('#demo_form').modal('show'); // show bootstrap modal
+          $('.modal-title1').text('This is Demo Version');
+      $('.modal-title2').text('You can not Edit Profile');
+
+    }
 
 
       </script>
-      
-      <div class="modal fade" id="demo_form" role="dialog">
+
+
+      <!-- Bootstrap modal -->
+  <div class="modal fade" id="demo_form" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="color:#fff; background-color:#FF5733" >
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center><h3 class="modal-title1">This is Demo Version</h3></center>
-         <center><h3 class="modal-title2">You can not edit profile</h3></center>
+        <center><h3 class="modal-title1"></h3></center>
+         <center><h3 class="modal-title2"></h3></center>
       </div>
         
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div>
+  
+
+
 
       <div class="modal fade" id="modal_form" role="dialog">
   <div class="modal-dialog">

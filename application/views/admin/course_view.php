@@ -16,7 +16,38 @@
     </section>
       <section class="content">
         <br><br>
+        <div class="row">
+             <div class="col-md-4">
     <button class="btn btn-primary" onclick="add_course()" data-toggle="tooltip" data-placement="bottom" title="Add Course"><i class="glyphicon glyphicon-plus"></i> Add Course</button>
+   </div>
+    <div class="col-md-6">
+         <?php
+        $this->load->helper('form');
+        $success = $this->session->flashdata('success');
+        if($success)
+        {
+            ?>
+            
+        <div class="alert alert-success alert-dismissible" data-auto-dismiss="5000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> <?php echo $success; ?> 
+  </div>
+        <?php }?>
+             
+              <?php
+        $this->load->helper('form');
+        $error = $this->session->flashdata('error');
+        if($error)
+        {
+            ?>           
+        <div class="alert alert-danger alert-dismissible" data-auto-dismiss="2000">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> <?php echo $error; ?> 
+  </div>
+        <?php }?>    
+       
+        </div>
+    </div>
     <br />
     <br />
      <div class="form-group" style="width:350px" >
@@ -100,10 +131,20 @@
       $('#form')[0].reset(); // reset form on modals
       $('#modal_form').modal('show'); // show bootstrap modal
       $('.modal-title').text('Add Course'); // Set Title to Bootstrap modal title
+      
+       $("#course_name_error").html("");
+              $("#duration_error").html("");
+              $("#fees_error").html("");
+               $("#reexam_error").html("");
     }
 
     function edit_course(id)
     {
+         $("#course_name_error").html("");
+              $("#duration_error").html("");
+              $("#fees_error").html("");
+               $("#reexam_error").html("");
+        
       save_method = 'update';
       $('#form')[0].reset(); // reset form on modals
 
@@ -132,11 +173,55 @@
         }
     });
     }
-
-
+    
+       function form_validation()
+        {
+          if ($("#name").val() == ""){
+            $("#course_name_error").html("Please Enter Course Name");
+          }else{
+              var name="true";
+              $("#course_name_error").html("");
+          }
+         
+          if ($("#duration").val() == ""){
+            $("#duration_error").html("Please Enter Duration");
+//         return false;
+          }else{
+              var duration="true";
+              $("#duration_error").html("");
+          }
+          
+          if ($("#fees").val() == ""){
+             $("#fees_error").html("Please Enter Fees");
+//         return false;
+          }else{
+                 var fees="true";         
+                   $("#fees_error").html("");
+          }
+          
+          if ($("#reexam_fees").val() == ""){
+             $("#reexam_error").html("Please Enter Reexam Fees");
+//         return false;
+          }else{
+                 var reexam_fees="true";         
+                   $("#reexam_error").html("");
+          }
+          
+          if(name=="true" && reexam_fees=="true" && duration=="true" && fees=="true")
+          {
+             return true;
+        }else{
+            return false;
+        }
+        }
+        
 
     function save()
     {
+        
+        var val=form_validation();
+        if(val)
+        {
       var url;
       if(save_method == 'add')
       {
@@ -164,6 +249,7 @@
                 alert('Error adding / update data');
             }
         });
+        }
     }
 
     function delete_course(id)
@@ -204,27 +290,31 @@
           <input type="hidden" value="" name="id"/>
           <div class="form-body">
             <div class="form-group">
-              <label class="control-label col-md-3">Name</label>
+              <label class="control-label col-md-3">Course Name</label>
               <div class="col-md-9">
-                <input name="name" placeholder="name" class="form-control" type="text">
+                <input name="name" id="name" placeholder="name" class="form-control" type="text">
+                <span id="course_name_error" style="color:red"></span>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Duration</label>
               <div class="col-md-9">
-                <input name="duration" placeholder="duration" class="form-control" type="number">
+                <input name="duration" id="duration" placeholder="duration" class="form-control" type="number">
+                <span id="duration_error" style="color:red"></span>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Fees</label>
               <div class="col-md-9">
-                <input name="fees" placeholder="fees" class="form-control" type="text">
+                <input name="fees" placeholder="fees" id="fees" class="form-control" type="text">
+                <span id="fees_error" style="color:red"></span>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Reexam Fees</label>
               <div class="col-md-9">
-                <input name="reexam_fees" placeholder="fees" class="form-control" type="text">
+                <input name="reexam_fees" id="reexam_fees" placeholder="fees" class="form-control" type="text">
+                <span id="reexam_error"style="color:red"></span>
               </div>
             </div>
               <div class="form-group">

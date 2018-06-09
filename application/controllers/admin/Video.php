@@ -16,6 +16,7 @@ class Video extends CI_Controller
         $this->load->model('Topics_model');
         $this->load->model('Courses_model');
          $this->load->model('User_model');
+         $this->load->model('System_model');
         $this->load->helper('url');
 
 	}
@@ -29,11 +30,12 @@ class Video extends CI_Controller
 		$data['topics']=$this->Topics_model->getall_topics();
                
                  $id=$this->session->userdata('user_id');
+            $result['system']=$this->System_model->get_info();
             $result['user_info']=$this->User_model->get_user_by_id($id);
        
             $this->load->view('admin/header',$result);
 		$this->load->view('admin/video_view',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer',$result);
 
         }
         else
