@@ -80,7 +80,7 @@ class Topics extends CI_Controller
                                    'topic_description'=>$video->topic_description,
                                    'topic_video_path'=>$video->topic_video_path,
                                    'topic_name'=>$video->topic_name,
-                                   'remaining_play_time'=>$play_time['remaining_play_time'],
+                                   'remaining_play_time'=>$play_time,
                                    'play_time'=>$all_play_time,
                                    'topics'=>$topics
                                    

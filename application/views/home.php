@@ -58,6 +58,7 @@
           <li><a href="<?php echo base_url(); ?>student/index" class="scroll-link">Student Login</a></li>
           <li><a href="<?php echo base_url(); ?>center/index" class="scroll-link">Center SignUp</a></li>    
           <li><a href="#contactUs" class="scroll-link">Contact Us</a></li>
+          <li><a href="<?php echo base_url();?>Home/demo" class="scroll-link">Demo</a></li>
         </ul>
       </div>
       <!--/.navbar-collapse--> 
