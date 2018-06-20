@@ -38,7 +38,7 @@
 <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3><b>Center Login Detail</b></h3><br>
-  <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+  <i class="fa fa-user w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
  <p><h4><b>Username</b></h4></p>
   <p>dnyansankul@gmail.com</p>
   <p><h4><b>Password</b></h4></p>
@@ -51,7 +51,7 @@
 <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3><b>Student Login Detail</b></h3><br>
-   <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+   <i class="fa fa-user w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
   <p><h4><b>Username</b></h4></p>
   <p>suraj@webosys.com</p>
   <p><h4><b>Password</b></h4></p>
@@ -64,7 +64,7 @@
 <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
       <h3><b>Student Login Detail</b></h3><br>
-   <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+   <i class="fa fa-user w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
   <p><h4><b>Username</b></h4></p>
   <p>pawan@webosys.com</p>
   <p><h4><b>Password</b></h4></p>
