@@ -48,7 +48,7 @@
     <nav class="navbar navbar-inverse" role="navigation" id="head" >
       <div class="navbar-header" id="d">
      <button type="button" id="nav-toggle" class="navbar-toggle " data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <a href="#" class="navbar-brand scroll-top logo  animated bounceInLeft"><img src="<?php echo base_url()?>assets/images/delto_logo.png" width="100px"></a> </div>
+        <a href="#" class="navbar-brand scroll-top logo  animated bounceInLeft"><img src="<?php echo base_url()?>assets/images/delto_logo.PNG" width="100px"></a> </div>
       <!--/.navbar-header-->
       <div id="main-nav" class="navbar-collapse collapse in">
         <ul class="nav navbar-nav" id="mainNav">
