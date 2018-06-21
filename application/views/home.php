@@ -50,7 +50,7 @@
      <button type="button" id="nav-toggle" class="navbar-toggle " data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         <a href="#" class="navbar-brand scroll-top logo  animated bounceInLeft"><img src="<?php echo base_url()?>assets/images/delto_logo.PNG" width="100px"></a> </div>
       <!--/.navbar-header-->
-      <div id="main-nav" class="navbar-collapse collapse in">
+      <div id="main-nav" class="navbar-collapse collapse ">
         <ul class="nav navbar-nav" id="mainNav">
           <li class="active" id="firstLink"><a href="#home" class="scroll-link">Home</a></li>
           <li><a href="#aboutUs" class="scroll-link">About Us </a></li>
