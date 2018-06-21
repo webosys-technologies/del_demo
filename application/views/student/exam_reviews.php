@@ -123,9 +123,9 @@ function myFunction1() {
                                {
                                    $('#exm_res').html('<span style="color:red">'+data.result+'</span>');
                                }
-                               $('#total_questions').html(data.total_que);
+//                               $('#total_questions').html(data.total_que);
                                $('#marks_obtain').html(data.marks_obtain);
-                               $('#out_of').html(data.total_que);
+//                               $('#out_of').html(data.total_que);
                                $('#correct_ans').html(data.correct_ans);
                                $('#wrong_ans').html(data.wrong_ans);   
                                $('#tst_review').attr("onclick", 'exm_review('+data.exam_id+')');
@@ -268,11 +268,11 @@ function myFunction1() {
               <table id="result" class="table table-bordered" cellspacing="0" width="100%">
                   <!--<tr bgcolor="#338cbf" style="color:#fff">-->
           <tr> <th align="center" bgcolor="#d2d6de" style="color:#fff">Exam Report</th> <td align="center" bgcolor="#338cbf" style="color:#fff">Marks</td></tr>        
-         <tr> <th align="center" >Total Questions</th> <td align="center" id="total_questions"></td></tr>
+         <tr> <th align="center" >Total Questions</th> <td align="center" id="total_questions">10</td></tr>
          <tr><th align="center" >Correct Answer</th> <td align="center" id="correct_ans"></td> </tr>
           <tr><th align="center" >Wrong Answer</th> <td align="center" id="wrong_ans"></td></tr>
           <tr><th align="center" >Marks Obtain</th> <td align="center" id="marks_obtain"></td></tr>
-          <tr><th align="center" >Total Marks</th> <td align="center" id="out_of"></td> </tr>
+          <!--<tr><th align="center" >Total Marks</th> <td align="center" id="out_of"></td> </tr>-->
            <tr><th align="center" >Result</th> <td align="center" id="exm_res"></td> </tr>
         
                  
