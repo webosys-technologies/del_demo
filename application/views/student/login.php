@@ -20,6 +20,15 @@
 </script>
   
   <body class="login-page">
+      
+       <br>
+      <div class="row" >
+    <div class="col-md-offset-4 col-xs-offset-1 col-md-4" style="padding-top:15px; padding-bottom:15px; border:1px solid #CCD1D1; background:white">
+        <h4><b>Username :</b><span> suraj@webosys.com</span></h4>
+        <h4><b>Password :</b><span> ZI1axcMm</span></h4>
+        </div>
+          </div>
+      
     <div class="login-box">
       <div class="login-logo">
       <!--  <a href="#"><b>CodeInsect</b><br>Admin System</a>  -->

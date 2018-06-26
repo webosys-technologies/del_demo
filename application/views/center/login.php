@@ -9,6 +9,12 @@
     <link href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <script src="<?php echo base_url(); ?>assets/js/jQuery-2.1.4.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -19,11 +25,26 @@
  <script src="<?php echo base_url("assets/js/validation1.js"); ?>">
 </script>
 
-
+<style>
+    #login_info {
+    
+    border: 1px solid #EAEDED;
+    padding: 10px;
+    box-shadow: 5px 5px 10px red;
+}
+ </style>
     
     
        
   <body class="login-page">
+      <br>
+      <div class="row" >
+    <div class="col-md-offset-4 col-xs-offset-1 col-md-4" style="padding-top:15px; padding-bottom:15px; border:1px solid #CCD1D1; background:white">
+        <h4><b>Username :</b><span> dnyansankul@gmail.com</span></h4>
+        <h4><b>Password :</b><span> 12345678</span></h4>
+        </div>
+          </div>
+    
     <div class="login-box">
       <div class="login-logo">
       <!--  <a href="#"><b>CodeInsect</b><br>Admin System</a>  -->
@@ -117,8 +138,10 @@
         </form>
       
       </div><!-- /.login-box-body -->
+     
     </div><!-- /.login-box -->
-
+   
     
+      
    </body>
 </html>
