@@ -21,7 +21,7 @@ class Index extends CI_Controller
 	function index()
 	{
 	    	
-            $this->register();
+//            $this->register();
 	}
 
     function register()

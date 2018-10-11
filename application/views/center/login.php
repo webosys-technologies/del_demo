@@ -36,7 +36,7 @@
     
     
        
-  <body class="login-page">
+  <body class="">
       <br>
       <div class="row" >
     <div class="col-md-offset-4 col-xs-offset-1 col-md-4" style="padding-top:15px; padding-bottom:15px; border:1px solid #CCD1D1; background:white">
@@ -45,13 +45,13 @@
         </div>
           </div>
     
-    <div class="login-box">
+  <div class="login-box" style=" border: 1px solid #85C1E9;">
       <div class="login-logo">
       <!--  <a href="#"><b>CodeInsect</b><br>Admin System</a>  -->
-      <a href="#"><b>Center Login</b><br></a>
+      <a href="#"><h2>Center Login</h2></a>
       </div><!-- /.login-logo -->
-      <div class="login-box-body">
-        <p class="login-box-msg">Sign In</p>
+      <div class="login-box-body" style="">
+        <!--<p class="login-box-msg">Sign In</p>-->
         <?php $this->load->helper('form'); ?>
         <div class="row">
             <div class="col-md-12">
@@ -60,6 +60,8 @@
         </div>
         <?php
         $this->load->helper('form');
+       
+        
         $error = $this->session->flashdata('error');
         if($error)
         {
@@ -136,12 +138,6 @@
         
     
         </form>
-      
+      </div>
       </div><!-- /.login-box-body -->
-     
-    </div><!-- /.login-box -->
-   
-    
       
-   </body>
-</html>
