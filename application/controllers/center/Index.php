@@ -121,7 +121,9 @@ class Index extends CI_Controller
         {
            //$email_verify= $this->session->flashdata('email_verify');
 //           $this->session->set_flashdata('email_verify','hello');
+             $this->load->view('home/home_header');
              $this->load->view('center/login');
+             $this->load->view('home/home_footer');
             
         }
     }
