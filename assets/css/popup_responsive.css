@@ -1,13 +1,3 @@
-input[type="search"] {
-    width: 75%;
-    padding: 6px 10px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
 @media (max-width:800px){
     #modal_dialog,#modal_dialog1,#modal_dialog2,#modal_dialog3,#modal_dialog4,#modal_dialog5,#modal_dialog6,#modal_dialog7{
      width: 100%;
@@ -25,5 +15,4 @@ input[type="search"] {
      width: 100%;
       overflow-y: initial !important
 }
-}
-
+}    
