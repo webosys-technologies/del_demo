@@ -27,6 +27,12 @@
         <h4><b>Username :</b><span> suraj@webosys.com</span></h4>
         <h4><b>Password :</b><span> ZI1axcMm</span></h4>
         </div>
+          </div><br>
+         <div class="row" >
+    <div class="col-md-offset-4 col-xs-offset-1 col-md-4" style="padding-top:15px; padding-bottom:15px; border: 1px solid #85C1E9; background:white">
+        <h4><b>Username :</b><span> pawan@webosys.com</span></h4>
+        <h4><b>Password :</b><span> RDSNh7Cy</span></h4>
+        </div>
           </div>
       <div class="login-box" style=" border: 1px solid #85C1E9;">
       <div class="login-logo">
