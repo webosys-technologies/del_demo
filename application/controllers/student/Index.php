@@ -29,7 +29,9 @@ class Index extends CI_Controller
         }
         else
         {
+             $this->load->view('home/home_header');
             $this->load->view('student/login');
+             $this->load->view('home/home_footer');
         }
     }
     

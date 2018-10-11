@@ -115,7 +115,7 @@ left: 12px;
 			<ul class="main-menu">
 				<li class="active"><a href="<?php echo base_url('home/index');?>" >Home</a></li>
 				<li><a href="<?php echo base_url('home/about');?>">About Us</a></li>
-				<li><a href="<?php echo base_url('center/index');?>">Center SignUp</a></li>
+				<li><a href="<?php echo base_url();?>">Center SignUp</a></li>
 				<li><a href="<?php echo base_url('center/index/login');?>">Center Login</a></li>
 				<!-- <li><a href="#">Event</a></li> -->
                                 <li><a href="<?php echo base_url('student/index/login');?>">Student Login</a></li>
