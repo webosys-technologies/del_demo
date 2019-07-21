@@ -54,6 +54,25 @@ a:hover {
 //
 //        
 //    }
+
+document.onkeydown = function(e) {
+        if (e.ctrlKey && 
+            (e.keyCode === 67 ||
+             e.keyCode === 115 ||
+             e.keyCode === 83 ||             
+             e.keyCode === 120 ||
+//             e.keyCode === 105 ||
+//             e.keyCode === 73 ||
+             e.keyCode === 88 ||
+             e.keyCode === 86 || 
+             e.keyCode === 85 || 
+             e.keyCode === 117)) {
+//            alert('not allowed');
+            return false;
+        } else {
+            return true;
+        }
+};
    
    
           $(document).keydown(function(e){
@@ -66,8 +85,62 @@ a:hover {
 });
 
 
+
+
+            
+
+
     }
     );
+    
+    
+    
+//    var message = "function disabled";
+//
+//    function rtclickcheck(keyp){ if (navigator.appName == "Netscape" && keyp.which == 3){ alert(message); return false; }
+//
+//    if (navigator.appVersion.indexOf("MSIE") != -1 && event.button == 2) { alert(message); return false; } }
+//
+//    document.onmousedown = rtclickcheck;
+
+
+
+
+    
+//    var xhr = new XMLHttpRequest();
+//xhr.responseType = 'blob';
+//
+//xhr.onload = function() {
+//  
+//  var reader = new FileReader();
+//  
+//  reader.onloadend = function() {
+//  
+//    var byteCharacters = atob(reader.result.slice(reader.result.indexOf(',') + 1));
+//    
+//    var byteNumbers = new Array(byteCharacters.length);
+//
+//    for (var i = 0; i < byteCharacters.length; i++) {
+//      
+//      byteNumbers[i] = byteCharacters.charCodeAt(i);
+//      
+//    }
+//
+//    var byteArray = new Uint8Array(byteNumbers);
+//    var blob = new Blob([byteArray], {type: 'video/mp4'});
+//    var url = URL.createObjectURL(blob);
+//    
+//    document.getElementById('myVideo_html5_api').src = url;
+//    
+//  }
+//  
+//  reader.readAsDataURL(xhr.response);
+//  
+//};
+//
+//xhr.open('GET', 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Roaring_Burps.ogg');
+//xhr.send();
+    
    
  
     function myFunction()
@@ -142,7 +215,7 @@ a:hover {
                     
                     ?>
              <!--<input type="text" value="<?php echo $topic->topic_id;?>" name="top_id" formaction="<?php echo base_url();?>Topics/topic/<?php echo $topic->topic_id;?>">-->
-             <a href="<?php echo base_url();?>student/Topics/topic/<?php echo $topic->topic_id;?>" id="topic<?php echo $topic->topic_id; ?>"><?php echo $i.'. '.$topic->topic_name;?></a>
+             <a href="<?php echo base_url();?>student/Topics/topic/<?php echo custom_encode($topic->topic_id);?>" id="topic<?php echo $topic->topic_id; ?>"><?php echo $i.'. '.$topic->topic_name;?></a>
                          
          
          
@@ -247,10 +320,11 @@ a:hover {
          
          
          
-       
+         <!--<iframe src="<?php echo base_url();?>videos/1.avi" width="850" height="480" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>-->        
        </div>  
-             
+      
    </section>
+           
        </section>
   </div> 
      
