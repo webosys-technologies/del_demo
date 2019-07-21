@@ -135,7 +135,7 @@ class Topics extends CI_Controller
                                    );
                     $videos['errors']="End of limit for display this video.";
                      $this->load->view('student/header',$result_data);
-                    $this->load->view('student/topics',$videos);
+                    $this->load->view('student/topics',$videos); 
                     $this->load->view('student/footer');
                   
                 }
@@ -164,10 +164,116 @@ class Topics extends CI_Controller
         }
         
       
+  public function topic_encrypt($topic_id)
+  {  
+         $student_LoggedIn = $this->session->userdata('student_LoggedIn');
+               
         
+        if(isset($student_LoggedIn) || $student_LoggedIn == TRUE)
+        {      $student_id=$this->session->userdata('student_id');
+               $course_id=$this->session->userdata('student_course_id'); 
+               $all_play_time=$this->Play_time_model->students_topic($student_id);
+               
+               $result_data['data']=$this->Students_model->get_by_id($student_id);
+             if($topic_id>0)
+             {
+              $result=$this->Play_time_model->check_id($student_id,$topic_id); //check whether data is available in play time table
+              if($result==false)
+              {
+               $play_time=$this->Play_time_model->insert_playtime($student_id,$topic_id);
               
-        function update_play_time($topics_id)
                 
+                     $video=$this->Topics_model->get_video($topic_id);      //get topic video path
+                     $topics=$this->Topics_model->get_topics($course_id);          //get all topics
+                     $videos=array('topic_id'=>$video->topic_id,
+                                   'topic_name'=>$video->topic_name,
+                                   'topic_description'=>$video->topic_description,
+                                   'topic_video_path'=>$video->topic_video_path,
+                                   'topic_name'=>$video->topic_name,
+                                   'remaining_play_time'=>$play_time,
+                                   'play_time'=>$all_play_time,
+                                   'topics'=>$topics
+                                   
+                                   );
+                                 
+                   
+                      $this->load->view('student/header',$result_data);
+                    $this->load->view('student/topics',$videos);
+                    $this->load->view('student/footer');
+//                     $result=array('topic'=>$videos);
+//                     echo json_encode($result);
+                    
+              }
+             else
+             {
+                  $play_time=$this->Play_time_model->check_played($student_id,$topic_id); 
+                 if($play_time['play'])
+                 { 
+
+                     $video=$this->Topics_model->get_video($topic_id);      //get topic video path
+                     $course_id=$this->session->userdata('student_course_id');    
+                     $topics=$this->Topics_model->get_topics($course_id);          //get all topics
+                     $videos=array('topic_id'=>$video->topic_id,
+                                   'topic_name'=>$video->topic_name,
+                                   'topic_description'=>$video->topic_description,
+                                   'topic_video_path'=>$video->topic_video_path,
+                                   'topic_name'=>$video->topic_name,
+                                   'remaining_play_time'=>$play_time['remaining_play_time'],
+                                    'play_time'=>$all_play_time,
+                                   'topics'=>$topics
+                                   );
+                    
+                   
+                     $this->load->view('student/header',$result_data);
+                    $this->load->view('student/topics',$videos);
+                    $this->load->view('student/footer');
+//                     $result=array('topic'=>$videos);
+//                     echo json_encode($result);                  
+
+                }
+                else
+                {
+                     
+                     $all_play_time=$this->Play_time_model->students_topic($student_id);
+                    
+
+                     $course_id=$this->session->userdata('student_course_id');    
+                     $topics=$this->Topics_model->get_topics($course_id);
+                    $videos=array(
+                                   'topics'=>$topics,
+                                   'play_time'=>$all_play_time
+                                   );
+                    $videos['errors']="End of limit for display this video.";
+                     $this->load->view('student/header',$result_data);
+                    $this->load->view('student/topics_encrypt',$videos);
+                    $this->load->view('student/footer');
+                  
+                }
+                    
+             }
+        
+                   
+        
+             }
+            
+          
+            
+          
+        }
+//        }
+        else
+        {
+           redirect("student/dashboard");
+            
+
+        }
+
+  
+    
+    
+        }
+              
+        function update_play_time($topics_id)             
         {
            
              $student_LoggedIn = $this->session->userdata('student_LoggedIn');
