@@ -198,7 +198,7 @@ class Topics extends CI_Controller
                                  
                    
                       $this->load->view('student/header',$result_data);
-                    $this->load->view('student/topics',$videos);
+                    $this->load->view('student/topics_encrypt',$videos);
                     $this->load->view('student/footer');
 //                     $result=array('topic'=>$videos);
 //                     echo json_encode($result);
@@ -225,7 +225,7 @@ class Topics extends CI_Controller
                     
                    
                      $this->load->view('student/header',$result_data);
-                    $this->load->view('student/topics',$videos);
+                    $this->load->view('student/topics_encrypt',$videos);
                     $this->load->view('student/footer');
 //                     $result=array('topic'=>$videos);
 //                     echo json_encode($result);                  
