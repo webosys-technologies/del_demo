@@ -120,7 +120,7 @@ p{
                               type="checkbox" name="cba[]"  value="<?php echo $res->student_id; ?>"
                               <?php if($status == 1 || $status == 2) { ?> disabled <?php } ?> ></td>
                                         <td><?php echo $res->student_id;?></td>
-                                        <td><img src="<?php echo base_url(); ?><?php if (!empty($res->student_profile_pic)){echo $res->student_profile_pic;} else{echo "profile_pic/avatar.png";}?>" class="avatar img-responsive"  width="40px" height="30px"></td>
+                                        <td><img src="<?php echo base_url(); ?><?php if (!empty($res->student_profile_pic)){ echo "profile_pic/avatar.png"; }else{echo "profile_pic/avatar.png";}?>" class="avatar img-responsive"  width="40px" height="30px"></td>
                                         <td><?php echo $res->student_fname.' '. $res->student_lname; ?></td>
                                         <td><?php echo $res->course_name;?></td>
                                        <td><?php echo $res->batch_name;?></td>
