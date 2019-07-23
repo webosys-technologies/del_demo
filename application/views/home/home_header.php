@@ -113,16 +113,17 @@ left: 12px;
 				<a href=""><i class="fa fa-shopping-cart"></i></a>
 			</div>
 			<ul class="main-menu">
-				<li class="active"><a href="<?php echo base_url('home/index');?>" >Home</a></li>
-				<li><a href="<?php echo base_url('home/about');?>">About Us</a></li>
-				<li><a href="<?php echo base_url();?>">Center SignUp</a></li>
-				<li><a href="<?php echo base_url('center/index/login');?>">Center Login</a></li>
+				<li class="active"><a href="https://delto.in/" >Home</a></li>
+				<li><a href="https://delto.in/home/about">About Us</a></li>
+				<li><a href="https://delto.in/center/index">Center SignUp</a></li>
+				<li><a href="https://delto.in/center/index/login">Center Login</a></li>
 				<!-- <li><a href="#">Event</a></li> -->
-                                <li><a href="<?php echo base_url('student/index/login');?>">Student Login</a></li>
-				<li><a href="<?php echo base_url('home/course');?>">Courses</a></li>
-				<li><a href="<?php echo base_url('home/demo');?>">Demo</a></li>
-				<li><a href="<?php echo base_url('home/help');?>">Help</a></li>
-				<li><a href="<?php echo base_url('home/contact');?>">Contact Us</a></li>
+                <li><a href="https://delto.in/student/index/login">Student Login</a></li>
+				<li><a href="https://delto.in/home/course">Courses</a></li>
+				<li><a href="https://delto.in/home/demo">Demo</a></li>
+				<li><a href="https://delto.in/home/help">Help</a></li>
+				<li><a href="https://delto.in/home/contact">Contact Us</a></li>
+
 			</ul>
 		</div>
 	</nav>
